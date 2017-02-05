@@ -252,7 +252,7 @@ app.controller('MainCtrl', [
 
     // CRUD
     // GET =====================================================================
-    if ($scope.isLoggedIn()) {
+    if (auth.isLoggedIn()) {
       Projects.get()
           .success(function(data) {
               $scope.projects = data;
