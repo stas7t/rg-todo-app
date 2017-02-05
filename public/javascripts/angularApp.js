@@ -104,12 +104,12 @@ app.factory('Projects', function($http, auth) {
             });
         },
         update : function(project) {
-            return $http.put('/api/projects/' + project.id, project{
+            return $http.put('/api/projects/' + project.id, project, {
               headers: {Authorization: 'Bearer '+auth.getToken()}
             });
         },
         delete : function(project_id) {
-            return $http.delete('/api/projects/' + project_id{
+            return $http.delete('/api/projects/' + project_id, null, {
               headers: {Authorization: 'Bearer '+auth.getToken()}
             });
         }
@@ -124,17 +124,17 @@ app.factory('Tasks', function($http, auth) {
             });
         },
         create : function(taskData) {
-            return $http.post('/api/tasks', taskData{
+            return $http.post('/api/tasks', taskData, {
               headers: {Authorization: 'Bearer '+auth.getToken()}
             });
         },
         update : function(task) {
-            return $http.put('/api/tasks/' + task.id, task{
+            return $http.put('/api/tasks/' + task.id, task ,{
               headers: {Authorization: 'Bearer '+auth.getToken()}
             });
         },
         delete : function(task_id) {
-            return $http.delete('/api/tasks/' + task_id{
+            return $http.delete('/api/tasks/' + task_id, null, {
               headers: {Authorization: 'Bearer '+auth.getToken()}
             });
         }
