@@ -92,10 +92,16 @@ app.factory('auth', ['$http', '$window', function($http, $window){
 }])
 
 app.factory('Projects', function($http, auth) {
-    $http.defaults.headers.common.Authorization = 'Bearer ' + auth.getToken();
     return {
         get : function() {
-            return $http.get('/api/projects');
+            return $http({
+                method: 'GET',
+                url: '/api/projects',
+                headers: {
+                    'Authorization': 'Bearer ' + auth.getToken()
+                  }
+                });
+
         },
         create : function(projectData) {
             return $http.post('/api/projects', projectData);
