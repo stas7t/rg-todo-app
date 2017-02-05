@@ -1,10 +1,10 @@
 //------------Postgress db
 //uncomment to create tables in db
-//require('./models/project');
-//require('./models/task');
+//require('../models/project');
+//require('../models/task');
 
 //uncomment to modify tables
-require('../models/a');
+//require('../models/a');
 //------------
 
 var express = require('express');
@@ -29,6 +29,7 @@ router.get('/', function(req, res) {
 });
 
 router.post('/register', function(req, res, next){
+    console.log(req.body);
   if(!req.body.username || !req.body.password){
     return res.status(400).json({message: 'Please fill out all fields'});
   }

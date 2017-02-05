@@ -73,7 +73,9 @@ app.factory('auth', ['$http', '$window', function($http, $window){
     };
 
     auth.register = function(user){
-      return $http.post('/register', user, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).success(function(data){
+      console.log(user);
+      
+      return $http.post('/register', user).success(function(data){
         auth.saveToken(data.token);
       });
     };
