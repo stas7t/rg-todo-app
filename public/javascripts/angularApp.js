@@ -74,7 +74,7 @@ app.factory('auth', ['$http', '$window', function($http, $window){
 
     auth.register = function(user){
       console.log(user);
-      
+
       return $http.post('/register', user).success(function(data){
         auth.saveToken(data.token);
       });
@@ -438,6 +438,9 @@ app.controller('AuthCtrl', [
     $scope.register = function(){
       auth.register($scope.user).error(function(error){
         $scope.error = error;
+
+        console.log(error);
+        
       }).then(function(){
         $state.go('todolist');
       });
