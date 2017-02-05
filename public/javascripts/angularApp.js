@@ -378,6 +378,7 @@ app.controller('MainCtrl', [
     // update a task 
     $scope.updateTask = function(task) {
         // check that the task.name is not empty
+        console.log(task);
         if (task.name) {
 
             //Convert datetime from local time to GMT (toISOString)
