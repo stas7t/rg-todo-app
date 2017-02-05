@@ -28,7 +28,7 @@ router.get('/', function(req, res) {
     res.sendfile('./public/index.html');
 });
 
-router.post('/register', function(req, res, next){
+router.post('/user/register', function(req, res, next){
     console.log(req.body);
   if(!req.body.username || !req.body.password){
     return res.status(400).json({message: 'Please fill out all fields'});
@@ -47,7 +47,7 @@ router.post('/register', function(req, res, next){
   });
 });
 
-router.post('/login', function(req, res, next){
+router.post('/user/login', function(req, res, next){
   if(!req.body.username || !req.body.password){
     return res.status(400).json({message: 'Please fill out all fields'});
   }

@@ -75,13 +75,13 @@ app.factory('auth', ['$http', '$window', function($http, $window){
     auth.register = function(user){
       console.log(user);
 
-      return $http.post('/register', user).success(function(data){
+      return $http.post('/user/register', user).success(function(data){
         auth.saveToken(data.token);
       });
     };
 
     auth.logIn = function(user){
-      return $http.post('/login', user).success(function(data){
+      return $http.post('/user/login', user).success(function(data){
         auth.saveToken(data.token);
       });
     };
@@ -440,7 +440,7 @@ app.controller('AuthCtrl', [
         $scope.error = error;
 
         console.log(error);
-        
+
       }).then(function(){
         $state.go('todolist');
       });
