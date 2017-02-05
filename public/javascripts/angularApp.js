@@ -109,8 +109,8 @@ app.factory('Projects', function($http, auth) {
                 url: '/api/projects',
                 headers: {
                     'Authorization': 'Bearer ' + auth.getToken(),
+                },
                 data: projectData
-                }
             });
         },
         update : function(project) {
@@ -119,8 +119,8 @@ app.factory('Projects', function($http, auth) {
                 url: '/api/projects/' + project.id,
                 headers: {
                     'Authorization': 'Bearer ' + auth.getToken(),
+                },
                 data: project
-                }
             });
         },
         delete : function(project_id) {
@@ -153,8 +153,8 @@ app.factory('Tasks', function($http, auth) {
                 url: '/api/tasks',
                 headers: {
                     'Authorization': 'Bearer ' + auth.getToken(),
+                },
                 data: taskData
-                }
             });
         },
         update : function(task) {
@@ -163,8 +163,8 @@ app.factory('Tasks', function($http, auth) {
                 url: '/api/tasks/' + task.id,
                 headers: {
                     'Authorization': 'Bearer ' + auth.getToken(),
+                },
                 data: task
-                }
             });
         },
         delete : function(task_id) {
@@ -378,7 +378,6 @@ app.controller('MainCtrl', [
     // update a task 
     $scope.updateTask = function(task) {
         // check that the task.name is not empty
-        console.log(task);
         if (task.name) {
 
             //Convert datetime from local time to GMT (toISOString)
