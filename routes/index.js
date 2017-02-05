@@ -59,7 +59,7 @@ router.post('/login', function(req, res, next){
 // projects ================================================================
 // get all projects
 router.get('/api/projects', auth, function(req, res) {
-    console.log(req);
+    console.log(req.body);
     const results = [];
 
     // Get a Postgres client from the connection pool
@@ -87,7 +87,7 @@ router.get('/api/projects', auth, function(req, res) {
 
 // create project and send back all projects after creation
 router.post('/api/projects', auth, function(req, res) {
-    console.log(req);
+    console.log(req.body);
     const results = [];
 
     const data = {name: req.body.name};
@@ -119,7 +119,8 @@ router.post('/api/projects', auth, function(req, res) {
 
 // update a project
 router.put('/api/projects/:project_id', auth, function(req, res) {
-    console.log(req);
+    console.log(req.body);
+    console.log(req.params);
     const results = [];
 
     const id = req.params.project_id;
@@ -152,7 +153,8 @@ router.put('/api/projects/:project_id', auth, function(req, res) {
 
 // delete a project
 router.delete('/api/projects/:project_id', auth, function(req, res) {
-    console.log(req);
+    console.log(req.body);
+    console.log(req.params);
     const results = [];
 
     const id = req.params.project_id;
@@ -188,7 +190,7 @@ router.delete('/api/projects/:project_id', auth, function(req, res) {
 // tasks ================================================================
 // get all tasks
 router.get('/api/tasks', auth, function(req, res) {
-    console.log(req);
+    console.log(req.body);
     const results = [];
 
     // Get a Postgres client from the connection pool
@@ -217,7 +219,7 @@ router.get('/api/tasks', auth, function(req, res) {
 
 // create task and send back all tasks after creation
 router.post('/api/tasks', auth, function(req, res) {
-    console.log(req);
+    console.log(req.body);
     const results = [];
 
     const data = {name: req.body.name, status: 'uncompleted', priority: 0, project_id: req.body.project_id};
@@ -250,7 +252,8 @@ router.post('/api/tasks', auth, function(req, res) {
 
 // update a task
 router.put('/api/tasks/:task_id', auth, function(req, res) {
-    console.log(req);
+    console.log(req.body);
+    console.log(req.params);
     const results = [];
 
     const id = req.params.task_id;
@@ -292,7 +295,8 @@ router.put('/api/tasks/:task_id', auth, function(req, res) {
 
 // delete a task
 router.delete('/api/tasks/:task_id', auth, function(req, res) {
-    console.log(req);
+    console.log(req.body);
+    console.log(req.params);
     const results = [];
 
     const id = req.params.task_id;
