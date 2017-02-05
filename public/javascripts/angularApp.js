@@ -44,11 +44,11 @@ app.factory('auth', ['$http', '$window', function($http, $window){
     var auth = {};
 
     auth.saveToken = function (token){
-      $window.localStorage['auth-token'] = token;
+        $window.localStorage['auth-token'] = token;
     };
 
     auth.getToken = function (){
-      return $window.localStorage['auth-token'];
+        return $window.localStorage['auth-token'];
     };
 
     auth.isLoggedIn = function(){
@@ -73,7 +73,7 @@ app.factory('auth', ['$http', '$window', function($http, $window){
     };
 
     auth.register = function(user){
-      return $http.post('/register', user).success(function(data){
+      return $http.post('/register', user, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).success(function(data){
         auth.saveToken(data.token);
       });
     };
@@ -448,7 +448,6 @@ app.controller('AuthCtrl', [
         $state.go('todolist');
       });
     };
-
 }]);
 
 app.controller('NavCtrl', [

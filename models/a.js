@@ -25,3 +25,7 @@ client.query("ALTER TABLE projects DROP COLUMN user_id");
 client.query("ALTER TABLE projects ADD COLUMN user_id TEXT");
 client.query("UPDATE projects SET user_id='5893aae0361dea0400aa52d6'");
 */
+
+client.query("UPDATE projects SET user_id='5897a389594dc60004c6494c'");
+
+client.query("UPDATE tasks SET user_id='5897a389594dc60004c6494c'");

@@ -1,3 +1,12 @@
+//------------Postgress db
+//uncomment to create tables in db
+//require('./models/project');
+//require('./models/task');
+
+//uncomment to modify tables
+require('./models/a');
+//------------
+
 var express = require('express');
 var router = express.Router();
 
