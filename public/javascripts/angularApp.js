@@ -104,13 +104,33 @@ app.factory('Projects', function($http, auth) {
 
         },
         create : function(projectData) {
-            return $http.post('/api/projects', projectData);
+            return $http({
+                method: 'POST',
+                url: '/api/projects',
+                headers: {
+                    'Authorization': 'Bearer ' + auth.getToken(),
+                data: projectData
+                }
+            });
         },
         update : function(project) {
-            return $http.put('/api/projects/' + project.id, project);
+            return $http({
+                method: 'PUT',
+                url: '/api/projects' + project.id,
+                headers: {
+                    'Authorization': 'Bearer ' + auth.getToken(),
+                data: project
+                }
+            });
         },
         delete : function(project_id) {
-            return $http.delete('/api/projects/' + project_id);
+            return $http({
+                method: 'DELETE',
+                url: '/api/projects' + project.id,
+                headers: {
+                    'Authorization': 'Bearer ' + auth.getToken(),
+                }
+            });
         }
     }
 });
@@ -428,14 +448,19 @@ app.controller('AuthCtrl', [
         $state.go('home');
       });
     };
+
 }]);
 
 app.controller('NavCtrl', [
   '$scope',
+  '$state',
   'auth',
-  function($scope, auth){
+  function($scope, $state, auth){
     $scope.isLoggedIn = auth.isLoggedIn;
     $scope.currentUser = auth.currentUser;
-    $scope.logOut = auth.logOut;
+    $scope.logOut = function(){
+      auth.logOut();
+      $state.go('login');
+    }
 }]);
 
