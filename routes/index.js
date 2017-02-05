@@ -11,8 +11,12 @@ var User = mongoose.model('User');
 
 var auth = jwt({secret: process.env.SECRET, userProperty: 'payload'});
 /* GET home page. */
-router.get('/', function(req, res) {
+/*router.get('/', function(req, res) {
   res.render('index', { title: 'Todolist 2' });
+});*/
+
+router.get('/', function(req, res) {
+    res.sendfile('./public/index.html');
 });
 
 router.post('/register', function(req, res, next){

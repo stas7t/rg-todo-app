@@ -1,43 +1,43 @@
-var app = angular.module('todolist2', ['ui.router']);
+var app = angular.module('todolist2', ['ui.router','angularify.semantic', 'angularjs-datetime-picker']);
 
 app.config([
-'$stateProvider',
-'$urlRouterProvider',
-function($stateProvider, $urlRouterProvider) {
+  '$stateProvider',
+  '$urlRouterProvider',
+  function($stateProvider, $urlRouterProvider) {
 
-  $stateProvider
-    .state('home', {
-      url: '/home',
-      templateUrl: '/home.html',
-      controller: 'MainCtrl'
-      /*resolve: {
-        postPromise: ['posts', function(posts){
-          return posts.getAll();
+    $stateProvider
+      .state('todolist', {
+        url: '/todolist',
+        templateUrl: '/partials/todolist.html',
+        controller: 'MainCtrl'
+        /*resolve: {
+          postPromise: ['posts', function(posts){
+            return posts.getAll();
+          }]
+        }*/
+      })
+      .state('login', {
+        url: '/login',
+        templateUrl: '/partials/login.html',
+        controller: 'AuthCtrl',
+        onEnter: ['$state', 'auth', function($state, auth){
+          if(auth.isLoggedIn()){
+            $state.go('todolist');
+          }
         }]
-      }*/
-    })
-    .state('login', {
-      url: '/login',
-      templateUrl: '/login.html',
-      controller: 'AuthCtrl',
-      onEnter: ['$state', 'auth', function($state, auth){
-        if(auth.isLoggedIn()){
-          $state.go('home');
-        }
-      }]
-    })
-    .state('register', {
-      url: '/register',
-      templateUrl: '/register.html',
-      controller: 'AuthCtrl',
-      onEnter: ['$state', 'auth', function($state, auth){
-        if(auth.isLoggedIn()){
-          $state.go('home');
-        }
-      }]
-    });
+      })
+      .state('register', {
+        url: '/register',
+        templateUrl: '/partials/register.html',
+        controller: 'AuthCtrl',
+        onEnter: ['$state', 'auth', function($state, auth){
+          if(auth.isLoggedIn()){
+            $state.go('todolist');
+          }
+        }]
+      });
 
-  $urlRouterProvider.otherwise('home');
+    $urlRouterProvider.otherwise('todolist');
 }]);
 
 app.factory('auth', ['$http', '$window', function($http, $window){
@@ -437,7 +437,7 @@ app.controller('AuthCtrl', [
       auth.register($scope.user).error(function(error){
         $scope.error = error;
       }).then(function(){
-        $state.go('home');
+        $state.go('todolist');
       });
     };
 
@@ -445,7 +445,7 @@ app.controller('AuthCtrl', [
       auth.logIn($scope.user).error(function(error){
         $scope.error = error;
       }).then(function(){
-        $state.go('home');
+        $state.go('todolist');
       });
     };
 
