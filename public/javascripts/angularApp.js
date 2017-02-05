@@ -44,11 +44,11 @@ app.factory('auth', ['$http', '$window', function($http, $window){
     var auth = {};
 
     auth.saveToken = function (token){
-      $window.localStorage['flapper-news-token'] = token;
+      $window.localStorage['auth-token'] = token;
     };
 
     auth.getToken = function (){
-      return $window.localStorage['flapper-news-token'];
+      return $window.localStorage['auth-token'];
     };
 
     auth.isLoggedIn = function(){
@@ -85,7 +85,7 @@ app.factory('auth', ['$http', '$window', function($http, $window){
     };
 
     auth.logOut = function(){
-      $window.localStorage.removeItem('flapper-news-token');
+      $window.localStorage.removeItem('auth-token');
     };
 
     return auth;
@@ -154,7 +154,7 @@ app.controller('MainCtrl', [
     $scope.formDataProject = {};
     $scope.formDataTask = [];
 
-    $scope.isLoggedIn = auth.isLoggedIn();
+    $scope.isLoggedIn = auth.isLoggedIn;
 
     $scope.checkDeadline = function() {
 
@@ -252,27 +252,27 @@ app.controller('MainCtrl', [
 
     // CRUD
     // GET =====================================================================
-    if (auth.isLoggedIn()) {
-      Projects.get()
-          .success(function(data) {
-              $scope.projects = data;
-              //console.log('$scope.projects');
-              //console.log($scope.projects);
-          })
-          .error((error) => {
-              console.log('Error: ' + error);
-          });
-          
-      Tasks.get()
-          .success(function(data) {
-              $scope.tasks = data;
-              //console.log('$scope.tasks');
-              //console.log($scope.tasks);
-          })
-          .error(function(error) {
-              console.log('Error: ' + error);
-          });
-    }
+
+    Projects.get()
+        .success(function(data) {
+            $scope.projects = data;
+            //console.log('$scope.projects');
+            //console.log($scope.projects);
+        })
+        .error((error) => {
+            console.log('Error: ' + error);
+        });
+        
+    Tasks.get()
+        .success(function(data) {
+            $scope.tasks = data;
+            //console.log('$scope.tasks');
+            //console.log($scope.tasks);
+        })
+        .error(function(error) {
+            console.log('Error: ' + error);
+        });
+
     // CREATE ==================================================================
 
     // create a project
@@ -416,7 +416,7 @@ app.controller('NavCtrl', [
   '$scope',
   'auth',
   function($scope, auth){
-    $scope.isLoggedIn = auth.isLoggedIn();
+    $scope.isLoggedIn = auth.isLoggedIn;
     $scope.currentUser = auth.currentUser;
     $scope.logOut = auth.logOut;
 }]);
