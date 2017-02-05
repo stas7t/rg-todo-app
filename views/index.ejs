@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>Flapper News</title>
+  <title><%= title %></title>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
@@ -9,7 +9,20 @@
   <style> .glyphicon-thumbs-up { cursor:pointer } </style>
 </head>
 
-<body ng-app="flapperNews">
+<body ng-app="todolist2">
+
+<nav class="navbar navbar-default pull-right" ng-controller="NavCtrl">
+  <ul class="nav navbar-nav">
+    <li ng-show="isLoggedIn()"><a>{{ currentUser() }}</a></li>
+    <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Log Out</a></li>
+    <li ng-hide="isLoggedIn()"><a href="/#/login">Log In</a></li>
+    <li ng-hide="isLoggedIn()"><a href="/#/register">Register</a></li>
+  </ul>
+</nav>
+
+<div ng-hide="isLoggedIn()">
+  <h3>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can use app</h3>
+</div>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
@@ -19,80 +32,141 @@
 
 
 <script type="text/ng-template" id="/home.html">
+  <div ng-repeat="project in projects | orderBy: ['id']">
+      <div id="Project" class="ui middle aligned three column grid" style='min-height: 50px; background-color: #0E6EB8; color: white;'>
+
+              <div class="one wide center aligned  column" style="padding: 5px;">
+                  <i class="large inverted grey tasks icon"></i>
+              </div>
+
+              <div class="twelve wide left aligned column" style="padding: 5px;">
+                  <h3>{{ project.name }}</h3> 
+              </div>
+              
+              <div class="three wide center aligned column" style="padding: 5px;">
+                  <i class="large write link icon" style='color: lightgrey;' ng-click="editProject(project)"></i>
+                  <i class="large trash outline link icon" style='color: lightgrey;' ng-click="deleteProject(project.id)"></i>
+              </div>
+
+      </div>
+
+      <div id="AddTask" class="ui middle aligned center aligned two column grid" style='min-height: 50px; background-color: lightgrey;'>
+
+              <div class="one wide center aligned  column" style="padding: 5px; color: darkgrey;">
+                  <i class="large teal plus icon"></i>
+              </div>
+
+              <div class="fifteen wide center aligned column" style="padding: 5px;">
+                  <form name="AddTask" >
+                      <div class="ui fluid action input" >
+                          <input type="text" placeholder="Start typing here to create a task..." required ng-maxlength="2048" ng-model="formDataTask[project.id].name">
+                          <button class="ui teal button" ng-click="createTask(project.id)">Add Task</button>                                        
+                      </div>
+                  </form>
+              </div>
+
+      </div>
+
+      <!-- List of tasks -->
+      <div id="Tasks" class="ui middle aligned one column grid">
+          <div class="sixteen wide column" style="padding: 0px;">
+
+              <table class="ui unstackable celled compact table">
+                  <tbody>
+                      <tr ng-repeat="task in tasks | filter : {'project_id' : project.id} : true | orderBy: ['-status','-priority', 'id']">
+                          <td class="center aligned one wide red-right-border" style='width: 50px;'>
+                              <input type="checkbox" ng-model="task.status" ng-true-value="'completed'" ng-false-value="'uncompleted'" ng-change="updateTask(task)">
+                          </td>
+
+                          <td class="thirteen wide" style='border-left-style: none;' ng-class="task.status">
+                              <i class="wait icon" ng-show="task.deadline"></i>
+                              {{task.name}} [{{task.priority}}] <span ng-show="task.deadline">{{task.deadline | date: 'y MMM d, H:mm'}}</span>
+                          </td>
+
+                          <td class="center aligned three wide" >
+                              <i class="caret up link icon"      style='color: grey;' ng-click="up(task)"> </i>
+                              <i class="caret down link icon"    style='color: grey;' ng-click="down(task)"> </i>
+                              <i class="write link icon"         style='color: grey;' ng-click="editTask(task)"> </i>
+                              <i class="trash outline link icon" style='color: grey;' ng-click="deleteTask(task.id)"> </i>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+      
+      <div class="ui hidden divider"></div>
+      <div class="ui hidden divider"></div>
+      
+  </div>
+
+  <div class="ui hidden divider"></div>
+  <div class="ui hidden divider"></div>
+
+  <div class="container">
+      <button class="ui large blue labeled icon button" ng-click="addProject()">
+          <i class="plus icon"></i>
+          Add TODO List
+      </button>
+  </div>
+</script>
+
+<script type="text/ng-template" id="/register.html">
   <div class="page-header">
-  <h1>Flapper News</h1>
+    <h1>Flapper News</h1>
   </div>
 
-  <div ng-repeat="post in posts | orderBy:'-upvotes'">
-  <span class="glyphicon glyphicon-thumbs-up"
-    ng-click="incrementUpvotes(post)"></span>
-  {{post.upvotes}}
-  <span style="font-size:20px; margin-left:10px;">
-    <a ng-show="post.link" href="{{post.link}}">
-      {{post.title}}
-    </a>
-    <span ng-hide="post.link">
-      {{post.title}}
-    </span>
-    <span>
-      <a href="#/posts/{{post._id}}">Comments</a>
-    </span>
-  </span>
+  <div ng-show="error" class="alert alert-danger row">
+    <span>{{ error.message }}</span>
   </div>
 
-  <form ng-submit="addPost()"
-      style="margin-top:30px;">
-  <h3>Add a new post</h3>
+  <form ng-submit="register()"
+    style="margin-top:30px;">
+    <h3>Register</h3>
 
-  <div class="form-group">
-    <input type="text"
+    <div class="form-group">
+      <input type="text"
       class="form-control"
-      placeholder="Title"
-      ng-model="title"></input>
-  </div>
-  <div class="form-group">
-    <input type="text"
+      placeholder="Username"
+      ng-model="user.username"></input>
+    </div>
+    <div class="form-group">
+      <input type="password"
       class="form-control"
-      placeholder="Link"
-      ng-model="link"></input>
-  </div>
-  <button type="submit" class="btn btn-primary">Post</button>
+      placeholder="Password"
+      ng-model="user.password"></input>
+    </div>
+    <button type="submit" class="btn btn-primary">Register</button>
   </form>
 </script>
 
-<script type="text/ng-template" id="/posts.html">
+<script type="text/ng-template" id="/login.html">
   <div class="page-header">
-    <h3>
-      <a ng-show="post.link" href="{{post.link}}">
-        {{post.title}}
-      </a>
-      <span ng-hide="post.link">
-        {{post.title}}
-      </span>
-    </h3>
+    <h1>Flapper News</h1>
   </div>
 
-  <div ng-repeat="comment in post.comments | orderBy:'-upvotes'">
-    <span class="glyphicon glyphicon-thumbs-up"
-      ng-click="incrementUpvotes(comment)"></span>
-    {{comment.upvotes}} - by {{comment.author}}
-    <span style="font-size:20px; margin-left:10px;">
-      {{comment.body}}
-    </span>
-
-    <form ng-submit="addComment()"
-      style="margin-top:30px;">
-      <h3>Add a new comment</h3>
-
-      <div class="form-group">
-        <input type="text"
-        class="form-control"
-        placeholder="Comment"
-        ng-model="body"></input>
-      </div>
-      <button type="submit" class="btn btn-primary">Post</button>
-    </form>
+  <div ng-show="error" class="alert alert-danger row">
+    <span>{{ error.message }}</span>
   </div>
+
+  <form ng-submit="logIn()"
+    style="margin-top:30px;">
+    <h3>Log In</h3>
+
+    <div class="form-group">
+      <input type="text"
+      class="form-control"
+      placeholder="Username"
+      ng-model="user.username"></input>
+    </div>
+    <div class="form-group">
+      <input type="password"
+      class="form-control"
+      placeholder="Password"
+      ng-model="user.password"></input>
+    </div>
+    <button type="submit" class="btn btn-primary">Log In</button>
+  </form>
 </script>
 
 </body>

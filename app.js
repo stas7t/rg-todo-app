@@ -11,6 +11,11 @@ var mongoose = require('mongoose');
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://heroku_dd8vj1r8:q180kifa8njdvssjak2ubnrc2f@ds135577.mlab.com:35577/heroku_dd8vj1r8');
 
+var passport = require('passport');
+
+require('./models/Users');
+require('./config/passport');
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -27,6 +32,8 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride());
+
+app.use(passport.initialize());
 
 app.use('/', routes);
 app.use('/users', users);
