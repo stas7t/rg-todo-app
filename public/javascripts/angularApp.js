@@ -116,7 +116,7 @@ app.factory('Projects', function($http, auth) {
         update : function(project) {
             return $http({
                 method: 'PUT',
-                url: '/api/projects' + project.id,
+                url: '/api/projects/' + project.id,
                 headers: {
                     'Authorization': 'Bearer ' + auth.getToken(),
                 data: project
@@ -126,7 +126,7 @@ app.factory('Projects', function($http, auth) {
         delete : function(project_id) {
             return $http({
                 method: 'DELETE',
-                url: '/api/projects' + project.id,
+                url: '/api/projects/' + project_id,
                 headers: {
                     'Authorization': 'Bearer ' + auth.getToken(),
                 }
@@ -160,7 +160,7 @@ app.factory('Tasks', function($http, auth) {
         update : function(task) {
             return $http({
                 method: 'PUT',
-                url: '/api/tasks' + task.id,
+                url: '/api/tasks/' + task.id,
                 headers: {
                     'Authorization': 'Bearer ' + auth.getToken(),
                 data: task
@@ -170,7 +170,7 @@ app.factory('Tasks', function($http, auth) {
         delete : function(task_id) {
             return $http({
                 method: 'DELETE',
-                url: '/api/tasks' + task.id,
+                url: '/api/tasks/' + task_id,
                 headers: {
                     'Authorization': 'Bearer ' + auth.getToken(),
                 }
