@@ -92,26 +92,19 @@ app.factory('auth', ['$http', '$window', function($http, $window){
 }])
 
 app.factory('Projects', function($http, auth) {
+    $http.defaults.headers.common.Authorization = 'Bearer ' + auth.getToken();
     return {
         get : function() {
-            return $http.get('/api/projects', null, {
-              headers: {Authorization: 'Bearer ' + auth.getToken()}
-            });
+            return $http.get('/api/projects');
         },
         create : function(projectData) {
-            return $http.post('/api/projects', projectData, {
-              headers: {Authorization: 'Bearer ' + auth.getToken()}
-            });
+            return $http.post('/api/projects', projectData);
         },
         update : function(project) {
-            return $http.put('/api/projects/' + project.id, project, {
-              headers: {Authorization: 'Bearer ' + auth.getToken()}
-            });
+            return $http.put('/api/projects/' + project.id, project);
         },
         delete : function(project_id) {
-            return $http.delete('/api/projects/' + project_id, null, {
-              headers: {Authorization: 'Bearer ' + auth.getToken()}
-            });
+            return $http.delete('/api/projects/' + project_id);
         }
     }
 });
@@ -119,23 +112,42 @@ app.factory('Projects', function($http, auth) {
 app.factory('Tasks', function($http, auth) {
     return {
         get : function() {
-            return $http.get('/api/tasks', null, {
-              headers: {Authorization: 'Bearer ' + auth.getToken()}
-            });
+            return $http({
+                method: 'GET',
+                url: '/api/tasks',
+                headers: {
+                    'Authorization': 'Bearer ' + auth.getToken()
+                  }
+                });
+
         },
         create : function(taskData) {
-            return $http.post('/api/tasks', taskData, {
-              headers: {Authorization: 'Bearer ' + auth.getToken()}
+            return $http({
+                method: 'POST',
+                url: '/api/tasks',
+                headers: {
+                    'Authorization': 'Bearer ' + auth.getToken(),
+                data: taskData
+                }
             });
         },
         update : function(task) {
-            return $http.put('/api/tasks/' + task.id, task ,{
-              headers: {Authorization: 'Bearer ' + uth.getToken()}
+            return $http({
+                method: 'PUT',
+                url: '/api/tasks' + task.id,
+                headers: {
+                    'Authorization': 'Bearer ' + auth.getToken(),
+                data: task
+                }
             });
         },
         delete : function(task_id) {
-            return $http.delete('/api/tasks/' + task_id, null, {
-              headers: {Authorization: 'Bearer ' + auth.getToken()}
+            return $http({
+                method: 'DELETE',
+                url: '/api/tasks' + task.id,
+                headers: {
+                    'Authorization': 'Bearer ' + auth.getToken(),
+                }
             });
         }
     }
