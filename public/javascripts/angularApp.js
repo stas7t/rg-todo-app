@@ -154,7 +154,7 @@ app.controller('MainCtrl', [
     $scope.formDataProject = {};
     $scope.formDataTask = [];
 
-    $scope.isLoggedIn = auth.isLoggedIn;
+    $scope.isLoggedIn = auth.isLoggedIn();
 
     $scope.checkDeadline = function() {
 
@@ -252,27 +252,27 @@ app.controller('MainCtrl', [
 
     // CRUD
     // GET =====================================================================
-
-    Projects.get()
-        .success(function(data) {
-            $scope.projects = data;
-            //console.log('$scope.projects');
-            //console.log($scope.projects);
-        })
-        .error((error) => {
-            console.log('Error: ' + error);
-        });
-        
-    Tasks.get()
-        .success(function(data) {
-            $scope.tasks = data;
-            //console.log('$scope.tasks');
-            //console.log($scope.tasks);
-        })
-        .error(function(error) {
-            console.log('Error: ' + error);
-        });
-
+    if ($scope.isLoggedIn()) {
+      Projects.get()
+          .success(function(data) {
+              $scope.projects = data;
+              //console.log('$scope.projects');
+              //console.log($scope.projects);
+          })
+          .error((error) => {
+              console.log('Error: ' + error);
+          });
+          
+      Tasks.get()
+          .success(function(data) {
+              $scope.tasks = data;
+              //console.log('$scope.tasks');
+              //console.log($scope.tasks);
+          })
+          .error(function(error) {
+              console.log('Error: ' + error);
+          });
+    }
     // CREATE ==================================================================
 
     // create a project
@@ -416,7 +416,7 @@ app.controller('NavCtrl', [
   '$scope',
   'auth',
   function($scope, auth){
-    $scope.isLoggedIn = auth.isLoggedIn;
+    $scope.isLoggedIn = auth.isLoggedIn();
     $scope.currentUser = auth.currentUser;
     $scope.logOut = auth.logOut;
 }]);
