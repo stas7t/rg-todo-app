@@ -103,7 +103,7 @@ app.factory('Projects', function($http, auth) {
         get : function() {
             return $http({
                 method: 'GET',
-                url: '/api/projects',
+                url: '/api/' + auth.currentUser()._id + '/projects',
                 headers: {
                     'Authorization': 'Bearer ' + auth.getToken()
                   }
@@ -113,7 +113,7 @@ app.factory('Projects', function($http, auth) {
         create : function(projectData) {
             return $http({
                 method: 'POST',
-                url: '/api/projects',
+                url: '/api/' + auth.currentUser()._id + '/projects',
                 headers: {
                     'Authorization': 'Bearer ' + auth.getToken(),
                 },
@@ -123,7 +123,7 @@ app.factory('Projects', function($http, auth) {
         update : function(project) {
             return $http({
                 method: 'PUT',
-                url: '/api/projects/' + project.id,
+                url: '/api/' + auth.currentUser()._id + '/projects/' + project.id,
                 headers: {
                     'Authorization': 'Bearer ' + auth.getToken(),
                 },
@@ -133,7 +133,7 @@ app.factory('Projects', function($http, auth) {
         delete : function(project_id) {
             return $http({
                 method: 'DELETE',
-                url: '/api/projects/' + project_id,
+                url: '/api/' + auth.currentUser()._id + '/projects/' + project_id,
                 headers: {
                     'Authorization': 'Bearer ' + auth.getToken(),
                 }
@@ -147,7 +147,7 @@ app.factory('Tasks', function($http, auth) {
         get : function() {
             return $http({
                 method: 'GET',
-                url: '/api/tasks',
+                url: '/api/' + auth.currentUser()._id + '/tasks',
                 headers: {
                     'Authorization': 'Bearer ' + auth.getToken()
                   }
@@ -157,7 +157,7 @@ app.factory('Tasks', function($http, auth) {
         create : function(taskData) {
             return $http({
                 method: 'POST',
-                url: '/api/tasks',
+                url: '/api/' + auth.currentUser()._id + '/tasks',
                 headers: {
                     'Authorization': 'Bearer ' + auth.getToken(),
                 },
@@ -167,7 +167,7 @@ app.factory('Tasks', function($http, auth) {
         update : function(task) {
             return $http({
                 method: 'PUT',
-                url: '/api/tasks/' + task.id,
+                url: '/api/' + auth.currentUser()._id + '/tasks/' + task.id,
                 headers: {
                     'Authorization': 'Bearer ' + auth.getToken(),
                 },
@@ -177,7 +177,7 @@ app.factory('Tasks', function($http, auth) {
         delete : function(task_id) {
             return $http({
                 method: 'DELETE',
-                url: '/api/tasks/' + task_id,
+                url: '/api/' + auth.currentUser()._id + '/tasks/' + task_id,
                 headers: {
                     'Authorization': 'Bearer ' + auth.getToken(),
                 }

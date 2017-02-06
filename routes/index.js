@@ -69,9 +69,10 @@ router.post('/user/login', function(req, res, next){
 
 // projects ================================================================
 // get all projects
-router.get('/api/projects', auth, function(req, res) {
-    console.log(req.body);
+router.get('/api/:user_id/projects', auth, function(req, res) {
     const results = [];
+
+    const user_id = req.params.user_id;
 
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, (err, client, done) => {
@@ -82,7 +83,7 @@ router.get('/api/projects', auth, function(req, res) {
         return res.status(500).json({success: false, data: err});
         }
         // SQL Query > Select Data
-        const query = client.query('SELECT * FROM projects');
+        const query = client.query('SELECT * FROM projects WHERE user_id=($1)', [user_id]);
         // Stream results back one row at a time
         query.on('row', (row) => {
         results.push(row);
@@ -97,10 +98,10 @@ router.get('/api/projects', auth, function(req, res) {
 });
 
 // create project and send back all projects after creation
-router.post('/api/projects', auth, function(req, res) {
-    console.log(req.body);
+router.post('/api/:user_id/projects', auth, function(req, res) {
     const results = [];
 
+    const user_id = req.params.user_id;
     const data = {name: req.body.name};
 
     // Get a Postgres client from the connection pool
@@ -112,9 +113,9 @@ router.post('/api/projects', auth, function(req, res) {
         return res.status(500).json({success: false, data: err});
         }
         // SQL Query > Insert Data
-        client.query('INSERT INTO projects(name) values($1)', [data.name]);
+        client.query('INSERT INTO projects(name, user_id) values($1, $2)', [data.name, user_id]);
         // SQL Query > Select Data
-        const query = client.query('SELECT * FROM projects');
+        const query = client.query('SELECT * FROM projects WHERE user_id=($1)', [user_id]);
         // Stream results back one row at a time
         query.on('row', (row) => {
         results.push(row);
@@ -129,11 +130,10 @@ router.post('/api/projects', auth, function(req, res) {
 });
 
 // update a project
-router.put('/api/projects/:project_id', auth, function(req, res) {
-    console.log(req.body);
-    console.log(req.params);
+router.put('/api/:user_id/projects/:project_id', auth, function(req, res) {
     const results = [];
 
+    const user_id = req.params.user_id;
     const id = req.params.project_id;
     const name = req.body.name;
 
@@ -146,9 +146,9 @@ router.put('/api/projects/:project_id', auth, function(req, res) {
         return res.status(500).json({success: false, data: err});
         }
         // SQL Query > update Data
-        client.query('UPDATE projects SET name=($1) WHERE id=($2)', [name, id]);
+        client.query('UPDATE projects SET name=($1) WHERE id=($2) AND user_id=($3)', [name, id, user_id]);
         // SQL Query > Select Data
-        var query = client.query('SELECT * FROM projects');
+        var query = client.query('SELECT * FROM projects WHERE user_id=($1)', [user_id]);
         // Stream results back one row at a time
         query.on('row', (row) => {
         results.push(row);
@@ -163,11 +163,10 @@ router.put('/api/projects/:project_id', auth, function(req, res) {
 });
 
 // delete a project
-router.delete('/api/projects/:project_id', auth, function(req, res) {
-    console.log(req.body);
-    console.log(req.params);
+router.delete('/api/:user_id/projects/:project_id', auth, function(req, res) {
     const results = [];
 
+    const user_id = req.params.user_id;
     const id = req.params.project_id;
 
     // Get a Postgres client from the connection pool
@@ -180,11 +179,11 @@ router.delete('/api/projects/:project_id', auth, function(req, res) {
         }
         // SQL Query > Delete Data
         // Delete tasks before deleting project
-        client.query('DELETE FROM tasks WHERE project_id=($1)', [id]);
+        client.query('DELETE FROM tasks WHERE project_id=($1) AND user_id=($2)', [id, user_id]);
         // Delete project
-        client.query('DELETE FROM projects WHERE id=($1)', [id]);
+        client.query('DELETE FROM projects WHERE id=($1) AND user_id=($2)', [id, user_id]);
         // SQL Query > Select Data
-        var query = client.query('SELECT * FROM projects');
+        var query = client.query('SELECT * FROM projects WHERE user_id=($1)', [user_id]);
         // Stream results back one row at a time
         query.on('row', (row) => {
         results.push(row);
@@ -200,9 +199,10 @@ router.delete('/api/projects/:project_id', auth, function(req, res) {
 
 // tasks ================================================================
 // get all tasks
-router.get('/api/tasks', auth, function(req, res) {
-    console.log(req.body);
+router.get('/api/:user_id/tasks', auth, function(req, res) {
     const results = [];
+
+    const user_id = req.params.user_id;
 
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, (err, client, done) => {
@@ -214,7 +214,7 @@ router.get('/api/tasks', auth, function(req, res) {
         }
         // SQL Query > Select Data
         const query = client.query(
-        'SELECT * FROM tasks');
+        'SELECT * FROM tasks WHERE user_id=($1)', [user_id]);
         // Stream results back one row at a time
         query.on('row', (row) => {
         results.push(row);
@@ -229,10 +229,10 @@ router.get('/api/tasks', auth, function(req, res) {
 });
 
 // create task and send back all tasks after creation
-router.post('/api/tasks', auth, function(req, res) {
-    console.log(req.body);
+router.post('/api/:user_id/tasks', auth, function(req, res) {
     const results = [];
 
+    const user_id = req.params.user_id;
     const data = {name: req.body.name, status: 'uncompleted', priority: 0, project_id: req.body.project_id};
 
     // Get a Postgres client from the connection pool
@@ -244,10 +244,10 @@ router.post('/api/tasks', auth, function(req, res) {
         return res.status(500).json({success: false, data: err});
         }
         // SQL Query > Insert Data
-        client.query('INSERT INTO tasks(name, status, priority, project_id) values($1, $2, $3, $4)',
-        [data.name, data.status, data.priority, data.project_id]);
+        client.query('INSERT INTO tasks(name, status, priority, project_id, user_id) values($1, $2, $3, $4, $4)',
+        [data.name, data.status, data.priority, data.project_id, user_id]);
         // SQL Query > Select Data
-        const query = client.query('SELECT * FROM tasks');
+        const query = client.query('SELECT * FROM tasks WHERE user_id=($1)', [user_id]);
         // Stream results back one row at a time
         query.on('row', (row) => {
         results.push(row);
@@ -262,11 +262,10 @@ router.post('/api/tasks', auth, function(req, res) {
 });
 
 // update a task
-router.put('/api/tasks/:task_id', auth, function(req, res) {
-    console.log(req.body);
-    console.log(req.params);
+router.put('/api/:user_id/tasks/:task_id', auth, function(req, res) {
     const results = [];
 
+    const user_id = req.params.user_id;
     const id = req.params.task_id;
     const name = req.body.name;
     const status = req.body.status;
@@ -287,10 +286,10 @@ router.put('/api/tasks/:task_id', auth, function(req, res) {
         return res.status(500).json({success: false, data: err});
         }
         // SQL Query > Update Data
-        client.query('UPDATE tasks SET name=($1), status=($2), priority=($3), deadline=($4) WHERE id=($5)', [name, status, priority, deadline, id]);
+        client.query('UPDATE tasks SET name=($1), status=($2), priority=($3), deadline=($4) WHERE id=($5) AND user_id=($6)', [name, status, priority, deadline, id, user_id]);
 
         // SQL Query > Select Data
-        const query = client.query('SELECT * FROM tasks');
+        const query = client.query('SELECT * FROM tasks WHERE user_id=($1)', [user_id]);
         // Stream results back one row at a time
         query.on('row', (row) => {
         results.push(row);
@@ -305,11 +304,10 @@ router.put('/api/tasks/:task_id', auth, function(req, res) {
 });
 
 // delete a task
-router.delete('/api/tasks/:task_id', auth, function(req, res) {
-    console.log(req.body);
-    console.log(req.params);
+router.delete('/api/:user_id/tasks/:task_id', auth, function(req, res) {
     const results = [];
 
+    const user_id = req.params.user_id;
     const id = req.params.task_id;
 
     // Get a Postgres client from the connection pool
@@ -321,9 +319,9 @@ router.delete('/api/tasks/:task_id', auth, function(req, res) {
         return res.status(500).json({success: false, data: err});
         }
         // SQL Query > Delete Data
-        client.query('DELETE FROM tasks WHERE id=($1)', [id]);
+        client.query('DELETE FROM tasks WHERE id=($1) AND user_id=($2)', [id, user_id]);
         // SQL Query > Select Data
-        const query = client.query('SELECT * FROM tasks');
+        const query = client.query('SELECT * FROM tasks WHERE user_id=($1)', [user_id]);
         // Stream results back one row at a time
         query.on('row', (row) => {
         results.push(row);
