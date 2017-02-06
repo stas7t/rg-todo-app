@@ -33,7 +33,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-//app.use(methodOverride());
+app.use(methodOverride());
 
 app.use(passport.initialize());
 
@@ -78,4 +78,4 @@ var server = app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + server.address().port);
 });
 
-//module.exports = app;
+module.exports = app;
