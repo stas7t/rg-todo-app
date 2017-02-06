@@ -49,9 +49,25 @@
                             </td>
 
                             <td class="thirteen wide" style='border-left-style: none;' ng-class="task.status">
+
+                                <div class="ui grid">
+                                    <div class="four column row">
+                                        <div class="left floated column">{{task.name}}</div>
+                                        <div class="right floated column">
+                                            <span ng-show="showdeadline">{{task.deadline | date: 'y MMM d, H:mm'}}</span>
+                                            <i class="wait icon" ng-show="task.deadline" ng-mouseenter="showdeadline=true" ng-mouseleave="showdeadline=false"></i> 
+                                        </div>
+                                        <div class="right floated column">
+                                            <div class="ui teal label" ng-show="task.priority !== 0" >{{task.priority}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--
                                 <i class="wait icon" ng-show="task.deadline" ng-mouseenter="showdeadline=true" ng-mouseleave="showdeadline=false"></i>
                                 <span ng-show="showdeadline">{{task.deadline | date: 'y MMM d, H:mm'}}</span> 
                                 {{task.name}} <div class="ui teal label" ng-show="task.priority !== 0" >{{task.priority}}</div>
+                                -->
                             </td>
 
                             <td class="center aligned three wide" >
