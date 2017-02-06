@@ -9,7 +9,12 @@ app.config([
       .state('todolist', {
         url: '/todolist',
         templateUrl: '/partials/todolist.html',
-        controller: 'MainCtrl'
+        controller: 'MainCtrl',
+        onEnter: ['$state', 'auth', function($state, auth){
+          if(auth.isLoggedIn()){
+            $state.go('login');
+          }
+        }]
         /*resolve: {
           postPromise: ['posts', function(posts){
             return posts.getAll();
@@ -469,13 +474,3 @@ app.controller('NavCtrl', [
     }
 }]);
 
-app.run(function ($rootScope, $state, auth) {
-  $rootScope.$on('$stateChangeStart', function (event, next, nextParams, fromState) {
-    if (auth.isLoggedIn) {
-      if (next.name !== 'login' && next.name !== 'register') {
-        event.preventDefault();
-        $state.go('login');
-      }
-    }
-  });
-});
