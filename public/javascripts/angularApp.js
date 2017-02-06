@@ -11,7 +11,7 @@ app.config([
         templateUrl: '/partials/todolist.html',
         controller: 'MainCtrl',
         onEnter: ['$state', 'auth', function($state, auth){
-          if(auth.isLoggedIn()){
+          if(!auth.isLoggedIn()){
             $state.go('login');
           }
         }]
