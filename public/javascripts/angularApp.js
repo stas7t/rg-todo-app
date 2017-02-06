@@ -469,3 +469,13 @@ app.controller('NavCtrl', [
     }
 }]);
 
+app.run(function ($rootScope, $state, auth) {
+  $rootScope.$on('$stateChangeStart', function (event, next, nextParams, fromState) {
+    if (auth.isLoggedIn) {
+      if (next.name !== 'login' && next.name !== 'register') {
+        event.preventDefault();
+        $state.go('login');
+      }
+    }
+  });
+});
