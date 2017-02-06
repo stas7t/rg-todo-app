@@ -29,6 +29,7 @@
 
   <div class="ui secondary menu" ng-controller="NavCtrl">
     <a ng-show="isLoggedIn()" class="item">
+      <i class="user icon"></i>
       {{ currentUser().username }}
     </a>
     <a ng-show="isLoggedIn()" class="item">
@@ -36,13 +37,13 @@
     </a>
 
     <div class="right menu">
-        <a ng-hide="isLoggedIn()" class="item" href="/#/login">
+        <a ng-hide="isLoggedIn()" class="item" ui-sref="login">
           Log In
         </a>
-        <a ng-hide="isLoggedIn()" class="item" href="/#/register">
+        <a ng-hide="isLoggedIn()" class="item" ui-sref="register">
           Register
         </a>
-        <a ng-show="isLoggedIn()" class="item" href="" ng-click="logOut()">
+        <a ng-show="isLoggedIn()" class="item" ui-sref="" ng-click="logOut()">
           Log Out
         </a>
     </div>
