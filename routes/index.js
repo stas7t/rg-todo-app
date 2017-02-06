@@ -244,7 +244,7 @@ router.post('/api/:user_id/tasks', auth, function(req, res) {
         return res.status(500).json({success: false, data: err});
         }
         // SQL Query > Insert Data
-        client.query('INSERT INTO tasks(name, status, priority, project_id, user_id) values($1, $2, $3, $4, $4)',
+        client.query('INSERT INTO tasks(name, status, priority, project_id, user_id) values($1, $2, $3, $4, $5)',
         [data.name, data.status, data.priority, data.project_id, user_id]);
         // SQL Query > Select Data
         const query = client.query('SELECT * FROM tasks WHERE user_id=($1)', [user_id]);
