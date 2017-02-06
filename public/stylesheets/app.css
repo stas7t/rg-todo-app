@@ -1,13 +1,7 @@
 /* app css stylesheet */
 
 body {
-  /*background-image: url("../img/pexels-photo-29977__MM.png");*/
-  /*background-image: url("assets/img/pexels-photo-205414_XX.jpeg");*/
   background-color: #f4f4f4;
-  /* 
-  background-image: url("../images/pexels-photo-205414_XX.jpeg");
-  background-repeat: no-repeat;
-	background-attachment: fixed;*/
 }
 
 .completed {
@@ -19,17 +13,10 @@ body {
     color: red;
 }
 
-.grey-border {
-  border: 1px solid lightgrey;
-}
-
 .red-right-border {
   border-right:  6px double lightpink;
 }
 
 .no-left-border {
-  border-right-style:  solid; 
   border-left-style:   none; 
-  border-top-style:    solid; 
-  border-bottom-style: solid; 
 }
