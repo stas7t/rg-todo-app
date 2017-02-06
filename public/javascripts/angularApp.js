@@ -304,7 +304,7 @@ app.controller('MainCtrl', [
             //console.log('$scope.projects');
             //console.log($scope.projects);
         })
-        .error((error) => {
+        .error(function(error) {
             console.log('Error: ' + error);
         });
         
