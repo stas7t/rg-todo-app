@@ -42,7 +42,7 @@
 
                 <table class="ui unstackable celled compact table">
                     <tbody>
-                        <tr ng-repeat="task in tasks | filter : {'project_id' : project.id} : true | orderBy: ['-status','-priority', 'id']">
+                        <tr ng-repeat="task in tasks | filter : {'project_id' : project.id} : true | orderBy: ['-status','-priority', 'id']" ng-mouseenter="showbuttons=true" ng-mouseleave="showbuttons=false">
                             <td class="center aligned one wide red-right-border" style='width: 50px;'>
                                 <input type="checkbox" ng-model="task.status" ng-true-value="'completed'" ng-false-value="'uncompleted'" ng-change="updateTask(task)">
                             </td>
@@ -53,10 +53,10 @@
                             </td>
 
                             <td class="center aligned three wide" >
-                                <i class="caret up link icon"      style='color: grey;' ng-click="up(task)"> </i>
-                                <i class="caret down link icon"    style='color: grey;' ng-click="down(task)"> </i>
-                                <i class="write link icon"         style='color: grey;' ng-click="editTask(task)"> </i>
-                                <i class="trash outline link icon" style='color: grey;' ng-click="deleteTask(task.id)"> </i>
+                                <i class="caret up link icon"      style='color: grey;' ng-show="showbuttons" ng-click="up(task)"> </i>
+                                <i class="caret down link icon"    style='color: grey;' ng-show="showbuttons" ng-click="down(task)"> </i>
+                                <i class="write link icon"         style='color: grey;' ng-show="showbuttons" ng-click="editTask(task)"> </i>
+                                <i class="trash outline link icon" style='color: grey;' ng-show="showbuttons" ng-click="deleteTask(task.id)"> </i>
                             </td>
                         </tr>
                     </tbody>
