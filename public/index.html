@@ -7,7 +7,7 @@
 
   <title>TODOlist app</title>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css"> 
 
   <link rel="stylesheet" href="stylesheets/angularjs-datetime-picker.css">                          
@@ -23,19 +23,30 @@
 
   <script src="/javascripts/angularApp.js"></script>
 
-  <style> .glyphicon-thumbs-up { cursor:pointer } </style>
 </head>
 
 <body ng-app="todolist2">
-  <nav class="navbar navbar-default pull-right" ng-controller="NavCtrl">
-    <ul class="nav navbar-nav">
-      <li ng-show="isLoggedIn()"><a>{{ currentUser().username }}</a></li>
-      <li ng-show="isLoggedIn()"><a>{{ currentUser()._id }}</a></li>
-      <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Log Out</a></li>
-      <li ng-hide="isLoggedIn()"><a href="/#/login">Log In</a></li>
-      <li ng-hide="isLoggedIn()"><a href="/#/register">Register</a></li>
-    </ul>
-  </nav>
+
+  <div class="ui secondary menu" ng-controller="NavCtrl">
+    <a ng-show="isLoggedIn()" class="item">
+      {{ currentUser().username }}
+    </a>
+    <a ng-show="isLoggedIn()" class="item">
+      {{ currentUser()._id }}
+    </a>
+
+    <div class="right menu">
+        <a ng-hide="isLoggedIn()" class="item" href="/#/login">
+          Log In
+        </a>
+        <a ng-hide="isLoggedIn()" class="item" href="/#/register">
+          Register
+        </a>
+        <a ng-show="isLoggedIn()" class="item" href="" ng-click="logOut()">
+          Log Out
+        </a>
+    </div>
+  </div>
 
   <div class="ui middle aligned center aligned padded grid">
       <div class="column" style='max-width: 750px;'>

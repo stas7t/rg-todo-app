@@ -65,8 +65,7 @@ router.post('/user/login', function(req, res, next){
 });
 
 
-// api ---------------------------------------------------------------------
-
+// TODO list api -----------------------------------------------------------
 // projects ================================================================
 // get all projects
 router.get('/api/:user_id/projects', auth, function(req, res) {
