@@ -273,6 +273,7 @@ app.controller('MainCtrl', [
     // increase/decrease task priority 
     $scope.up = function(task) {
         task.priority += 1;
+        /*
         Tasks.update(task)
             .success(function(data) {
                 $scope.tasks = data; // assign new list of tasks
@@ -281,10 +282,12 @@ app.controller('MainCtrl', [
                 $scope.editT_modal = false;
                 console.log('Error: ' + error);
             });
+            */
     };
 
     $scope.down = function(task) {
         task.priority -= 1;
+        /*
         Tasks.update(task)
             .success(function(data) {
                 $scope.tasks = data; // assign new list of tasks
@@ -293,6 +296,7 @@ app.controller('MainCtrl', [
                 $scope.editT_modal = false;
                 console.log('Error: ' + error);
             }); 
+            */
     };
 
     // CRUD

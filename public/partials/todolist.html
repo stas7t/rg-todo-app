@@ -49,13 +49,14 @@
                             </td>
 
                             <td class="thirteen wide" style='border-left-style: none;' ng-class="task.status">
-                                <i class="wait icon" ng-show="task.deadline"></i>
-                                {{task.name}} [{{task.priority}}] <span ng-show="task.deadline">{{task.deadline | date: 'y MMM d, H:mm'}}</span>
+                                <i class="wait icon" ng-show="task.deadline" ng-mouseenter="showdeadline=true" ng-mouseleave="showdeadline=false"></i>
+                                <span ng-show="showdeadline">{{task.deadline | date: 'y MMM d, H:mm'}}</span> 
+                                {{task.name}} <div class="ui teal label" ng-show="task.priority !== 0" >{{task.priority}}</div>
                             </td>
 
                             <td class="center aligned three wide" >
-                                <i class="caret up link icon"      style='color: grey;' ng-show="showbuttons" ng-click="up(task)"> </i>
-                                <i class="caret down link icon"    style='color: grey;' ng-show="showbuttons" ng-click="down(task)"> </i>
+                                <i class="caret up link icon"      style='color: grey;' ng-show="showbuttons" ng-click="up(task)" ng-mouseleave="updateTask(task)"> </i>
+                                <i class="caret down link icon"    style='color: grey;' ng-show="showbuttons" ng-click="down(task)" ng-mouseleave="updateTask(task)"> </i>
                                 <i class="write link icon"         style='color: grey;' ng-show="showbuttons" ng-click="editTask(task)"> </i>
                                 <i class="trash outline link icon" style='color: grey;' ng-show="showbuttons" ng-click="deleteTask(task.id)"> </i>
                             </td>
