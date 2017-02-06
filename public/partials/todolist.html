@@ -42,7 +42,8 @@
 
                 <table class="ui unstackable celled compact table">
                     <tbody>
-                        <tr ng-repeat="task in tasks | filter : {'project_id' : project.id} : true | orderBy: ['-status','-priority', 'id']" ng-mouseenter="showbuttons=true" ng-mouseup="showbuttons=true" ng-mouseleave="showbuttons=false" ng-class="{warning: showbuttons}" >
+                        <tr ng-repeat="task in tasks | filter : {'project_id' : project.id} : true | orderBy: ['-status','-priority', 'id']" 
+                            ng-mouseenter="showbuttons=true" ng-mouseup="showbuttons=true" ng-mouseleave="showbuttons=false" ng-class="{warning: showbuttons}" >
                             <td class="center aligned one wide red-right-border" style='width: 50px;'>
                                 <input type="checkbox" ng-model="task.status" ng-true-value="'completed'" ng-false-value="'uncompleted'" ng-change="updateTask(task)">
                             </td>
