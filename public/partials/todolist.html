@@ -2,7 +2,7 @@
 
     <!-- List of projects -->
     <div ng-repeat="project in projects | orderBy: ['id']">
-        <div id="Project" class="ui middle aligned three column grid" style='min-height: 50px; background-color: #0E6EB8; color: white;'>
+        <div id="Project" class="ui middle aligned three column grid" style='min-height: 50px; background-color: #0E6EB8; color: white;' ng-mouseover="showbuttons=true" ng-mouseleave="showbuttons=false">
 
                 <div class="one wide center aligned  column" style="padding: 5px;">
                     <i class="large inverted grey tasks icon"></i>
@@ -13,8 +13,8 @@
                 </div>
                 
                 <div class="three wide center aligned column" style="padding: 5px;">
-                    <i class="large write link icon" style='color: lightgrey;' ng-click="editProject(project)"></i>
-                    <i class="large trash outline link icon" style='color: lightgrey;' ng-click="deleteProject(project.id)"></i>
+                    <i class="large write link icon" style='color: lightgrey;' ng-show="showbuttons" ng-click="editProject(project)"></i>
+                    <i class="large trash outline link icon" style='color: lightgrey;' ng-show="showbuttons" ng-click="deleteProject(project.id)"></i>
                 </div>
 
         </div>
@@ -42,7 +42,7 @@
 
                 <table class="ui unstackable celled compact table">
                     <tbody>
-                        <tr ng-repeat="task in tasks | filter : {'project_id' : project.id} : true | orderBy: ['-status','-priority', 'id']" ng-mouseenter="showbuttons=true" ng-mouseleave="showbuttons=false">
+                        <tr ng-repeat="task in tasks | filter : {'project_id' : project.id} : true | orderBy: ['-status','-priority', 'id']" ng-mouseover="showbuttons=true" ng-mouseleave="showbuttons=false">
                             <td class="center aligned one wide red-right-border" style='width: 50px;'>
                                 <input type="checkbox" ng-model="task.status" ng-true-value="'completed'" ng-false-value="'uncompleted'" ng-change="updateTask(task)">
                             </td>
