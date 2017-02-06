@@ -18,16 +18,13 @@
         <div class="field">
           <div class="ui left icon input">
             <i class="lock icon"></i>
-            <input type="password" name="password" placeholder="Password" ng-model="user.password">
+            <input type="password" name="password" placeholder="Password" ng-model="user.password" ng-minlength="6" ng-maxlength="512">
           </div>
         </div>
         <button type="submit" class="ui fluid large teal submit button">Register</button>
       </div>
-
-      <div class="ui error message" ng-show="error">{{ error.message }}</div>
-
     </form>
-
+    <div class="ui error message" ng-show="error">{{ error.message }}</div>
     <div class="ui message">
       Already have an account? <a ui-sref="login">Sign in</a>
     </div>
