@@ -74,7 +74,7 @@ app.factory('auth', ['$http', '$window', function($http, $window){
         var payload = JSON.parse($window.atob(token.split('.')[1]));
         console.log('payload');
         console.log(payload);
-        return payload.username;
+        return payload;
       }
     };
 
