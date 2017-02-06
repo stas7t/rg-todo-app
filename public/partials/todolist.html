@@ -48,23 +48,13 @@
                                 <input type="checkbox" ng-model="task.status" ng-true-value="'completed'" ng-false-value="'uncompleted'" ng-change="updateTask(task)">
                             </td>
 
-                            <td class="thirteen wide" style='border-left-style: none;' ng-class="task.status">
+                            <td class="thirteen wide" style='border-left-style: none;'>
 
-                                <div class="ui left floated left aligned basic segment">
-                                {{task.name}}
-                                </div>
-
-                                <div class="ui right floated right aligned basic segment">
-                                    <span ng-show="showdeadline">{{task.deadline | date: 'y MMM d, H:mm'}}</span> 
-                                    <i class="wait icon" ng-show="task.deadline" ng-mouseenter="showdeadline=true" ng-mouseleave="showdeadline=false"></i>
-                                    <div class="ui teal label" ng-show="task.priority !== 0" >{{task.priority}}</div>
-                                </div>
-
-                                <!--
                                 <i class="wait icon" ng-show="task.deadline" ng-mouseenter="showdeadline=true" ng-mouseleave="showdeadline=false"></i>
                                 <span ng-show="showdeadline">{{task.deadline | date: 'y MMM d, H:mm'}}</span> 
-                                {{task.name}} <div class="ui teal label" ng-show="task.priority !== 0" >{{task.priority}}</div>
-                                -->
+                                <span ng-class="task.status">{{task.name}} </span>
+                                <div class="ui teal label" ng-show="task.priority !== 0" >{{task.priority}}</div>
+
                             </td>
 
                             <td class="center aligned three wide" >
