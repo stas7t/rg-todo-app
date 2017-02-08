@@ -1,156 +1,181 @@
-<div ng-show="isLoggedIn()">
+<div  class="ui middle aligned one column grid" ng-repeat="project in projects | orderBy: ['id']">
+    <div class="sixteen wide column " style="padding: 0px;">
 
-    <!-- List of projects -->
-    <div ng-repeat="project in projects | orderBy: ['id']">
-        <div id="Project" class="ui middle aligned three column grid" style='min-height: 50px; background-color: #0E6EB8; color: white;' ng-mouseenter="showbuttonsP=true" ng-mouseleave="showbuttonsP=false">
+        <table class="ui unstackable celled table " style="border-style: none;border-collapse: collapse;">
+        
+            <thead>
+             <tr id="Project">
+              <th colspan="3" style="padding: 20px;  background-color: #0E6EB8;  border-radius: 0px; border-bottom-style: none; border-left: 1px solid #0E6EB8; border-right: 1px solid #0E6EB8;" >
 
-                <div class="one wide center aligned  column" style="padding: 5px;">
-                    <i class="large inverted grey tasks icon"></i>
-                </div>
+               <div id="Project" class="ui middle aligned grid" ng-mouseenter="showbuttonsP=true" ng-mouseleave="showbuttonsP=false">
 
-                <div class="twelve wide left aligned column" style="padding: 5px;">
-                    <h3>{{ project.name }}</h3> 
-                </div>
-                
-                <div class="three wide center aligned column" style="padding: 5px;">
-                    <i class="large write link icon" style='color: lightgrey;' ng-show="showbuttonsP" ng-click="editProject(project)"></i>
-                    <i class="large trash outline link icon" style='color: lightgrey;' ng-show="showbuttonsP" ng-click="deleteProject(project.id)"></i>
-                </div>
+                    <div class="one wide center aligned  column" style="padding: 5px 8px 5px 0px;">
+                        <i class="large inverted grey tasks icon"></i>
+                    </div>
 
-        </div>
+                    <div class="thirteen wide left aligned column" style="padding: 5px 0px 5px 5px; color: white;">
+                        <h3  style="color: white;">{{ project.name }}</h3> 
+                    </div>
+                    
+                    <div class="two wide center aligned column" style="padding: 0px;">
 
-        <div id="AddTask" class="ui middle aligned center aligned two column grid" style='min-height: 50px; background-color: lightgrey;'>
-
-                <div class="one wide center aligned  column" style="padding: 5px; color: darkgrey;">
-                    <i class="large teal plus icon"></i>
-                </div>
-
-                <div class="fifteen wide center aligned column" style="padding: 5px;">
-                    <form name="AddTask" >
-                        <div class="ui fluid action input" >
-                            <input type="text" placeholder="Start typing here to create a task..." required ng-maxlength="2048" ng-model="formDataTask[project.id].name">
-                            <button class="ui teal button" ng-click="createTask(project.id)">Add Task</button>                                        
+                        <div class="ui mini horizontal list">
+                                <div class="item">
+                                    <i class="large write link icon" style='color: lightgrey;' ng-show="showbuttonsP" ng-click="editProject(project)"></i>
+                                </div>
+                                
+                                <div class="item">
+                                    <i class="large trash outline link icon" style='color: lightgrey;' ng-show="showbuttonsP" ng-click="deleteProject(project.id)"></i>
+                                </div>
                         </div>
-                    </form>
+
+                    </div>
+               </div>
+
+              </th>
+
+             </tr>
+
+             <tr id="AddTask" style="border-left:  1px solid lightgrey; border-right:  1px solid lightgrey;">
+              <th colspan="3" style="padding: 10px; background-color: lightgrey;  border-radius: 0px; border-bottom-style: none;" >
+
+                <div id="AddTask" class="ui middle aligned center aligned grid">
+                    <div class="sixteen wide center aligned column" style="padding: 12px;">
+                        <div class="ui fluid action input" >
+                            <i class="large teal plus icon" style="padding-top: 10px;"></i>
+                            <input type="text" placeholder="Start typing here to create a task..." required ng-maxlength="2048" ng-model="formDataTask[project.id].name">
+                            <button class="ui teal button" ng-click="createTask(project.id)">&emsp; Add Task &emsp;</button>                         
+                        </div>       
+                    </div>
                 </div>
 
-        </div>
+              </th>
+             </tr>
 
-        <!-- List of tasks -->
-        <div id="Tasks" class="ui middle aligned one column grid">
-            <div class="sixteen wide column" style="padding: 0px;">
+            </thead>
 
-                <table class="ui unstackable celled compact table">
-                    <tbody>
-                        <tr ng-repeat="task in tasks | filter : {'project_id' : project.id} : true | orderBy: ['-status','-priority', 'id']" 
-                            ng-mouseenter="showbuttons=true" ng-mouseup="showbuttons=true" ng-mouseleave="showbuttons=false" ng-class="{warning: showbuttons}" >
-                            <td class="center aligned one wide red-right-border" style='width: 50px;'>
-                                <input type="checkbox" ng-model="task.status" ng-true-value="'completed'" ng-false-value="'uncompleted'" ng-change="updateTask(task)">
-                            </td>
+            <tbody > 
+              
+              <tr style="border:  1px solid lightgrey;" ng-repeat="task in tasks | filter : {'project_id' : project.id} : true | orderBy: ['-status','-priority', 'id']" ng-mouseenter="showbuttons=true" ng-mouseup="showbuttons=true" ng-mouseleave="showbuttons=false" ng-class="{warning: showbuttons}" >
 
-                            <td class="thirteen wide" style='border-left-style: none;'>
+                <td class="center aligned one wide red-right-border" style="padding: 5px;">
+                    <input class="ui checkbox" type="checkbox" ng-model="task.status" ng-true-value="'completed'" ng-false-value="'uncompleted'" ng-change="updateTask(task)">
+                </td>
 
-                                <span ng-class="task.status">{{task.name}} </span>
-                                
-                                <i class="wait icon" ng-show="task.deadline" ng-mouseenter="showdeadline=true" ng-mouseleave="showdeadline=false"></i>
-                                <span ng-show="showdeadline">{{task.deadline | date: 'y MMM d, H:mm'}}</span> 
-                                
-                                <div class="ui teal label" ng-show="task.priority !== 0" >{{task.priority}}</div>
+                <td class="twelve wide" >
+                    
+                    <div class="ui middle aligned two column grid">
+                    
+                        <div class="stretched row" style="padding: 2px 2px 2px 10px;" >
+                        
+                        <div class="fourteen wide column" style="padding: 2px;">
+                            <div ng-class="task.status" >
+                                {{task.name}} 
+                                <span ng-show="showdeadline">
+                                    <i class="wait icon" data-tooltip="Deadline"></i>
+                                    {{task.deadline | date: 'y MMM d, H:mm'}}
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="two wide right aligned column" style="padding: 2px;">
+                            <div class="ui teal label" ng-show="task.priority !== 0 && showbuttons" data-tooltip="Priority">{{task.priority}}</div>
+                        </div>
+                        
+                        </div>
+                    </div>							
+                </td>
 
-                            </td>
+                <td class="center aligned three wide" >
+                    <i class="caret up link icon"      style='color: grey;' ng-show="showbuttons" ng-click="up(task)" ng-mouseleave="updateTask(task)"> </i>
+                    <i class="caret down link icon"    style='color: grey;' ng-show="showbuttons" ng-click="down(task)" ng-mouseleave="updateTask(task)"> </i>
+                    <i class="write link icon"         style='color: grey;' ng-show="showbuttons" ng-click="editTask(task)"> </i>
+                    <i class="trash outline link icon" style='color: grey;' ng-show="showbuttons" ng-click="deleteTask(task.id)"> </i>
+                </td>
+              </tr>
 
-                            <td class="center aligned three wide" >
-                                <i class="caret up link icon"      style='color: grey;' ng-show="showbuttons" ng-click="up(task)" ng-mouseleave="updateTask(task)"> </i>
-                                <i class="caret down link icon"    style='color: grey;' ng-show="showbuttons" ng-click="down(task)" ng-mouseleave="updateTask(task)"> </i>
-                                <i class="write link icon"         style='color: grey;' ng-show="showbuttons" ng-click="editTask(task)"> </i>
-                                <i class="trash outline link icon" style='color: grey;' ng-show="showbuttons" ng-click="deleteTask(task.id)"> </i>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        
-        <div class="ui hidden divider"></div>
-        <div class="ui hidden divider"></div>
-        
+            </tbody>
+        </table>
     </div>
-
-    <div class="ui hidden divider"></div>
-    <div class="ui hidden divider"></div>
-
-    <div class="container">
-        <button class="ui large blue labeled icon button" ng-click="addProject()">
-            <i class="plus icon"></i>
-            Add TODO List
-        </button>
-    </div>
-
-
-    <!-- Modal windows -->
-
-    <!-- Add Project -->
-    <modal ng-model="addProjectModal">
-        <i class="close icon" ng-click="close_modal(addProjectModal)"></i>
-        <div class="header">
-        Add TODO List
-        </div>
-        <div class="content">
-            <form name="AddProject">
-                <div class="ui action input">
-                    <input type="text" name="projectName" placeholder="TODO List name" ng-model="$parent.formDataProject.name" required ng-maxlength="512">
-                    <button class="ui blue labeled icon button" ng-click="createProject()">
-                        <i class="plus icon"></i>
-                        Add
-                    </button>
-                </div>
-            </form>
-        </div>
-    </modal>
-
-    <!-- Edit Project -->
-    <modal ng-model="editProjectModal">
-        <i class="close icon" ng-click="close_modal(editProjectModal)"></i>
-        <div class="header">
-        Edit TODO List
-        </div>
-        <div class="content">
-            <form name="EditProject">
-                <div class="ui action input">
-                    <input type="text" value="$parent.edited_project.name" ng-model="$parent.edited_project.name" required ng-maxlength="512" >
-                    <button class="ui blue labeled icon button" ng-click="updateProject($parent.edited_project)">
-                        <i class="checkmark icon"></i>
-                        Ok
-                    </button>
-                </div>          
-            </form>
-        </div>
-    </modal>
-
-    <!-- Edit Task -->
-    <modal ng-model="editTaskModal">
-        <i class="close icon" ng-click="close_modal(editTaskModal)"></i>
-        <div class="header">
-        Edit task
-        </div>
-        <div class="content">
-            <form name="EditTask">
-                Edit name:
-                <div class="ui action input">
-                    <input type="text" value="$parent.edited_task.name" ng-model="$parent.edited_task.name" required ng-maxlength="2048">
-                    <button class="ui blue labeled icon button" ng-click="updateTask($parent.edited_task)">
-                        <i class="checkmark icon"></i>
-                        Ok
-                    </button>
-                </div>
-                Set deadline:
-                <div class="ui input left icon">
-                    <i class="calendar icon"></i>
-                    <input ng-model="$parent.edited_task.deadline" datetime-picker future-only date-format="yyyy-MM-dd HH:mm:ss"/>
-                </div>
-                <i class="remove red link icon" ng-click="$parent.edited_task.deadline = ''; checkDeadline()"></i>
-            </form>
-        </div>
-    </modal>
-
 </div>
+
+
+        
+
+<div class="ui hidden divider"></div>
+<div class="ui hidden divider"></div>
+
+<div class="container">
+    <button class="ui large blue labeled icon button" ng-click="addProject()">
+        <i class="plus icon"></i>
+        Add TODO List
+    </button>
+</div>
+
+
+<!-- Modal windows -->
+
+<!-- Add Project -->
+<modal ng-model="addProjectModal">
+    <i class="close icon" ng-click="close_modal(addProjectModal)"></i>
+    <div class="header">
+    Add TODO List
+    </div>
+    <div class="content">
+        <form name="AddProject">
+            <div class="ui  action input">
+                <input type="text" name="projectName" placeholder="TODO List name" ng-model="$parent.formDataProject.name" required ng-maxlength="512">
+                <button class="ui blue labeled icon button" ng-click="createProject()">
+                    <i class="plus icon"></i>
+                    Add
+                </button>
+            </div>
+        </form>
+    </div>
+</modal>
+
+<!-- Edit Project -->
+<modal ng-model="editProjectModal">
+    <i class="close icon" ng-click="close_modal(editProjectModal)"></i>
+    <div class="header">
+    Edit TODO List
+    </div>
+    <div class="content">
+        <form name="EditProject">
+            <div class="ui action input">
+                <input type="text" value="$parent.edited_project.name" ng-model="$parent.edited_project.name" required ng-maxlength="512" >
+                <button class="ui blue labeled icon button" ng-click="updateProject($parent.edited_project)">
+                    <i class="checkmark icon"></i>
+                    Ok
+                </button>
+            </div>          
+        </form>
+    </div>
+</modal>
+
+<!-- Edit Task -->
+<modal ng-model="editTaskModal">
+    <i class="close icon" ng-click="close_modal(editTaskModal)"></i>
+    <div class="header">
+    Edit task
+    </div>
+    <div class="content">
+        <form name="EditTask">
+            Edit name:
+            <div class="ui action input">
+                <input type="text" value="$parent.edited_task.name" ng-model="$parent.edited_task.name" required ng-maxlength="2048">
+                <button class="ui blue labeled icon button" ng-click="updateTask($parent.edited_task)">
+                    <i class="checkmark icon"></i>
+                    Ok
+                </button>
+            </div>
+            Set deadline:
+            <div class="ui input left icon">
+                <i class="calendar icon"></i>
+                <input ng-model="$parent.edited_task.deadline" datetime-picker future-only date-format="yyyy-MM-dd HH:mm:ss"/>
+            </div>
+            <i class="remove red link icon" ng-click="$parent.edited_task.deadline = ''; checkDeadline()"></i>
+        </form>
+    </div>
+</modal>
+
