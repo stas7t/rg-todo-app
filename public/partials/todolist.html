@@ -42,13 +42,11 @@
                 <div id="AddTask" class="ui middle aligned center aligned grid">
                     <div class="sixteen wide center aligned column" style="padding: 12px;">
                         <form>
-                            
-                        
-                        <div class="ui fluid action input" >
-                            <i class="large teal plus icon" style="padding-top: 10px;"></i>
-                            <input type="text" placeholder="Start typing here to create a task..." required ng-maxlength="2048" ng-model="formDataTask[project.id].name">
-                            <button class="ui teal button" ng-click="createTask(project.id)">&emsp; Add Task &emsp;</button>                         
-                        </div>
+                            <div class="ui fluid action input" >
+                                <i class="large teal plus icon" style="padding-top: 10px;"></i>
+                                <input type="text" placeholder="Start typing here to create a task..." required ng-maxlength="2048" ng-model="formDataTask[project.id].name">
+                                <button class="ui teal button" ng-click="createTask(project.id)">&emsp; Add Task &emsp;</button>                         
+                            </div>
                         </form>       
                     </div>
                 </div>
@@ -75,7 +73,7 @@
                         <div class="fourteen wide column" style="padding: 2px;">
                             <div ng-class="task.status" >
                                 {{task.name}} 
-                                <span ng-show="showdeadline">
+                                <span ng-show="task.deadline">
                                     <i class="wait icon" data-tooltip="Deadline"></i>
                                     {{task.deadline | date: 'y MMM d, H:mm'}}
                                 </span>
@@ -101,6 +99,10 @@
             </tbody>
         </table>
     </div>
+
+    <div class="ui hidden divider"></div>
+    <div class="ui hidden divider"></div>
+
 </div>
 
 
