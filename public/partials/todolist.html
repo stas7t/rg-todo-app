@@ -74,8 +74,8 @@
                             <div ng-class="task.status" >
                                 {{task.name}} 
                                 <span ng-show="task.deadline">
-                                    <i class="wait icon" data-tooltip="Deadline"></i>
-                                    {{task.deadline | date: 'y MMM d, H:mm'}}
+                                    <!--<i class="wait icon" data-tooltip="Deadline"></i>-->
+                                    ( {{task.deadline | date: 'y MMM d, H:mm'}} )
                                 </span>
                             </div>
                         </div>
