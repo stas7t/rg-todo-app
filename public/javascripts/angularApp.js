@@ -270,33 +270,17 @@ app.controller('MainCtrl', [
         $scope.checkDeadline();
     };
 
-    // increase/decrease task priority 
+    // increase/decrease task priority (min priority=0, max priority=99)
     $scope.up = function(task) {
-        task.priority += 1;
-        /*
-        Tasks.update(task)
-            .success(function(data) {
-                $scope.tasks = data; // assign new list of tasks
-            })
-            .error(function(error) {
-                $scope.editT_modal = false;
-                console.log('Error: ' + error);
-            });
-            */
+        if (task.priority >= 0 && task.priority < 99) {
+            task.priority += 1;
+        }
     };
 
     $scope.down = function(task) {
-        task.priority -= 1;
-        /*
-        Tasks.update(task)
-            .success(function(data) {
-                $scope.tasks = data; // assign new list of tasks
-            })
-            .error(function(error) {
-                $scope.editT_modal = false;
-                console.log('Error: ' + error);
-            }); 
-            */
+        if (task.priority > 0 && task.priority <= 99) {
+            task.priority -= 1;
+        }
     };
 
     // CRUD
