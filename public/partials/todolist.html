@@ -61,34 +61,41 @@
               <tr style="border:  1px solid lightgrey;" ng-repeat="task in tasks | filter : {'project_id' : project.id} : true | orderBy: ['-status','-priority', 'id']" ng-mouseenter="showbuttons=true" ng-mouseup="showbuttons=true" ng-mouseleave="showbuttons=false" ng-class="{warning: showbuttons}" >
 
                 <td class="center aligned one wide red-right-border" style="padding: 5px;">
+                    <div>
                     <input class="" type="checkbox" ng-model="task.status" ng-true-value="'completed'" ng-false-value="'uncompleted'" ng-change="updateTask(task)">
+                    </div>
                 </td>
 
                 <td class="ten wide" ng-class="task.status">
+                    <div>
                     <span> {{task.name}} </span>
                     <span ng-show="task.deadline">
                         <!--<i class="wait icon" data-tooltip="Deadline"></i>-->
                         ( {{task.deadline | date: 'y MMM d, H:mm'}} )
-                    </span>		
+                    </span>	                        
+                    </div>
+	
                 </td>
 
                 <td class="center aligned one wide" style='border-left-style: none; padding: 0px;' > 
-                    
+                    <div>
                     <span class="" data-tooltip="{{task.deadline | date: 'y MMM d, H:mm'}}" ><i class="calendar icon" ></i></span>
-
+                    </div>
                 </td>								
                 
                 <td class="center aligned one wide" style='border-left-style: none; padding: 0px;'> 
-                    
-                    <span class="ui teal circular label" ng-show="task.priority !== 0" >99</span>
-
+                    <div>
+                    <span class="ui teal circular label" ng-show="task.priority !== 0" >{{task.priority}}</span>
+                    </div>
                 </td>	
 
                 <td class="center aligned three wide" >
+                    <div>
                     <i class="caret up link icon"      style='color: grey;' ng-show1="showbuttons" ng-click="up(task)" ng-mouseleave="updateTask(task)"> </i>
                     <i class="caret down link icon"    style='color: grey;' ng-show1="showbuttons" ng-click="down(task)" ng-mouseleave="updateTask(task)"> </i>
                     <i class="write link icon"         style='color: grey;' ng-show1="showbuttons" ng-click="editTask(task)"> </i>
                     <i class="trash outline link icon" style='color: grey;' ng-show1="showbuttons" ng-click="deleteTask(task.id)"> </i>
+                    </div>
                 </td>
               </tr>
 
