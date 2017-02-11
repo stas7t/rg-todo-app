@@ -60,13 +60,13 @@
               
               <tr style="border:  1px solid lightgrey;" ng-repeat="task in tasks | filter : {'project_id' : project.id} : true | orderBy: ['-status','-priority', 'id']" ng-mouseenter="showbuttons=true" ng-mouseup="showbuttons=true" ng-mouseleave="showbuttons=false" ng-class="{warning: showbuttons}" >
 
-                <td class="center aligned one wide red-right-border" style="padding: 5px;">
+                <td class="center aligned one wide red-right-border" >
                     <div>
                     <input class="" type="checkbox" ng-model="task.status" ng-true-value="'completed'" ng-false-value="'uncompleted'" ng-change="updateTask(task)">
                     </div>
                 </td>
 
-                <td class="ten wide" ng-class="task.status">
+                <td class="ten wide" ng-class="task.status" >
                     <div>
                     <span> {{task.name}} </span>
                     <span ng-show="task.deadline">
@@ -77,13 +77,13 @@
 	
                 </td>
 
-                <td class="center aligned one wide" style='border-left-style: none; padding: 0px;' > 
+                <td class="center aligned one wide" style='border-left-style: none; ' > 
                     <div>
                     <span class="" data-tooltip="{{task.deadline | date: 'y MMM d, H:mm'}}" ><i class="calendar icon" ></i></span>
                     </div>
                 </td>								
                 
-                <td class="center aligned one wide" style='border-left-style: none; padding: 0px;'> 
+                <td class="center aligned one wide" style='border-left-style: none; '> 
                     <div>
                     <span class="ui teal circular label" ng-show="task.priority !== 0 && task.status !== 'uncompleted'" >{{task.priority}}</span>
                     </div>
