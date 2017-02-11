@@ -85,12 +85,12 @@
                 
                 <td class="center aligned one wide" style='border-left-style: none; padding: 0px;'> 
                     <div>
-                    <span class="ui teal circular label" ng-show="task.priority !== 0" >{{task.priority}}</span>
+                    <span class="ui teal circular label" ng-show="task.priority !== 0 && task.status !== 'uncompleted'" >{{task.priority}}</span>
                     </div>
                 </td>	
 
                 <td class="center aligned three wide" >
-                    <div>
+                    <div style="border:  1px solid green;">
                     <i class="caret up link icon"      style='color: grey;' ng-show1="showbuttons" ng-click="up(task)" ng-mouseleave="updateTask(task)"> </i>
                     <i class="caret down link icon"    style='color: grey;' ng-show1="showbuttons" ng-click="down(task)" ng-mouseleave="updateTask(task)"> </i>
                     <i class="write link icon"         style='color: grey;' ng-show1="showbuttons" ng-click="editTask(task)"> </i>
