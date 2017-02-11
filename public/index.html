@@ -27,23 +27,20 @@
 
 <body ng-app="todolist2">
 
-  <div class="ui menu" ng-controller="NavCtrl">
-    <a ng-show="isLoggedIn()" class="item">
+  <div class="ui secondary menu" ng-controller="NavCtrl">
+    <a ng-show="isLoggedIn()" class="header item">
       <i class="large user icon"></i>
       {{ currentUser().username }}
     </a>
-    <a ng-show="isLoggedIn()" class="item">
-      {{ currentUser()._id }}
-    </a>
 
     <div class="right menu">
-        <a ng-hide="isLoggedIn()" class="item" ui-sref="login">
+        <a ng-hide="isLoggedIn()" class="header item" ui-sref="login">
           Log In
         </a>
-        <a ng-hide="isLoggedIn()" class="item" ui-sref="register">
+        <a ng-hide="isLoggedIn()" class="header item" ui-sref="register">
           Register
         </a>
-        <a ng-show="isLoggedIn()" class="item" href="" ng-click="logOut()">
+        <a ng-show="isLoggedIn()" class="header item" href="" ng-click="logOut()">
           Log Out
         </a>
     </div>
