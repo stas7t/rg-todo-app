@@ -2,6 +2,7 @@
 
 body {
   background-color: #f4f4f4;
+  background-image: url("/images/test_task_view.png");
 }
 
 .completed {
@@ -19,4 +20,22 @@ body {
 
 .no-left-border {
   border-left-style:   none; 
+}
+
+i {
+  margin-left: 0px;
+}
+
+
+
+#floater {
+    float: left;
+    height: 50%;
+    width: 100%;
+    margin-bottom: -50px;
+}
+
+#child {
+    clear: both;
+    height: 100px;
 }

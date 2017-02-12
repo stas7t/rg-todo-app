@@ -58,16 +58,16 @@
 
             <tbody > 
               
-              <tr style="border:  1px solid lightgrey;" ng-repeat="task in tasks | filter : {'project_id' : project.id} : true | orderBy: ['-status','-priority', 'id']" ng-mouseenter="showbuttons=true" ng-mouseup="showbuttons=true" ng-mouseleave="showbuttons=false" ng-class="{warning: showbuttons}" >
+              <tr style="padding: 0px 10px 0px 10px; border:  1px solid lightgrey;" ng-repeat="task in tasks | filter : {'project_id' : project.id} : true | orderBy: ['-status','-priority', 'id']" ng-mouseenter="showbuttons=true" ng-mouseup="showbuttons=true" ng-mouseleave="showbuttons=false" ng-class="{warning: showbuttons}" >
 
-                <td class="center aligned one wide red-right-border" style='padding: 5px;' >
+                <td class="center aligned  red-right-border" style='width: 45px; padding: 5px;' >
                     
-                    <input class="" type="checkbox" ng-model="task.status" ng-true-value="'completed'" ng-false-value="'uncompleted'" ng-change="updateTask(task)">
+                    <input class="ui checkbox" type="checkbox" ng-model="task.status" ng-true-value="'completed'" ng-false-value="'uncompleted'" ng-change="updateTask(task)">
                     
                 </td>
 
-                <td class="eleven wide" style='padding: 8px 0px 8px 8px;'  >
-                    <div ng-class="task.status" style="border:  1px solid green;">
+                <td class="" style='width: 485px; padding: 12px 0px 12px 8px;'  >
+                    <div ng-class="task.status" style="">
                     <span> {{task.name}} </span>
                     <span ng-show="task.deadline" data-tooltip="Deadline">
                         <!--<i class="wait icon" data-tooltip="Deadline"></i>-->
@@ -77,27 +77,46 @@
 	
                 </td>
 
-                <td class="right aligned one wide" style='border-left-style: none; padding: 0px;' > 
-                    <div style="border:  1px solid green;">
+                <td class="right aligned " style='width: 50px; border-left-style: none; padding: 2px;' > 
+                    <div >
                     <span class="" ng-show="task.deadline" data-tooltip="{{task.deadline | date: 'y MMM d, H:mm'}}" ><i class="calendar icon" ></i></span>
                     </div>
-                    <div style="border:  1px solid green;">
-                    <span style="margin-right: 3.5px" class="ui mini teal circular label" data-tooltip="Priority" ng-show="task.priority !== 0 && task.status !== 'completed'" >{{task.priority}}</span>
+                    <div >
+                    <span style="margin-right: 3.5px" class="ui basic circular label" data-tooltip="Priority" ng-show="task.priority !== 0 && task.status !== 'completed'" >{{task.priority}}</span>
                     </div>
                 </td>								
-                <!--
-                <td class="center aligned one wide" style='border-left-style: none; padding: 5px;'> 
-                    <div style="border:  1px solid green;">
-                    <span class="ui mini teal circular label" ng-show="task.priority !== 0 && task.status !== 'completed'" >{{task.priority}}</span>
-                    </div>
-                </td>	-->
 
-                <td class="center aligned three wide" style='padding: 5px 0px 5px 0px;'>
-                    <div style="border:  1px solid green;" ng-show1="showbuttons">
-                    <i class="caret up link icon"      style='color: grey;' ng-show1="showbuttons" ng-click="up(task)" ng-mouseleave="updateTask(task)"> </i>
-                    <i class="caret down link icon"    style='color: grey;' ng-show1="showbuttons" ng-click="down(task)" ng-mouseleave="updateTask(task)"> </i>
-                    <i class="write link icon"         style='color: grey;' ng-show1="showbuttons" ng-click="editTask(task)"> </i>
-                    <i class="trash outline link icon" style='color: grey;' ng-show1="showbuttons" ng-click="deleteTask(task.id)"> </i>
+
+                <td class="center aligned "  style="width: 120px; padding: 5px 0px 5px 0px;">
+
+                    <div class="ui middle aligned three column centered grid" style="" ng-show="showbuttons"> 
+
+                        <div class="stretched row" style="border:  1px none blue; padding: 0px 0px 0px 0px;">
+
+                        <div class="six wide right aligned column" style="border:  1px none mediumvioletred; padding: 0px 2px 0px 0px;">
+                            <div style="border:  1px none green;" ng-show1="showbuttons">
+                            <i class="caret up link icon"      style='color: grey; margin-left: 0px; vertical-align: bottom' ng-show1="showbuttons" ng-click="up(task)" ng-mouseleave="updateTask(task)"> </i>
+                            </div>
+                            <div style="border:  1px none green;" ng-show1="showbuttons">
+                            <i class="caret down link icon"    style='color: grey; margin-left: 0px; vertical-align: top' ng-show1="showbuttons" ng-click="down(task)" ng-mouseleave="updateTask(task)"> </i>
+                            </div>                        
+                        </div>
+
+                        <div class="five wide center aligned column" style="border:  1px none mediumvioletred; padding: 0px 0px 0px 0px;">
+                            <div style="border:  1px none green;" ng-show1="showbuttons">
+                            <i class="write  link icon"         style='color: grey; margin-left: 0px; vertical-align: middle' ng-show1="showbuttons" ng-click="editTask(task)"> </i>
+                            
+                            </div>                        
+                        </div>
+
+                        <div class="five wide left aligned column" style="border:  1px none mediumvioletred; padding: 0px 0px 0px 0px;">
+                            <div style="border:  1px none green;" ng-show1="showbuttons">
+                            
+                            <i class="trash  outline link icon" style='color: grey; margin-left: 0px; vertical-align: middle' ng-show1="showbuttons" ng-click="deleteTask(task.id)"> </i>
+                            </div>                        
+                        </div>
+
+                        </div>
                     </div>
                 </td>
               </tr>
@@ -106,7 +125,11 @@
         </table>
     </div>
 
-    <div class="ui hidden divider"></div>
+    <div class="ui hidden divider"></div> 
+    <br>
+
+
+    <br>
     <div class="ui hidden divider"></div>
 
 </div>
