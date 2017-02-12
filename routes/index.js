@@ -262,15 +262,18 @@ router.post('/api/:user_id/tasks', auth, function(req, res) {
 
 // update a task
 router.put('/api/:user_id/tasks/:task_id', auth, function(req, res) {
-    const results = [];
+    let results = [];
 
-    const user_id = req.params.user_id;
-    const id = req.params.task_id;
-    const name = req.body.name;
-    const status = req.body.status;
-    const priority = req.body.priority;
-    
-    var deadline = req.body.deadline;
+    let user_id = req.params.user_id;
+    let id = req.params.task_id;
+    let name = req.body.name;
+    let status = req.body.status;
+    let priority = req.body.priority;
+    let deadline = req.body.deadline;
+
+    if (!priority) {
+        priority = 0;
+    }
 
     if (!deadline) {
         deadline = null;
