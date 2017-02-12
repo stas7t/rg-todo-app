@@ -1,10 +1,16 @@
 /* app css stylesheet */
 
 body {
-  background-color: #f4f4f4;
-  background-image: url("/images/test_task_view.png");
-}
+  /*background-color: #f4f4f4;*/
 
+  background-color:#FF9C53;
+  /*background-image: url("/images/test_task_view.png");*/
+  background: url("/images/2fdOG0L-nexus-backgrounds.png") 100% 100% no-repeat;
+  background-size: cover;
+  background-position: right top;
+  background-attachment: fixed;
+
+}
 .completed {
     color: grey;
     text-decoration: line-through;
@@ -18,24 +24,15 @@ body {
   border-right:  6px double lightpink;
 }
 
-.no-left-border {
-  border-left-style:   none; 
+.last-row-left {
+  border-bottom-left-radius: 15px;
 }
 
-i {
-  margin-left: 0px;
+.last-row-right {
+  border-bottom-right-radius: 15px;
 }
 
 
 
-#floater {
-    float: left;
-    height: 50%;
-    width: 100%;
-    margin-bottom: -50px;
-}
 
-#child {
-    clear: both;
-    height: 100px;
-}
+

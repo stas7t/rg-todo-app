@@ -7,7 +7,6 @@
 
   <title>TODOlist app</title>
 
-  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css"> 
 
   <link rel="stylesheet" href="stylesheets/angularjs-datetime-picker.css">                          
@@ -27,13 +26,13 @@
 
 <body ng-app="todolist2">
 
-  <div class="ui secondary menu" ng-controller="NavCtrl">
-    <a ng-show="isLoggedIn()" class="header item">
+  <div class="ui secondary borderless menu" ng-controller="NavCtrl">
+    <span ng-show="isLoggedIn()" class="header item" >
       <i class="large user icon"></i>
       {{ currentUser().username }}
-    </a>
+    </span>
 
-    <div class="right menu">
+    <div class="right menu" >
         <a ng-hide="isLoggedIn()" class="header item" ui-sref="login">
           Log In
         </a>
