@@ -10,7 +10,7 @@ var pg       = require('pg');
 var mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://heroku_dd8vj1r8:q180kifa8njdvssjak2ubnrc2f@ds135577.mlab.com:35577/heroku_dd8vj1r8');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost');
 
 var passport = require('passport');
 

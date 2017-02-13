@@ -265,14 +265,23 @@ router.put('/api/:user_id/tasks/:task_id', auth, function(req, res) {
     let results = [];
 
     let user_id = req.params.user_id;
-    let id = req.params.task_id;
+    let task_id = req.params.task_id;
+
     let name = req.body.name;
     let status = req.body.status;
     let priority = req.body.priority;
     let deadline = req.body.deadline;
 
+    if (!name) {
+        console.log('No name: task name required');
+        return res.status(500).json({success: false, data: 'No name: task name required'});
+    }
+
     if (!priority) {
         priority = 0;
+    } else if ( isNaN( Number( priority ) ) ) {
+        console.log('Wrong data type: priority must be a number');
+        return res.status(500).json({success: false, data: 'Wrong data type: priority must be a number'});
     }
 
     if (!deadline) {
@@ -288,7 +297,7 @@ router.put('/api/:user_id/tasks/:task_id', auth, function(req, res) {
         return res.status(500).json({success: false, data: err});
         }
         // SQL Query > Update Data
-        client.query('UPDATE tasks SET name=($1), status=($2), priority=($3), deadline=($4) WHERE id=($5) AND user_id=($6)', [name, status, priority, deadline, id, user_id]);
+        client.query('UPDATE tasks SET name=($1), status=($2), priority=($3), deadline=($4) WHERE id=($5) AND user_id=($6)', [name, status, priority, deadline, task_id, user_id]);
 
         // SQL Query > Select Data
         const query = client.query('SELECT * FROM tasks WHERE user_id=($1)', [user_id]);

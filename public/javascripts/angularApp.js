@@ -1,9 +1,6 @@
-var app = angular.module('todolist2', ['ui.router','angularify.semantic', 'angularjs-datetime-picker']);
+let app = angular.module('todolist2', ['ui.router','angularify.semantic', 'angularjs-datetime-picker']);
 
-app.config([
-  '$stateProvider',
-  '$urlRouterProvider',
-  function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider
       .state('todolist', {
@@ -43,9 +40,9 @@ app.config([
       });
 
     $urlRouterProvider.otherwise('todolist');
-}]);
+});
 
-app.factory('auth', ['$http', '$window', function($http, $window){
+app.factory('auth', function($http, $window){
     var auth = {};
 
     auth.saveToken = function (token){
@@ -96,7 +93,7 @@ app.factory('auth', ['$http', '$window', function($http, $window){
     };
 
     return auth;
-}])
+})
 
 app.factory('Projects', function($http, auth) {
     return {
@@ -186,13 +183,7 @@ app.factory('Tasks', function($http, auth) {
     }
 });
 
-app.controller('MainCtrl', [
-  '$scope',
-  '$interval',
-  'Projects',
-  'Tasks',
-  'auth',
-  function($scope, $interval, Projects, Tasks, auth){
+app.controller('MainCtrl', function($scope, $interval, Projects, Tasks, auth){
     $scope.test = 'Hello world!';
 
     // Store data from forms
@@ -202,7 +193,8 @@ app.controller('MainCtrl', [
     $scope.isLoggedIn = auth.isLoggedIn;
 
     $scope.checkDeadline = function() {
-
+        if (auth.isLoggedIn) {
+            
         // check deadline of each task
         for (t in $scope.tasks) {
 
@@ -211,7 +203,7 @@ app.controller('MainCtrl', [
                 var isExpired = Date.parse( Date() ) > Date.parse( $scope.tasks[t].deadline );
 
                 if ( isExpired && $scope.tasks[t].status == 'uncompleted' ) {
-                    $scope.tasks[t].status = 'expired';
+                    $scope.tasks[t].status = 'uncompleted expired';
 
                     Tasks.update($scope.tasks[t])
                         .success(function(data) {
@@ -220,7 +212,7 @@ app.controller('MainCtrl', [
                         .error(function(error) {
                             console.log('Error: ' + error);
                         }); 
-                } else if (!isExpired && $scope.tasks[t].status == 'expired') {
+                } else if (!isExpired && $scope.tasks[t].status == 'uncompleted expired') {
                     $scope.tasks[t].status = 'uncompleted';
 
                     Tasks.update($scope.tasks[t])
@@ -232,7 +224,7 @@ app.controller('MainCtrl', [
                         }); 
                 }
 
-            } else if ($scope.tasks[t].status == 'expired') {
+            } else if ($scope.tasks[t].status !== 'uncompleted' || $scope.tasks[t].status !== 'completed') {
                     $scope.tasks[t].status = 'uncompleted';
 
                     Tasks.update($scope.tasks[t])
@@ -244,11 +236,13 @@ app.controller('MainCtrl', [
                         }); 
                 }
             }
+
+        }
     };
 
     // check deadline every 5 minute 
     $scope.checkDeadline();
-    $interval($scope.checkDeadline, 1000*60*5);
+    $interval($scope.checkDeadline, 1000*60*1);
 
     // open/close modal windows 
     $scope.addProject = function() {
@@ -270,16 +264,26 @@ app.controller('MainCtrl', [
         $scope.checkDeadline();
     };
 
-    // increase/decrease task priority (min priority=0, max priority=99)
+    // increase/decrease task priority (min priority=0, max priority=10)
+    let maxPriority = 10;
+
     $scope.up = function(task) {
-        if (task.priority >= 0 && task.priority < 99) {
+        if (task.priority >= 0 && task.priority < maxPriority) {
             task.priority += 1;
+        } else if (task.priority >= maxPriority) {
+            task.priority = maxPriority;
+        } else if (task.priority < 0) {
+            task.priority = 0;
         }
     };
 
     $scope.down = function(task) {
-        if (task.priority > 0 && task.priority <= 99) {
+        if (task.priority > 0 && task.priority <= maxPriority) {
             task.priority -= 1;
+        } else if (task.priority > maxPriority) {
+            task.priority = maxPriority;
+        } else if (task.priority < 0) {
+            task.priority = 0;
         }
     };
 
@@ -419,13 +423,9 @@ app.controller('MainCtrl', [
                 console.log('Error: ' + error);
             });
     };
-}]);
+});
 
-app.controller('AuthCtrl', [
-  '$scope',
-  '$state',
-  'auth',
-  function($scope, $state, auth){
+app.controller('AuthCtrl', function($scope, $state, auth){
     $scope.user = {};
 
     $scope.register = function(){
@@ -445,18 +445,14 @@ app.controller('AuthCtrl', [
         $state.go('todolist');
       });
     };
-}]);
+});
 
-app.controller('NavCtrl', [
-  '$scope',
-  '$state',
-  'auth',
-  function($scope, $state, auth){
+app.controller('NavCtrl', function($scope, $state, auth){
     $scope.isLoggedIn = auth.isLoggedIn;
     $scope.currentUser = auth.currentUser;
     $scope.logOut = function(){
       auth.logOut();
       $state.go('login');
     }
-}]);
+});
 
