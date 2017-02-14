@@ -184,13 +184,14 @@ app.factory('Tasks', function($http, auth) {
 });
 
 app.controller('MainCtrl', function($scope, $interval, Projects, Tasks, auth){
-    $scope.isPriorityChanged = false;
 
     // Store data from forms
     $scope.formDataProject = {};
     $scope.formDataTask = [];
 
     $scope.isLoggedIn = auth.isLoggedIn;
+
+    $scope.isPriorityChanged = false;
 
     $scope.checkDeadline = function() {
         if (auth.isLoggedIn) {
@@ -286,6 +287,13 @@ app.controller('MainCtrl', function($scope, $interval, Projects, Tasks, auth){
             task.priority = 0;
         }
     };
+
+    $scope.updatePriority = function(task) {
+        if($scope.isPriorityChanged) {
+            $scope.updateTask(task); 
+            $scope.isPriorityChanged = false
+        }
+    }
 
     // CRUD
     // GET =====================================================================
