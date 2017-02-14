@@ -172,7 +172,7 @@
 
             <div class="field">
                 <label>TODO list name</label>
-                <input type="text" name="projectName" value="$parent.edited_project.name" ng-model="$parent.edited_project.name" required maxlength="512">
+                <input type="text" name="projectName" ng-model="$parent.edited_project.name" required maxlength="512">
             </div>
            
             <button class="ui right floated blue button" type="submit" style="margin-bottom: 10px;">Ok</button>             
@@ -192,19 +192,19 @@
 
             <div class="field">
                 <label>Name</label>
-                <input type="text" name="taskName" value="$parent.edited_task.name" ng-model="$parent.edited_task.name" required maxlength="2048">
+                <input type="text" name="taskName" ng-model="$parent.edited_task.name" required maxlength="2048">
             </div>
             
             <div class="fields">
                 <div class="two wide field">
                     <label>Priority</label>
-                    <input type="number" name="taskPriority"  ng-model="$parent.edited_task.priority">
+                    <input type="number" name="taskPriority" ng-model="$parent.edited_task.priority" min="0" max="10">
                 </div>
 
                 <div class="fourteen wide field">
                     <label><i class="calendar icon"></i>Deadline</label>
                     <div class="ui input icon">
-                        <i class="remove right red link icon" ng-click="$parent.edited_task.deadline = ''; checkDeadline()"></i>
+                        <i class="remove right red link icon" ng-click="$parent.edited_task.deadline = null; checkDeadline()"></i>
                         <input name="taskDeadline" ng-model="$parent.edited_task.deadline" datetime-picker future-only date-format="yyyy-MM-dd HH:mm:ss"/>
                     </div>      
                 </div>
