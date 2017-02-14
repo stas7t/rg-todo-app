@@ -1,6 +1,5 @@
-<div  class="ui middle aligned one column grid" ng-repeat="project in projects | orderBy: ['id']">
+<div class="ui middle aligned one column grid" ng-repeat="project in projects | orderBy: ['id']">
     <div class="sixteen wide column " style="padding: 0px;">
-
         <table class="ui unstackable celled table " style="border-style: none; background: none; border-collapse: collapse; box-shadow: 2px 2px 2px grey; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">
         
             <thead>
@@ -57,13 +56,10 @@
             </thead>
 
             <tbody > 
-              
               <tr style="padding: 0px 0px 0px 0px; background-color: white;" ng-repeat="task in tasks | filter : {'project_id' : project.id} : true | orderBy: ['-status[0]','-priority', 'id']" ng-mouseenter="showbuttons=true" ng-mouseup="showbuttons=true" ng-mouseleave="showbuttons=false" ng-class="{warning: showbuttons}" >
 
-                <td id="Checkbox" class="center aligned red-right-border" style="width: 48px; min-width: 22px; padding: 10px 0px 10px 0px;" ng-class="{'last-row-left':$last}">
-                    
-                    <input class="ui checkbox" type="checkbox" ng-model="task.status" ng-true-value="'completed'" ng-false-value="'uncompleted'" ng-change="updateTask(task)">
-                    
+                <td id="Task-checkbox" class="center aligned red-right-border" style="width: 48px; min-width: 22px; padding: 10px 0px 10px 0px;" ng-class="{'last-row-left':$last}">
+                    <input class="ui checkbox" type="checkbox" ng-model="task.status" ng-true-value="'completed'" ng-false-value="'uncompleted'" ng-change="updateTask(task)"> 
                 </td>
 
                 <td id="Task-name" class="" style="width: 522px; padding: 5px 0px 5px 5px;">
@@ -82,32 +78,29 @@
 	                </div>
                 </td>						
                 
-                <td id="Buttons-cell" class="center aligned" style="width: 130px; min-width: 60px; padding: 0px 0px 0px 0px;" ng-class="{'last-row-right':$last}">
+                <td id="Task-buttons" class="center aligned" style="width: 130px; min-width: 60px; padding: 0px 0px 0px 0px;" ng-class="{'last-row-right':$last}">
 
                     <div class="ui middle aligned three column centered grid" ng-show="showbuttons"> 
-
                         <div class="stretched row">
 
                         <div class="six wide right aligned column" style="padding: 0px 2px 0px 0px;">
-                            <div  ng-show1="showbuttons">
-                            <i class="caret up link icon"      style='color: grey; margin-left: 0px; vertical-align: bottom' ng-show1="showbuttons" ng-click="up(task)" ng-mouseleave="updateTask(task)"> </i>
+                            <div>
+                            <i class="caret up link icon" style='color: grey; margin-left: 0px; vertical-align: bottom' ng-click="up(task); isPriorityChanged = true" ng-mouseleave="if(isPriorityChanged) {updateTask(task); isPriorityChanged = false}"></i> 
                             </div>
-                            <div  ng-show1="showbuttons">
-                            <i class="caret down link icon"    style='color: grey; margin-left: 0px; vertical-align: top' ng-show1="showbuttons" ng-click="down(task)" ng-mouseleave="updateTask(task)"> </i>
+                            <div>
+                            <i class="caret down link icon" style='color: grey; margin-left: 0px; vertical-align: top' ng-click="down(task); isPriorityChanged = true" ng-mouseleave="if(isPriorityChanged) {updateTask(task); isPriorityChanged = false}"></i>
                             </div>                        
                         </div>
 
                         <div class="five wide center aligned column" style="padding: 0px 0px 0px 0px;">
-                            <div  ng-show1="showbuttons">
-                            <i class="write  link icon"         style='color: grey; margin-left: 0px; vertical-align: middle' ng-show1="showbuttons" ng-click="editTask(task)"> </i>
-                            
+                            <div>
+                            <i class="write link icon" style='color: grey; margin-left: 0px; vertical-align: middle' ng-click="editTask(task)"></i>
                             </div>                        
                         </div>
 
                         <div class="five wide left aligned column" style="padding: 0px 0px 0px 0px;">
-                            <div  ng-show1="showbuttons">
-                            
-                            <i class="trash  outline link icon" style='color: grey; margin-left: 0px; vertical-align: middle' ng-show1="showbuttons" ng-click="deleteTask(task.id)"> </i>
+                            <div>
+                            <i class="trash outline link icon" style='color: grey; margin-left: 0px; vertical-align: middle' ng-click="deleteTask(task.id)"></i>
                             </div>                        
                         </div>
 
@@ -115,19 +108,11 @@
                     </div>
                 </td>
               </tr>
-
             </tbody>
         </table>
+        <div class="ui hidden divider"></div>    
     </div>
-
-    <div class="ui hidden divider"></div> 
-
 </div>
-
-
-        
-
-<div class="ui hidden divider"></div>
 
 <div class="ui hidden divider"></div>
 
@@ -142,7 +127,6 @@
 <!-- Modal windows -->
 
 <!-- Add Project -->
-<div class="ui inverted dimmer modals page">
 <modal ng-model="addProjectModal" class="small">
     <i class="close icon" ng-click="close_modal(addProjectModal)"></i>
     <div class="header">
@@ -170,14 +154,12 @@
     </div>
     <div class="content">
         <form class="ui form" name="EditProject" ng-submit="updateProject($parent.edited_project)">
-
             <div class="field">
                 <label>TODO list name</label>
                 <input type="text" name="projectName" ng-model="$parent.edited_project.name" required maxlength="512">
             </div>
            
-            <button class="ui right floated blue button" type="submit" style="margin-bottom: 10px;">Ok</button>             
-                   
+            <button class="ui right floated blue button" type="submit" style="margin-bottom: 10px;">Ok</button>                     
         </form>
     </div>
 </modal>
@@ -186,11 +168,10 @@
 <modal ng-model="editTaskModal" class="small">
     <i class="close icon" ng-click="close_modal(editTaskModal)"></i>
     <div class="header">
-    Edit task
+        Edit task
     </div>
     <div class="content">
         <form class="ui form" name="EditTask" ng-submit="updateTask($parent.edited_task)">
-
             <div class="field">
                 <label>Name</label>
                 <input type="text" name="taskName" ng-model="$parent.edited_task.name" required maxlength="2048">
@@ -210,9 +191,7 @@
                     </div>      
                 </div>
             </div>
-            <button class="ui right floated blue button" type="submit" style="margin-bottom: 10px;">Ok</button>             
-                   
+            <button class="ui right floated blue button" type="submit" style="margin-bottom: 10px;">Ok</button>                 
         </form>
     </div>
 </modal>
-</div>

@@ -184,7 +184,7 @@ app.factory('Tasks', function($http, auth) {
 });
 
 app.controller('MainCtrl', function($scope, $interval, Projects, Tasks, auth){
-    $scope.test = 'Hello world!';
+    $scope.isPriorityChanged = false;
 
     // Store data from forms
     $scope.formDataProject = {};

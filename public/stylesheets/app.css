@@ -10,7 +10,7 @@ body {
   background-position: right top;
   background-attachment: fixed;
 
-  padding: 15px;
+  padding: 15px 1px 15px 1px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 
 }
