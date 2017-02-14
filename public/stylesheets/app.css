@@ -10,6 +10,9 @@ body {
   background-position: right top;
   background-attachment: fixed;
 
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
 }
 .completed {
     color: grey;

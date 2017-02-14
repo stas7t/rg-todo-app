@@ -4,7 +4,7 @@
 //require('../models/task');
 
 //uncomment to modify tables
-//require('../models/a');
+require('../models/a');
 //------------
 
 var express = require('express');
