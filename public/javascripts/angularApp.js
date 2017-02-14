@@ -290,8 +290,15 @@ app.controller('MainCtrl', function($scope, $interval, Projects, Tasks, auth){
 
     $scope.updatePriority = function(task) {
         if($scope.isPriorityChanged) {
-            $scope.updateTask(task); 
-            $scope.isPriorityChanged = false
+            Tasks.update(task)
+                .success(function(data) {
+                    $scope.isPriorityChanged = false;
+                    $scope.tasks = data;
+                })
+                .error(function(error) {
+                    $scope.isPriorityChanged = false;
+                    console.log('Error: ' + error);
+                }); 
         }
     }
 
