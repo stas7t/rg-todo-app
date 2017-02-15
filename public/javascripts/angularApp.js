@@ -276,6 +276,7 @@ app.controller('MainCtrl', function($scope, $interval, Projects, Tasks, auth){
         } else if (task.priority < 0) {
             task.priority = 0;
         }
+        $scope.isPriorityChanged = true
     };
 
     $scope.down = function(task) {
@@ -286,12 +287,13 @@ app.controller('MainCtrl', function($scope, $interval, Projects, Tasks, auth){
         } else if (task.priority < 0) {
             task.priority = 0;
         }
+        $scope.isPriorityChanged = true
     };
 
     $scope.updatePriority = function(task) {
-        console.log('updatePriority')
+        
         if($scope.isPriorityChanged) {
-            
+
             console.log($scope.isPriorityChanged);
             console.log('updatePriority');
 
