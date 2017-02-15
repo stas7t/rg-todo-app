@@ -1,26 +1,25 @@
-var express = require('express');
-var path = require('path');
-//var favicon = require('static-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var methodOverride = require('method-override');
+let express = require('express');
+let path = require('path');
+let logger = require('morgan');
+let cookieParser = require('cookie-parser');
+let bodyParser = require('body-parser');
+let methodOverride = require('method-override');
 
-var pg       = require('pg'); 
-var mongoose = require('mongoose');
+let pg       = require('pg'); 
+let mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost');
 
-var passport = require('passport');
+let passport = require('passport');
 
 require('./models/Users');
 require('./config/passport');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+let routes = require('./routes/index');
+let users = require('./routes/users');
 
-var app = express();
+let app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -42,7 +41,7 @@ app.use('/users', users);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
-    var err = new Error('Not Found');
+    let err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
@@ -74,7 +73,7 @@ app.use(function(err, req, res, next) {
 // run app
 app.set('port', process.env.PORT || 8080);
 
-var server = app.listen(app.get('port'), function() {
+let server = app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + server.address().port);
 });
 

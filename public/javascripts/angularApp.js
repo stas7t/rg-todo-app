@@ -43,7 +43,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 });
 
 app.factory('auth', function($http, $window){
-    var auth = {};
+    let auth = {};
 
     auth.saveToken = function (token){
         $window.localStorage['auth-token'] = token;
@@ -54,10 +54,10 @@ app.factory('auth', function($http, $window){
     };
 
     auth.isLoggedIn = function(){
-      var token = auth.getToken();
+      let token = auth.getToken();
 
       if(token){
-        var payload = JSON.parse($window.atob(token.split('.')[1]));
+        let payload = JSON.parse($window.atob(token.split('.')[1]));
 
         return payload.exp > Date.now() / 1000;
       } else {
@@ -67,8 +67,8 @@ app.factory('auth', function($http, $window){
 
     auth.currentUser = function(){
       if(auth.isLoggedIn()){
-        var token = auth.getToken();
-        var payload = JSON.parse($window.atob(token.split('.')[1]));
+        let token = auth.getToken();
+        let payload = JSON.parse($window.atob(token.split('.')[1]));
 
         return payload;
       }
@@ -192,15 +192,15 @@ app.controller('MainCtrl', function($scope, $interval, Projects, Tasks, auth){
 
     $scope.isPriorityChanged = false;
 
+    // Deadline: set, del, check
     $scope.checkDeadline = function() {
-        if (auth.isLoggedIn) {
-            
+
         // check deadline of each task
         for (t in $scope.tasks) {
 
             if ($scope.tasks[t].deadline) {
 
-                var isExpired = Date.parse( Date() ) > Date.parse( $scope.tasks[t].deadline );
+                let isExpired = Date.parse( Date() ) > Date.parse( $scope.tasks[t].deadline );
 
                 if ( isExpired && $scope.tasks[t].status == 'uncompleted' ) {
                     $scope.tasks[t].status = 'uncompleted expired';
@@ -223,22 +223,20 @@ app.controller('MainCtrl', function($scope, $interval, Projects, Tasks, auth){
                             console.log('Error: ' + error);
                         }); 
                 }
-
-            } else if ($scope.tasks[t].status !== 'uncompleted' || $scope.tasks[t].status !== 'completed') {
-                    $scope.tasks[t].status = 'uncompleted';
-
-                    Tasks.update($scope.tasks[t])
-                        .success(function(data) {
-                            $scope.tasks = data;
-                        })
-                        .error(function(error) {
-                            console.log('Error: ' + error);
-                        }); 
-                }
-            }
-
+            } 
         }
     };
+
+    $scope.setDeadline = function(newDL) {
+        if (angular.isDate(newDL)) {
+            $scope.edited_task.deadline = $scope.edited_task.deadlineDateTime;
+        }
+    }; 
+
+    $scope.deleteDeadline = function() {
+        $scope.edited_task.deadline = null;
+        $scope.edited_task.deadlineDateTime = null;
+    }; 
 
     // check deadline every 5 minute 
     $scope.checkDeadline();
@@ -256,6 +254,17 @@ app.controller('MainCtrl', function($scope, $interval, Projects, Tasks, auth){
 
     $scope.editTask = function(task) {
         $scope.edited_task = task;
+
+        if (task.deadline) {
+            $scope.enableDeadlineInput = true;
+            let date =  new Date( Date.parse(task.deadline) );
+            $scope.edited_task.deadlineDateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes());
+        } else {
+            $scope.enableDeadlineInput = false;
+            let date =  new Date();
+            $scope.edited_task.deadlineDateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes());
+        }
+        
         $scope.editTaskModal = true;
     };
 
@@ -263,6 +272,7 @@ app.controller('MainCtrl', function($scope, $interval, Projects, Tasks, auth){
         modal = false;
         $scope.checkDeadline();
     };
+
 
     // increase/decrease task priority (min priority=0, max priority=10)
     let maxPriority = 10;
@@ -392,13 +402,6 @@ app.controller('MainCtrl', function($scope, $interval, Projects, Tasks, auth){
     $scope.updateTask = function(task) {
         // check that the task.name is not empty
         if (task.name) {
-
-            //Convert datetime from local time to GMT (toISOString)
-            //Check that task.deadline is alrady set AND not ends with "Z" 
-            if (task.deadline && !task.deadline.endsWith('Z')) {
-                dd = new Date(task.deadline);
-                task.deadline = dd.toISOString();
-            }
 
             Tasks.update(task)
                 // if successful update, call get function to get all the new tasks

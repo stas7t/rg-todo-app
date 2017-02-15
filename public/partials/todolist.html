@@ -177,19 +177,51 @@
                 <input type="text" name="taskName" ng-model="$parent.edited_task.name" required maxlength="2048">
             </div>
             
-            <div class="fields">
-                <div class="two wide field">
-                    <label>Priority</label>
-                    <input type="number" name="taskPriority" ng-model="$parent.edited_task.priority" min="0" max="10">
-                </div>
 
-                <div class="fourteen wide field">
-                    <label><i class="calendar icon"></i>Deadline</label>
-                    <div class="ui input icon">
-                        <i class="remove right red link icon" ng-click="$parent.edited_task.deadline = null; checkDeadline()"></i>
-                        <input name="taskDeadline" ng-model="$parent.edited_task.deadline" datetime-picker future-only date-format="yyyy-MM-dd HH:mm:ss"/>
+            <div class="three wide field">
+                <label>Priority</label>
+                <input type="number" name="taskPriority" ng-model="$parent.edited_task.priority" min="0" max="10">
+            </div>
+
+            <div class="fields">
+
+                <div class="seven wide field" ng-class="{'disabled ': !enableDeadlineInput}">
+                    <label><i class="calendar icon"></i>Date</label>
+                    <div class="ui input">
+                        <input type="date" name="taskDeadlineDate" min="2017-01-01" ng-model="$parent.edited_task.deadlineDateTime" ng-change="setDeadline($parent.edited_task.deadlineDateTime)">
                     </div>      
                 </div>
+
+                <div class="six wide field" ng-class="{'disabled ': !enableDeadlineInput}">
+                    <label><i class="wait icon"></i>Time</label>
+                    <div class="ui input">
+                        <input type="time" placeholder="HH:mm" name="taskDeadlineTime" ng-model="$parent.edited_task.deadlineDateTime" ng-change="setDeadline($parent.edited_task.deadlineDateTime)">
+                    </div>      
+                </div>
+
+                <div class="three wide field" ng-class="{'disabled ': !enableDeadlineInput}">
+                    <label><i class="wait icon"></i>Remove</label>
+                    <div class="ui icon fluid button" ng-click="deleteDeadline()">
+                    <i class="delete calendar icon" ></i>
+                    </div>                        
+                </div>
+
+            </div>
+
+            <div class="ui checkbox" ng-class="{'disabled ': enableDeadlineInput}">
+                <input type="checkbox" tabindex="0" class="ui checkbox" ng-class="{'hidden ': $parent.edited_task.deadline}" ng-model="enableDeadlineInput" ng-true-value="true" ng-false-value="false">
+                <label>Set a deadline date</label>
+            </div>                     
+               
+
+            
+
+
+
+<!--input class="ui checkbox" type="checkbox" ng-model="enableDeadlineInput" ng-true-value="true" ng-false-value="false" ng-change="enableDeadlineInput = !enableDeadlineInput"-->
+
+            <div>
+                {{$parent.edited_task.deadline}} *** {{enableDeadlineInput}}
             </div>
             <button class="ui right floated blue button" type="submit" style="margin-bottom: 10px;">Ok</button>                 
         </form>
