@@ -75,7 +75,6 @@ app.factory('auth', function($http, $window){
     };
 
     auth.register = function(user){
-      console.log(user);
 
       return $http.post('/user/register', user).success(function(data){
         auth.saveToken(data.token);
@@ -294,9 +293,6 @@ app.controller('MainCtrl', function($scope, $interval, Projects, Tasks, auth){
         
         if($scope.isPriorityChanged) {
 
-            console.log($scope.isPriorityChanged);
-            console.log('updatePriority');
-
             Tasks.update(task)
                 .success(function(data) {
                     $scope.isPriorityChanged = false;
@@ -315,8 +311,6 @@ app.controller('MainCtrl', function($scope, $interval, Projects, Tasks, auth){
     Projects.get()
         .success(function(data) {
             $scope.projects = data;
-            //console.log('$scope.projects');
-            //console.log($scope.projects);
         })
         .error(function(error) {
             console.log('Error: ' + error);
@@ -325,8 +319,6 @@ app.controller('MainCtrl', function($scope, $interval, Projects, Tasks, auth){
     Tasks.get()
         .success(function(data) {
             $scope.tasks = data;
-            //console.log('$scope.tasks');
-            //console.log($scope.tasks);
         })
         .error(function(error) {
             console.log('Error: ' + error);
