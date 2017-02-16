@@ -1,4 +1,4 @@
-var app = angular.module('todolistApp', ['ui.router','angularify.semantic']);
+var app = angular.module('todolistApp', ['ui.router', 'angularify.semantic']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
 
@@ -92,7 +92,7 @@ app.factory('auth', function($http, $window){
     };
 
     return auth;
-})
+});
 
 app.factory('Projects', function($http, auth) {
     return {
