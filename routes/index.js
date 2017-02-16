@@ -33,11 +33,13 @@ router.post('/user/register', function(req, res, next){
     return res.status(400).json({message: 'Please fill out all fields'});
   }
 
+
   User.findOne({ username: req.body.username }, function (err, user) {
       
-    if(err){ return next(err); }
+    if (err) { return next(err); }
+
     if (user) {
-        res.status(400).json({message: 'This username already exists'});
+        return res.status(400).json({message: 'This username already exists'});
     }
   });
 
@@ -49,7 +51,7 @@ router.post('/user/register', function(req, res, next){
 
   user.setPassword(req.body.password)
 
-  user.save(function (err){
+  user.save(function (err) {
     if(err){ return next(err); }
 
     return res.json({token: user.generateJWT()})
