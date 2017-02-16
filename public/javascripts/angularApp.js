@@ -1,4 +1,4 @@
-let app = angular.module('todolistApp', ['ui.router','angularify.semantic']);
+var app = angular.module('todolistApp', ['ui.router','angularify.semantic']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
 
@@ -43,7 +43,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 });
 
 app.factory('auth', function($http, $window){
-    let auth = {};
+    var auth = {};
 
     auth.saveToken = function (token){
         $window.localStorage['auth-token'] = token;
@@ -54,10 +54,10 @@ app.factory('auth', function($http, $window){
     };
 
     auth.isLoggedIn = function(){
-      let token = auth.getToken();
+      var token = auth.getToken();
 
       if(token){
-        let payload = JSON.parse($window.atob(token.split('.')[1]));
+        var payload = JSON.parse($window.atob(token.split('.')[1]));
 
         return payload.exp > Date.now() / 1000;
       } else {
@@ -67,8 +67,8 @@ app.factory('auth', function($http, $window){
 
     auth.currentUser = function(){
       if(auth.isLoggedIn()){
-        let token = auth.getToken();
-        let payload = JSON.parse($window.atob(token.split('.')[1]));
+        var token = auth.getToken();
+        var payload = JSON.parse($window.atob(token.split('.')[1]));
 
         return payload;
       }
@@ -200,7 +200,7 @@ app.controller('MainCtrl', function($scope, $interval, Projects, Tasks, auth){
 
             if ($scope.tasks[t].deadline) {
 
-                let isExpired = Date.parse( Date() ) > Date.parse( $scope.tasks[t].deadline );
+                var isExpired = Date.parse( Date() ) > Date.parse( $scope.tasks[t].deadline );
 
                 if ( isExpired && $scope.tasks[t].status == 'uncompleted' ) {
                     $scope.tasks[t].status = 'uncompleted expired';
@@ -256,11 +256,11 @@ app.controller('MainCtrl', function($scope, $interval, Projects, Tasks, auth){
         $scope.edited_task = task;
 
         if (task.deadline) {
-            let date =  new Date( Date.parse(task.deadline) );
+            var date =  new Date( Date.parse(task.deadline) );
             $scope.edited_task.deadlineDateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes());
             $scope.edited_task.enableDeadlineInput = true;
         } else {
-            let date =  new Date();
+            var date =  new Date();
             $scope.edited_task.deadlineDateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes());
             $scope.edited_task.enableDeadlineInput = false;
         }
@@ -275,7 +275,7 @@ app.controller('MainCtrl', function($scope, $interval, Projects, Tasks, auth){
 
 
     // increase/decrease task priority (min priority=0, max priority=10)
-    let maxPriority = 10;
+    var maxPriority = 10;
 
     $scope.up = function(task) {
         if (task.priority >= 0 && task.priority < maxPriority) {
