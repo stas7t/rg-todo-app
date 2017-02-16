@@ -136,7 +136,7 @@
         <form class="ui form" name="AddProject" ng-submit="createProject()">
 
             <div class="field">
-                <label>TODO list name</label>
+                <label>Name</label>
                 <input type="text" name="projectName" placeholder="TODO List name" ng-model="$parent.formDataProject.name" required maxlength="512">
             </div>
            
@@ -155,7 +155,7 @@
     <div class="content">
         <form class="ui form" name="EditProject" ng-submit="updateProject($parent.edited_project)">
             <div class="field">
-                <label>TODO list name</label>
+                <label>Name</label>
                 <input type="text" name="projectName" ng-model="$parent.edited_project.name" required maxlength="512">
             </div>
            

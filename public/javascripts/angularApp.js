@@ -1,4 +1,4 @@
-let app = angular.module('todolist2', ['ui.router','angularify.semantic', 'angularjs-datetime-picker']);
+let app = angular.module('todolist2', ['ui.router','angularify.semantic']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
 
@@ -269,8 +269,7 @@ app.controller('MainCtrl', function($scope, $interval, Projects, Tasks, auth){
     };
 
     $scope.close_modal = function(modal) {
-        modal = false;
-        //$scope.enableDeadlineInput = false;
+        modal = false;        
         $scope.checkDeadline();
     };
 
@@ -407,13 +406,11 @@ app.controller('MainCtrl', function($scope, $interval, Projects, Tasks, auth){
             Tasks.update(task)
                 // if successful update, call get function to get all the new tasks
                 .success(function(data) {
-                    $scope.editTaskModal = false;
-                    //$scope.enableDeadlineInput = false;
+                    $scope.editTaskModal = false;                    
                     $scope.tasks = data; // assign new list of tasks
                 })
                 .error(function(error) {
-                    $scope.editTaskModal = false;
-                    //$scope.enableDeadlineInput = false;
+                    $scope.editTaskModal = false;                    
                     console.log('Error: ' + error);
                 });                
         }

@@ -11,7 +11,8 @@ body {
   background-attachment: fixed;
 
   padding: 15px 1px 15px 1px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  /*font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;*/
+  font-family: 'Roboto', sans-serif;
 
 }
 .completed {
