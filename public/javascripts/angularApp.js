@@ -1,4 +1,4 @@
-let app = angular.module('todolist2', ['ui.router','angularify.semantic']);
+let app = angular.module('todolistApp', ['ui.router','angularify.semantic']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
 

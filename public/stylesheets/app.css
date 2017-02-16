@@ -1,31 +1,26 @@
 /* app css stylesheet */
 
 body {
-  /*background-color: #f4f4f4;*/
-
-  background-color:#FF9C53;
-  /*background-image: url("/images/test_task_view.png");*/
-  background: url("/images/2fdOG0L-nexus-backgrounds.png") 100% 100% no-repeat;
+  background-color: #f4f4f4;
+  background: url("/images/background.png") 100% 100% no-repeat;
   background-size: cover;
   background-position: right top;
   background-attachment: fixed;
 
   padding: 15px 1px 15px 1px;
-  /*font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;*/
-  font-family: 'Roboto', sans-serif;
-
 }
+
 .completed {
     color: grey;
     text-decoration: line-through;
 }
 
 .expired {
-    color: red;
+    color: 	#ff3300;
 }
 
 .red-right-border {
-  border-right:  6px double lightpink;
+  border-right:  6px double #ff6666;
 }
 
 .last-row-left {
@@ -35,8 +30,3 @@ body {
 .last-row-right {
   border-bottom-right-radius: 15px;
 }
-
-
-
-
-

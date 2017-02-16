@@ -2,13 +2,11 @@ let mongoose = require('mongoose');
 let crypto = require('crypto');
 let jwt = require('jsonwebtoken');
 
-
 let UserSchema = new mongoose.Schema({
   username: {type: String, lowercase: true, unique: true},
   hash: String,
   salt: String
 });
-
 
 UserSchema.methods.setPassword = function(password){
   this.salt = crypto.randomBytes(16).toString('hex');
@@ -35,6 +33,5 @@ UserSchema.methods.generateJWT = function() {
     exp: parseInt(exp.getTime() / 1000),
   }, process.env.SECRET || 'rubygarage2017rubygarage');
 };
-
 
 module.exports = mongoose.model('User', UserSchema);

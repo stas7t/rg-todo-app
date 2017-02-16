@@ -4,7 +4,7 @@
     <h2 class="ui blue image header">
 
       <div class="content">
-        Log-in to your account
+        Log in to your account
       </div>
     </h2>
     <form class="ui large form" ng-submit="logIn()">
@@ -21,12 +21,12 @@
             <input type="password" name="password" placeholder="Password" ng-model="user.password">
           </div>
         </div>
-        <button type="submit" class="ui fluid large blue submit button"> Log In </button>
+        <button type="submit" class="ui fluid large blue submit button"> Log in </button>
       </div>
     </form>
     <div class="ui error message" ng-show="error">{{ error.message }}</div>
     <div class="ui warning message">
-      New user? <a  ui-sref="register">Register</a>
+      New user? <a ui-sref="register">Register</a>
     </div>
   </div>
 </div>

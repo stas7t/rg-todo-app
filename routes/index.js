@@ -1,17 +1,17 @@
-//------------Postgress db
+//------------Postgress db---------
 //uncomment to create tables in db
-//require('../models/project');
-//require('../models/task');
+//require('../models/Projects');
+//require('../models/Tasks');
 
 //uncomment to modify tables
-//require('../models/a');
-//------------
+//require('../models/X');
+//---------------------------------
 
 let express = require('express');
 let router = express.Router();
 
 let pg = require('pg');
-let connectionString = process.env.DATABASE_URL || 'postgres://localhost'
+let connectionString = process.env.DATABASE_URL || 'postgres://localhost';
 
 let mongoose = require('mongoose');
 let passport = require('passport');
@@ -20,15 +20,14 @@ let User = mongoose.model('User');
 
 let auth = jwt({secret: process.env.SECRET || 'rubygarage2017rubygarage', userProperty: 'payload'});
 
-/* GET home page. */
-/*router.get('/', function(req, res) {
-  res.render('index', { title: 'Todolist 2' });
-});*/
 
+// GET home page
 router.get('/', function(req, res) {
     res.sendfile('./public/index.html');
 });
 
+
+// User login/register
 router.post('/user/register', function(req, res, next){
     console.log(req.body);
   if(!req.body.username || !req.body.password){
@@ -65,8 +64,8 @@ router.post('/user/login', function(req, res, next){
 });
 
 
-// TODO list api -----------------------------------------------------------
-// projects ================================================================
+// TODO list api
+// projects ==============================================================
 // get all projects
 router.get('/api/:user_id/projects', auth, function(req, res) {
     let results = [];
@@ -96,7 +95,7 @@ router.get('/api/:user_id/projects', auth, function(req, res) {
 
 });
 
-// create project and send back all projects after creation
+// create project
 router.post('/api/:user_id/projects', auth, function(req, res) {
     let results = [];
 
@@ -196,7 +195,7 @@ router.delete('/api/:user_id/projects/:project_id', auth, function(req, res) {
 
 });
 
-// tasks ================================================================
+// tasks =================================================================
 // get all tasks
 router.get('/api/:user_id/tasks', auth, function(req, res) {
     let results = [];
@@ -227,7 +226,7 @@ router.get('/api/:user_id/tasks', auth, function(req, res) {
 
 });
 
-// create task and send back all tasks after creation
+// create task
 router.post('/api/:user_id/tasks', auth, function(req, res) {
     let results = [];
 
@@ -346,8 +345,6 @@ router.delete('/api/:user_id/tasks/:task_id', auth, function(req, res) {
 
 });
 // ==========================================
-
-
 
 
 module.exports = router;
