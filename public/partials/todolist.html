@@ -210,7 +210,7 @@
             </div>
 
             <div class="ui checkbox" ng-class="{'disabled ': $parent.edited_task.deadline}">
-                <input type="checkbox" tabindex="0" class="ui checkbox" ng-class="{'hidden ': $parent.edited_task.deadline}" ng-model="enableDeadlineInput">
+                <input type="checkbox" tabindex="0" class="ui checkbox" ng-class="{'hidden ': $parent.edited_task.deadline}" ng-model="$parent.edited_task.enableDeadlineInput">
                 <label>Set a deadline date</label>
             </div> 
             <div class="ui tertiary inverted orange segment" ng-show="$parent.edited_task.deadline">
