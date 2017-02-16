@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('module')
+        .module('todolistApp')
         .factory('auth', function($http, $window){
             var auth = {};
 
