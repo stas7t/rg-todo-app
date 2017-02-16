@@ -5,6 +5,8 @@ let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 let methodOverride = require('method-override');
 
+let port = 8080;
+
 let pg       = require('pg'); 
 let mongoose = require('mongoose');
 
@@ -24,6 +26,10 @@ let app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+if (app.get('env') === 'test') {
+    port = 8081;
+}
 
 if (app.get('env') !== 'test') {
     app.use(logger('dev'));
@@ -72,7 +78,7 @@ app.use(function(err, req, res, next) {
 });
 
 // run app
-app.set('port', process.env.PORT || 8080);
+app.set('port', process.env.PORT || port);
 
 let server = app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + server.address().port);

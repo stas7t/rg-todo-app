@@ -34,13 +34,14 @@ router.post('/user/register', function(req, res, next){
   }
 
   User.findOne({ username: req.body.username }, function (err, user) {
-      console.log(user)
-    if(err){ console.log(err); return next(err); }
+      
+    if(err){ return next(err); }
     if (user) {
-    return res.status(400).json({message: 'This username already exists'});
+        res.status(400).json({message: 'This username already exists'});
     }
   });
 
+  
 
   let user = new User();
 
