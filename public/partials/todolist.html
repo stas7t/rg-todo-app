@@ -185,21 +185,21 @@
 
             <div class="fields">
 
-                <div class="seven wide field" ng-class="{'disabled ': !enableDeadlineInput || !$parent.edited_task.deadline}">
+                <div class="seven wide field" ng-class="{'disabled ': !$parent.edited_task.enableDeadlineInput}">
                     <label><i class="calendar icon"></i>Date</label>
                     <div class="ui input">
                         <input type="date" name="taskDeadlineDate" min="2017-01-01" ng-model="$parent.edited_task.deadlineDateTime" ng-change="setDeadline($parent.edited_task.deadlineDateTime)">
                     </div>      
                 </div>
 
-                <div class="six wide field" ng-class="{'disabled ': !enableDeadlineInput || !$parent.edited_task.deadline}">
+                <div class="six wide field" ng-class="{'disabled ': !$parent.edited_task.enableDeadlineInput}">
                     <label><i class="wait icon"></i>Time</label>
                     <div class="ui input">
                         <input type="time" placeholder="HH:mm" name="taskDeadlineTime" ng-model="$parent.edited_task.deadlineDateTime" ng-change="setDeadline($parent.edited_task.deadlineDateTime)">
                     </div>      
                 </div>
 
-                <div class="three wide field" ng-class="{'disabled ': !enableDeadlineInput || !$parent.edited_task.deadline}">
+                <div class="three wide field" ng-class="{'disabled ': !$parent.edited_task.enableDeadlineInput}">
                     <label>&ensp;</label>
                     <div class="ui icon fluid button" ng-click="deleteDeadline()">
                     <i class="delete calendar icon" ></i>

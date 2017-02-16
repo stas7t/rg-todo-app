@@ -256,13 +256,13 @@ app.controller('MainCtrl', function($scope, $interval, Projects, Tasks, auth){
         $scope.edited_task = task;
 
         if (task.deadline) {
-            $scope.enableDeadlineInput = true;
             let date =  new Date( Date.parse(task.deadline) );
             $scope.edited_task.deadlineDateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes());
+            $scope.edited_task.enableDeadlineInput = true;
         } else {
-            $scope.enableDeadlineInput = false;
             let date =  new Date();
             $scope.edited_task.deadlineDateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes());
+            $scope.edited_task.enableDeadlineInput = false;
         }
         
         $scope.editTaskModal = true;
@@ -270,7 +270,7 @@ app.controller('MainCtrl', function($scope, $interval, Projects, Tasks, auth){
 
     $scope.close_modal = function(modal) {
         modal = false;
-        $scope.enableDeadlineInput = false;
+        //$scope.enableDeadlineInput = false;
         $scope.checkDeadline();
     };
 
@@ -408,12 +408,12 @@ app.controller('MainCtrl', function($scope, $interval, Projects, Tasks, auth){
                 // if successful update, call get function to get all the new tasks
                 .success(function(data) {
                     $scope.editTaskModal = false;
-                    $scope.enableDeadlineInput = false;
+                    //$scope.enableDeadlineInput = false;
                     $scope.tasks = data; // assign new list of tasks
                 })
                 .error(function(error) {
                     $scope.editTaskModal = false;
-                    $scope.enableDeadlineInput = false;
+                    //$scope.enableDeadlineInput = false;
                     console.log('Error: ' + error);
                 });                
         }
