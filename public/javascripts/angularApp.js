@@ -270,6 +270,7 @@ app.controller('MainCtrl', function($scope, $interval, Projects, Tasks, auth){
 
     $scope.close_modal = function(modal) {
         modal = false;
+        $scope.enableDeadlineInput = false;
         $scope.checkDeadline();
     };
 
