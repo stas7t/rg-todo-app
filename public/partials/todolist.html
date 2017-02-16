@@ -185,7 +185,7 @@
 
             <div class="fields">
 
-                <div class="seven wide field" ng-class="{'disabled ': !enableDeadlineInput} || !$parent.edited_task.deadline}">
+                <div class="seven wide field" ng-class="{'disabled ': !enableDeadlineInput || !$parent.edited_task.deadline}">
                     <label><i class="calendar icon"></i>Date</label>
                     <div class="ui input">
                         <input type="date" name="taskDeadlineDate" min="2017-01-01" ng-model="$parent.edited_task.deadlineDateTime" ng-change="setDeadline($parent.edited_task.deadlineDateTime)">
