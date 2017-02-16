@@ -2,12 +2,13 @@
   "name": "rg-todolist",
   "version": "1.0.0",
   "description": "A test project for Ruby Garage",
-  "main": "app.js",
+  "main": "server.js",
   "author": "stas7t",
-  "repository"   : "https://github.com/stas7t/rg-todolist_2.git",
-  "license"      : "MIT",
+  "repository": "https://github.com/stas7t/rg-todolist_2.git",
+  "license": "MIT",
   "scripts": {
-    "start": "node app.js"
+    "start": "node server.js",
+    "test": "mocha"
   },
   "dependencies": {
     "body-parser": "^1.16.0",
@@ -22,5 +23,10 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "pg": "^6.1.2"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "mocha": "^3.2.0"
   }
 }

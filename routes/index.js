@@ -29,10 +29,18 @@ router.get('/', function(req, res) {
 
 // User login/register
 router.post('/user/register', function(req, res, next){
-    console.log(req.body);
   if(!req.body.username || !req.body.password){
     return res.status(400).json({message: 'Please fill out all fields'});
   }
+
+  User.findOne({ username: req.body.username }, function (err, user) {
+      console.log(user)
+    if(err){ console.log(err); return next(err); }
+    if (user) {
+    return res.status(400).json({message: 'This username already exists'});
+    }
+  });
+
 
   let user = new User();
 
@@ -83,11 +91,11 @@ router.get('/api/:user_id/projects', auth, function(req, res) {
         // SQL Query > Select Data
         let query = client.query('SELECT * FROM projects WHERE user_id=($1)', [user_id]);
         // Stream results back one row at a time
-        query.on('row', (row) => {
+        query.on('row', function(row) {
         results.push(row);
         });
         // After all data is returned, close connection and return results
-        query.on('end', () => {
+        query.on('end', function() {
         done();
         return res.json(results);
         });
@@ -115,11 +123,11 @@ router.post('/api/:user_id/projects', auth, function(req, res) {
         // SQL Query > Select Data
         let query = client.query('SELECT * FROM projects WHERE user_id=($1)', [user_id]);
         // Stream results back one row at a time
-        query.on('row', (row) => {
+        query.on('row', function(row) {
         results.push(row);
         });
         // After all data is returned, close connection and return results
-        query.on('end', () => {
+        query.on('end', function() {
         done();
         return res.json(results);
         });
@@ -148,11 +156,11 @@ router.put('/api/:user_id/projects/:project_id', auth, function(req, res) {
         // SQL Query > Select Data
         let query = client.query('SELECT * FROM projects WHERE user_id=($1)', [user_id]);
         // Stream results back one row at a time
-        query.on('row', (row) => {
+        query.on('row', function(row) {
         results.push(row);
         });
         // After all data is returned, close connection and return results
-        query.on('end', () => {
+        query.on('end', function() {
         done();
         return res.json(results);
         });
@@ -183,11 +191,11 @@ router.delete('/api/:user_id/projects/:project_id', auth, function(req, res) {
         // SQL Query > Select Data
         let query = client.query('SELECT * FROM projects WHERE user_id=($1)', [user_id]);
         // Stream results back one row at a time
-        query.on('row', (row) => {
+        query.on('row', function(row) {
         results.push(row);
         });
         // After all data is returned, close connection and return results
-        query.on('end', () => {
+        query.on('end', function() {
         done();
         return res.json(results);
         });
@@ -214,11 +222,11 @@ router.get('/api/:user_id/tasks', auth, function(req, res) {
         let query = client.query(
         'SELECT * FROM tasks WHERE user_id=($1)', [user_id]);
         // Stream results back one row at a time
-        query.on('row', (row) => {
+        query.on('row', function(row) {
         results.push(row);
         });
         // After all data is returned, close connection and return results
-        query.on('end', () => {
+        query.on('end', function() {
         done();
         return res.json(results);
         });
@@ -247,11 +255,11 @@ router.post('/api/:user_id/tasks', auth, function(req, res) {
         // SQL Query > Select Data
         let query = client.query('SELECT * FROM tasks WHERE user_id=($1)', [user_id]);
         // Stream results back one row at a time
-        query.on('row', (row) => {
+        query.on('row', function(row) {
         results.push(row);
         });
         // After all data is returned, close connection and return results
-        query.on('end', () => {
+        query.on('end', function() {
         done();
         return res.json(results);
         });
@@ -301,11 +309,11 @@ router.put('/api/:user_id/tasks/:task_id', auth, function(req, res) {
         // SQL Query > Select Data
         let query = client.query('SELECT * FROM tasks WHERE user_id=($1)', [user_id]);
         // Stream results back one row at a time
-        query.on('row', (row) => {
+        query.on('row', function(row) {
         results.push(row);
         });
         // After all data is returned, close connection and return results
-        query.on('end', () => {
+        query.on('end', function() {
         done();
         return res.json(results);
         });
@@ -333,11 +341,11 @@ router.delete('/api/:user_id/tasks/:task_id', auth, function(req, res) {
         // SQL Query > Select Data
         let query = client.query('SELECT * FROM tasks WHERE user_id=($1)', [user_id]);
         // Stream results back one row at a time
-        query.on('row', (row) => {
+        query.on('row', function(row) {
         results.push(row);
         });
         // After all data is returned, close connection and return results
-        query.on('end', () => {
+        query.on('end', function() {
         done();
         return res.json(results);
         });
