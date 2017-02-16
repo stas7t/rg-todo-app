@@ -408,10 +408,12 @@ app.controller('MainCtrl', function($scope, $interval, Projects, Tasks, auth){
                 // if successful update, call get function to get all the new tasks
                 .success(function(data) {
                     $scope.editTaskModal = false;
+                    $scope.enableDeadlineInput = false;
                     $scope.tasks = data; // assign new list of tasks
                 })
                 .error(function(error) {
                     $scope.editTaskModal = false;
+                    $scope.enableDeadlineInput = false;
                     console.log('Error: ' + error);
                 });                
         }
