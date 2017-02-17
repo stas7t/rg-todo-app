@@ -52,7 +52,7 @@ describe('Users', function() {
             .post('/user/register')
             .send(user)
             .end((err, res) => {
-                res.should.have.status(400);
+                res.should.have.status(409);
                 res.body.should.be.a('object');
                 res.body.should.have.property('message').eql('This username already exists');
                 done();

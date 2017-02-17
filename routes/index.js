@@ -55,7 +55,7 @@ router.post('/user/register', function(req, res, next){
   user.save(function (err) {
     if(err){ 
         if (isUserExists) {
-            return res.status(400).json({message: 'This username already exists'});            
+            return res.status(409).json({message: 'This username already exists'});            
         } else {return next(err);}    
     }
 
