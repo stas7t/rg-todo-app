@@ -33,17 +33,18 @@ router.post('/user/register', function(req, res, next){
     return res.status(400).json({message: 'Please fill out all fields'});
   }
 
-/*
+  // Check is user already in DB
+  let isUserExists = false;
+
   User.findOne({ username: req.body.username }, function (err, user) {
       
     if (err) { return next(err); }
 
     if (user) {
-        return res.status(400).json({message: 'This username already exists'});
+        isUserExists = true;
     }
   });
-*/
-  
+
 
   let user = new User();
 
@@ -52,7 +53,11 @@ router.post('/user/register', function(req, res, next){
   user.setPassword(req.body.password)
 
   user.save(function (err) {
-    if(err){ return next(err); }
+    if(err){ 
+        if (isUserExists) {
+            return res.status(400).json({message: 'This username already exists'});            
+        } else {return next(err);}    
+    }
 
     return res.json({token: user.generateJWT()})
   });
