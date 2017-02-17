@@ -11,7 +11,7 @@ let server = require('../server');
 let should = chai.should();
 
 chai.use(chaiHttp);
-//Our parent block
+//Test Users
 describe('Users', function() {
     beforeEach(function(done) { //Before each test we empty the database
         User.remove({}, (err) => { 
@@ -85,6 +85,21 @@ describe('Users', function() {
                 res.should.have.status(400);
                 res.body.should.be.a('object');
                 res.body.should.have.property('message').eql('Please fill out all fields');
+                done();
+            });
+      });
+      it('it should NOT register new user with password < 6 symbols', function(done) {
+        let user = {
+            username: "username",
+            password: "12345"
+        }
+        chai.request(server)
+            .post('/user/register')
+            .send(user)
+            .end((err, res) => {
+                res.should.have.status(400);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message').eql('Password min length 6 symbols');
                 done();
             });
       });

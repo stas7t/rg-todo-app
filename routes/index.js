@@ -31,6 +31,8 @@ router.get('/', function(req, res) {
 router.post('/user/register', function(req, res, next){
   if(!req.body.username || !req.body.password){
     return res.status(400).json({message: 'Please fill out all fields'});
+  } else if (req.body.password.length < 6) {
+    return res.status(400).json({message: 'Password min length 6 symbols'});
   }
 
   // Check is user already in DB
