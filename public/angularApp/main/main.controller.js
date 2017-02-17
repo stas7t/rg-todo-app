@@ -59,16 +59,18 @@
                 $scope.edited_task.deadlineDateTime = null;
             }; 
 
-            // check deadline 
-            $scope.checkDeadline();
+            if (auth.isLoggedIn) {
+                // check deadline 
+                $scope.checkDeadline();
 
-            // check deadline every 1 minute 
-            var intervalPromise = $interval($scope.checkDeadline, 1000*60*1);
+                // check deadline every 1 minute 
+                var intervalPromise = $interval($scope.checkDeadline, 1000*60*1);
 
-            $scope.$on('$destroy',function(){
-                if(intervalPromise)
-                    $interval.cancel(intervalPromise);   
-            });
+                $scope.$on('$destroy',function(){
+                    if(intervalPromise)
+                        $interval.cancel(intervalPromise);   
+                });
+            }
 
             // open/close modal windows 
             $scope.addProject = function() {

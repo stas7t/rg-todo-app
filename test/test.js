@@ -37,7 +37,7 @@ describe('Users', function() {
                 done();
             });
       });
-      it('it should NOT register new user with duplicate name', function(done) {
+      it('it should NOT register new user with duplicate username', function(done) {
         let user = {
             username: "testuser-001",
             password: "testuser-001P"
@@ -88,7 +88,7 @@ describe('Users', function() {
                 done();
             });
       });
-      it('it should NOT register new user with password < 6 symbols', function(done) {
+      it('it should NOT register new user if the password length is <6 symbols', function(done) {
         let user = {
             username: "username",
             password: "12345"
