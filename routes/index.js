@@ -33,7 +33,7 @@ router.post('/user/register', function(req, res, next){
     return res.status(400).json({message: 'Please fill out all fields'});
   }
 
-
+/*
   User.findOne({ username: req.body.username }, function (err, user) {
       
     if (err) { return next(err); }
@@ -42,7 +42,7 @@ router.post('/user/register', function(req, res, next){
         return res.status(400).json({message: 'This username already exists'});
     }
   });
-
+*/
   
 
   let user = new User();
