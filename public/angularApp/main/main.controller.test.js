@@ -15,8 +15,108 @@ describe('MainCtrl', function() {
     beforeEach(function() {
         $scope = {};
 
-        $scope.formDataProject = {};
-        $scope.formDataTask = [];
+
+
+        $scope.projects = [
+            {
+                "id": 44,
+                "name": "Test project 1",
+                "user_id": "5897ac559d925b00047096b4"
+            },
+            {
+                "id": 45,
+                "name": "Test project 2",
+                "user_id": "5897ac559d925b00047096b4"
+            }
+            ];
+
+        $scope.tasks = [
+            {
+                "id": 198,
+                "name": "Task 2-1",
+                "status": "uncompleted",
+                "project_id": 45,
+                "priority": 2,
+                "deadline": null,
+                "user_id": "5897ac559d925b00047096b4"
+            },
+            {
+                "id": 224,
+                "name": "Task 1-4",
+                "status": "uncompleted",
+                "project_id": 44,
+                "priority": 0,
+                "deadline": null,
+                "user_id": "5897ac559d925b00047096b4"
+            },
+            {
+                "id": 225,
+                "name": "Task 1-5",
+                "status": "completed",
+                "project_id": 44,
+                "priority": 0,
+                "deadline": null,
+                "user_id": "5897ac559d925b00047096b4"
+            },
+            {
+                "id": 221,
+                "name": "Task 1-1",
+                "status": "uncompleted",
+                "project_id": 44,
+                "priority": 7,
+                "deadline": null,
+                "user_id": "5897ac559d925b00047096b4"
+            },
+            {
+                "id": 222,
+                "name": "Task 1-2",
+                "status": "uncompleted",
+                "project_id": 44,
+                "priority": 5,
+                "deadline": "2017-02-01T10:00:00.000Z",
+                "user_id": "5897ac559d925b00047096b4"
+            },
+            {
+                "id": 223,
+                "name": "Task 1-3",
+                "status": "uncompleted",
+                "project_id": 44,
+                "priority": 0,
+                "deadline": "2025-10-20T17:20:00.000Z",
+                "user_id": "5897ac559d925b00047096b4"
+            },
+            {
+                "id": 217,
+                "name": "Task 2-2",
+                "status": "completed",
+                "project_id": 45,
+                "priority": 0,
+                "deadline": "2018-02-18T12:20:00.000Z",
+                "user_id": "5897ac559d925b00047096b4"
+            },
+            {
+                "id": 219,
+                "name": "Task 2-4",
+                "status": "completed",
+                "project_id": 45,
+                "priority": 0,
+                "deadline": null,
+                "user_id": "5897ac559d925b00047096b4"
+            },
+            {
+                "id": 218,
+                "name": "Task 2-3",
+                "status": "uncompleted",
+                "project_id": 45,
+                "priority": 0,
+                "deadline": "2018-02-17T12:30:00.000Z",
+                "user_id": "5897ac559d925b00047096b4"
+            }
+        ];
+
+        
+        $scope.formDataProject = {name: "New test project"};
+        $scope.formDataTask = [{name: "New test project"}, {name: "New test project"}];
 
         $scope.isLoggedIn = auth.isLoggedIn;
 
