@@ -1,5 +1,5 @@
 //During the test the env variable is set to 'test'
-process.env.NODE_ENV = 'dev';
+process.env.NODE_ENV = 'test';
 
 // mongoose
 let mongoose = require("mongoose");
@@ -201,6 +201,21 @@ describe('TODO list', function() {
                 });
         });
 
+        it('it should NOT CREATE new project without name', function(done) {
+
+            chai.request(server)
+                .post('/api/' + user._id + '/projects')
+                .set('Authorization', 'Bearer ' + user.token)
+                .send( {name: ""} )
+                .end(function (err, res) {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('success').eql(false);
+                    res.body.should.have.property('data').eql('No name: TODO list name required');
+                    done();
+                });
+        });        
+
         it('it should GET 4 projects', function(done) {
 
             chai.request(server)
@@ -247,6 +262,27 @@ describe('TODO list', function() {
                         ['Test project 002', 'New test project 001', 'New test project 002','Renamed test project 001']);
                     res.body[3].name.should.be.oneOf(
                         ['Test project 002', 'New test project 001', 'New test project 002','Renamed test project 001']);
+                    done(); 
+                });
+        });  
+
+        it('it should NOT UPDATE project without name', function(done) {
+
+            chai.request(server)
+                .put('/api/' + user._id + '/projects/' + projects[0].id)
+                .set('Authorization', 'Bearer ' + user.token)
+                .send(
+                    {
+                        id: projects[0].id,
+                        name: "",
+                        user_id: user._id
+                    }
+                )
+                .end(function (err, res) {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('success').eql(false);
+                    res.body.should.have.property('data').eql('No name: TODO list name required');
                     done(); 
                 });
         });     

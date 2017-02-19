@@ -60,17 +60,17 @@ describe('TODO list creare/get api', function() {
             if(err) { done(); }
 
             //Before test DELETE all tasks in tasks table
-            /*
+            
             let query = client.query( 
             "DELETE FROM tasks");
             //console.log(user._id + ' ///DELETE FROM tasks');
             query.on('end', function() {
             done();
             });
-            */
+            
             //Before test DELETE all projects in projects table
             
-        let query = client.query( 
+            query = client.query( 
             "DELETE FROM projects");
             //console.log(user._id + ' ///DELETE FROM projects');
             query.on('end', function() {
@@ -182,7 +182,7 @@ describe('TODO list creare/get api', function() {
     });
 
     // Test the Tasks CRUD
-    /*
+    
     describe('Tasks CRUD', function() {
         it('it should CREATE two new tasks', function() {
 
@@ -270,7 +270,7 @@ describe('TODO list creare/get api', function() {
                     res.body[0].should.have.property('name').eql("Renamed test project 1"); 
                 });
         });      
-    });  */
+    });  
 
 });
 

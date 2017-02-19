@@ -120,6 +120,11 @@ router.post('/api/:user_id/projects', auth, function(req, res) {
     let user_id = req.params.user_id;
     let data = {name: req.body.name};
 
+    if (!req.body.name) {
+        //console.log('No name: TODO list name required');
+        return res.status(400).json({success: false, data: 'No name: TODO list name required'});
+    }
+
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, (err, client, done) => {
         // Handle connection errors
@@ -152,6 +157,11 @@ router.put('/api/:user_id/projects/:project_id', auth, function(req, res) {
     let user_id = req.params.user_id;
     let id = req.params.project_id;
     let name = req.body.name;
+
+    if (!req.body.name) {
+        //console.log('No name: TODO list name required');
+        return res.status(400).json({success: false, data: 'No name: TODO list name required'});
+    }
 
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, (err, client, done) => {
@@ -251,6 +261,11 @@ router.post('/api/:user_id/tasks', auth, function(req, res) {
     let user_id = req.params.user_id;
     let data = {name: req.body.name, status: 'uncompleted', priority: 0, project_id: req.body.project_id};
 
+    if (!req.body.name) {
+        //console.log('No name: task name required');
+        return res.status(400).json({success: false, data: 'No name: task name required'});
+    }
+
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, (err, client, done) => {
         // Handle connection errors
@@ -290,15 +305,15 @@ router.put('/api/:user_id/tasks/:task_id', auth, function(req, res) {
     let deadline = req.body.deadline;
 
     if (!name) {
-        console.log('No name: task name required');
-        return res.status(500).json({success: false, data: 'No name: task name required'});
+        //console.log('No name: task name required');
+        return res.status(400).json({success: false, data: 'No name: task name required'});
     }
 
     if (!priority) {
         priority = 0;
     } else if ( isNaN( Number( priority ) ) ) {
-        console.log('Wrong data type: priority must be a number');
-        return res.status(500).json({success: false, data: 'Wrong data type: priority must be a number'});
+        //console.log('Wrong data type: priority must be a number');
+        return res.status(400).json({success: false, data: 'Wrong data type: priority must be a number'});
     }
 
     if (!deadline) {
