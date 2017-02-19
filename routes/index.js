@@ -309,6 +309,12 @@ router.put('/api/:user_id/tasks/:task_id', auth, function(req, res) {
         return res.status(400).json({success: false, data: 'No name: task name required'});
     }
 
+    if (!status) {
+        status = 'uncompleted'
+    } else if (['completed', 'uncompleted', 'uncompleted expired'].indexOf(status) === -1) {
+        return res.status(400).json({success: false, data: "Unknown status: status must be 'completed', 'uncompleted' or 'uncompleted expired'"});
+    }
+
     if (!priority) {
         priority = 0;
     } else if ( isNaN( Number( priority ) ) ) {
@@ -316,8 +322,12 @@ router.put('/api/:user_id/tasks/:task_id', auth, function(req, res) {
         return res.status(400).json({success: false, data: 'Wrong data type: priority must be a number'});
     }
 
+    let reISO = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/;
+
     if (!deadline) {
         deadline = null;
+    } else if (!deadline.match(reISO)) {
+        return res.status(400).json({success: false, data: 'Wrong format: deadline date format must be ISO'});
     }
 
     // Get a Postgres client from the connection pool

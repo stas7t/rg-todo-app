@@ -114,6 +114,14 @@ let getTasks = function (user_id) {
     }); 
 };
 
+let findObj = function (obj, id) { 
+    for (o in obj) {
+        if (obj[o].id == id) {
+            return obj[o];
+        }
+    }
+};
+
 
 describe('TODO list', function() {
 
@@ -371,6 +379,21 @@ describe('TODO list', function() {
                 });
         });
         
+        it('it should NOT CREATE new task without name', function(done) {
+
+            chai.request(server)
+                .post('/api/' + user._id + '/tasks')
+                .set('Authorization', 'Bearer ' + user.token)
+                .send( {name: "", project_id: projects[0].id} )
+                .end(function (err, res) {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('success').eql(false);
+                    res.body.should.have.property('data').eql('No name: task name required');
+                    done();
+                });
+        });      
+
         it('it should GET 4 tasks', function(done) {
 
             chai.request(server)
@@ -394,7 +417,7 @@ describe('TODO list', function() {
                 });
         });
         
-        it('it should UPDATE task #1', function(done) {
+        it('it should UPDATE (rename) task #1', function(done) {
 
             chai.request(server)
                 .put('/api/' + user._id + '/tasks/' + tasks[0].id)
@@ -403,6 +426,8 @@ describe('TODO list', function() {
                     {
                         id: tasks[0].id,
                         name: "Renamed test task 001",
+                        status: 'uncompleted',
+                        priority: 0,
                         project_id: projects[0].id,
                         user_id: user._id
                     }
@@ -411,18 +436,220 @@ describe('TODO list', function() {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
                     res.body.should.have.lengthOf(4);
-                    res.body[0].name.should.be.oneOf(
-                        ['Test task 002', 'New test task 001', 'New test task 002', 'Renamed test task 001']);
-                    res.body[1].name.should.be.oneOf(
-                        ['Test task 002', 'New test task 001', 'New test task 002', 'Renamed test task 001']);
-                    res.body[2].name.should.be.oneOf(
-                        ['Test task 002', 'New test task 001', 'New test task 002', 'Renamed test task 001']);
-                    res.body[3].name.should.be.oneOf(
-                        ['Test task 002', 'New test task 001', 'New test task 002', 'Renamed test task 001']);
+
+                    let editedTask = findObj(res.body, tasks[0].id);
+                    editedTask.should.have.property('name').eql('Renamed test task 001')
+
                     done(); 
                 });
         });     
         
+        it('it should NOT UPDATE (rename) task without name', function(done) {
+
+            chai.request(server)
+                .put('/api/' + user._id + '/tasks/' + tasks[0].id)
+                .set('Authorization', 'Bearer ' + user.token)
+                .send(
+                    {
+                        id: tasks[0].id,
+                        name: "",
+                        status: 'uncompleted',
+                        priority: 0,
+                        project_id: projects[0].id,
+                        user_id: user._id
+                    }
+                )
+                .end(function (err, res) {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('success').eql(false);
+                    res.body.should.have.property('data').eql('No name: task name required');
+                    done();
+                });
+        });  
+
+        it('it should UPDATE (change priority) task', function(done) {
+
+            chai.request(server)
+                .put('/api/' + user._id + '/tasks/' + tasks[0].id)
+                .set('Authorization', 'Bearer ' + user.token)
+                .send(
+                    {
+                        id: tasks[0].id,
+                        name: "Renamed test task 001",
+                        status: 'uncompleted',
+                        priority: 5,
+                        project_id: projects[0].id,
+                        user_id: user._id
+                    }
+                )
+                .end(function (err, res) {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.should.have.lengthOf(4);
+
+                    let editedTask = findObj(res.body, tasks[0].id);
+                    editedTask.should.have.property('priority').eql(5)
+                    
+                    done(); 
+                });
+        });  
+
+        it('it should NOT UPDATE (change priority) task if priority is not a number', function(done) {
+
+            chai.request(server)
+                .put('/api/' + user._id + '/tasks/' + tasks[0].id)
+                .set('Authorization', 'Bearer ' + user.token)
+                .send(
+                    {
+                        id: tasks[0].id,
+                        name: "Renamed test task 001",
+                        priority: 'aaa',
+                        project_id: projects[0].id,
+                        user_id: user._id
+                    }
+                )
+                .end(function (err, res) {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('success').eql(false);
+                    res.body.should.have.property('data').eql('Wrong data type: priority must be a number');
+                    done();
+                });
+        });
+
+        it('it should UPDATE (change status) task', function(done) {
+
+            chai.request(server)
+                .put('/api/' + user._id + '/tasks/' + tasks[0].id)
+                .set('Authorization', 'Bearer ' + user.token)
+                .send(
+                    {
+                        id: tasks[0].id,
+                        name: "Renamed test task 001",
+                        priority: 5,
+                        status: 'completed',
+                        project_id: projects[0].id,
+                        user_id: user._id
+                    }
+                )
+                .end(function (err, res) {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.should.have.lengthOf(4);
+
+                    let editedTask = findObj(res.body, tasks[0].id);
+                    editedTask.should.have.property('status').eql('completed')
+                    
+                    done(); 
+                });
+        });  
+
+        it('it should NOT UPDATE (change status) task if status is wrong', function(done) {
+
+            chai.request(server)
+                .put('/api/' + user._id + '/tasks/' + tasks[0].id)
+                .set('Authorization', 'Bearer ' + user.token)
+                .send(
+                    {
+                        id: tasks[0].id,
+                        name: "Renamed test task 001",
+                        priority: 5,
+                        status: 'wrong status',
+                        project_id: projects[0].id,
+                        user_id: user._id
+                    }
+                )
+                .end(function (err, res) {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('success').eql(false);
+                    res.body.should.have.property('data').eql("Unknown status: status must be 'completed', 'uncompleted' or 'uncompleted expired'");          
+                    done(); 
+                });
+        });   
+
+        it('it should UPDATE (set deadline) task', function(done) {
+
+            chai.request(server)
+                .put('/api/' + user._id + '/tasks/' + tasks[0].id)
+                .set('Authorization', 'Bearer ' + user.token)
+                .send(
+                    {
+                        id: tasks[0].id,
+                        name: "Renamed test task 001",
+                        status: 'uncompleted',
+                        priority: 5,
+                        deadline: "2017-03-01T10:00:00.000Z",
+                        project_id: projects[0].id,
+                        user_id: user._id
+                    }
+                )
+                .end(function (err, res) {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.should.have.lengthOf(4);
+
+                    let editedTask = findObj(res.body, tasks[0].id);
+                    editedTask.should.have.property('deadline').eql("2017-03-01T10:00:00.000Z")
+                    
+                    done(); 
+                });
+        }); 
+
+        it('it should UPDATE (remove deadline) task', function(done) {
+
+            chai.request(server)
+                .put('/api/' + user._id + '/tasks/' + tasks[0].id)
+                .set('Authorization', 'Bearer ' + user.token)
+                .send(
+                    {
+                        id: tasks[0].id,
+                        name: "Renamed test task 001",
+                        status: 'uncompleted',
+                        priority: 5,
+                        deadline: null,
+                        project_id: projects[0].id,
+                        user_id: user._id
+                    }
+                )
+                .end(function (err, res) {
+                    res.should.have.status(200);
+                    res.body.should.be.a('array');
+                    res.body.should.have.lengthOf(4);
+
+                    let editedTask = findObj(res.body, tasks[0].id);
+                    editedTask.should.have.property('deadline').eql(null)
+                    
+                    done(); 
+                });
+        }); 
+
+        it('it should NOT UPDATE (set deadline) task if deadline in wrong format', function(done) {
+
+            chai.request(server)
+                .put('/api/' + user._id + '/tasks/' + tasks[0].id)
+                .set('Authorization', 'Bearer ' + user.token)
+                .send(
+                    {
+                        id: tasks[0].id,
+                        name: "Renamed test task 001",
+                        status: 'uncompleted',
+                        priority: 5,
+                        deadline: "2017/03/01 10:00",
+                        project_id: projects[0].id,
+                        user_id: user._id
+                    }
+                )
+                .end(function (err, res) {
+                    res.should.have.status(400);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('success').eql(false);
+                    res.body.should.have.property('data').eql('Wrong format: deadline date format must be ISO');   
+                    done(); 
+                });
+        }); 
+
         it('it should DELETE task #2', function(done) {
 
             chai.request(server)
