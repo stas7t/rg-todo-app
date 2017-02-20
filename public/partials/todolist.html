@@ -1,6 +1,6 @@
 <div class="ui middle aligned one column grid" ng-repeat="project in projects | orderBy: ['id']">
-    <div class="sixteen wide column " style="padding: 0px;">
-        <table class="ui unstackable celled table " 
+    <div class="sixteen wide column" style="padding: 0px;">
+        <table class="ui unstackable celled table" 
         style="background: none; box-shadow: 2px 2px 2px grey; border-style: none;
         border-collapse: collapse; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">
         
@@ -202,8 +202,7 @@
 
                 <div class="three wide field" ng-class="{'disabled ': !$parent.edited_task.enableDeadlineInput}">
                     <label>&ensp;</label>
-                    <div class="ui icon fluid button" ng-click="deleteDeadline()">
-                    <i class="delete calendar icon" ></i>
+                    <div class="ui orange fluid button" ng-click="deleteDeadline()">
                     Remove
                     </div>                        
                 </div>
@@ -217,7 +216,7 @@
             <div class="ui tertiary inverted orange segment" ng-show="$parent.edited_task.deadline">
             Current deadline is: {{$parent.edited_task.deadline | date: 'y MMM d, H:mm'}}
             </div>                    
-            <button class="ui right floated blue button" type="submit" style="margin-bottom: 10px;">Ok</button>                 
+            <button class="ui right floated blue button" type="submit" style="margin-top: 10px; margin-bottom: 10px;">Ok</button>                 
         </form>
     </div>
 </modal>

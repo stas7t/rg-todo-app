@@ -17,7 +17,7 @@ let User = mongoose.model('User');
 let auth = jwt({secret: process.env.SECRET || 'rubygarage2017rubygarage', userProperty: 'payload'});
 
 
-// GET home page
+// GET index.html
 router.get('/', function(req, res) {
     res.sendfile('./public/index.html');
 });
