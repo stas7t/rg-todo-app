@@ -67,7 +67,7 @@
                 var intervalPromise = $interval($scope.checkDeadline, 1000*60*1);
 
                 $scope.$on('$destroy',function(){
-                    if(intervalPromise)
+                    if(intervalPromise && !auth.isLoggedIn)
                         $interval.cancel(intervalPromise);   
                 });
             }
