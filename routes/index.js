@@ -3,10 +3,6 @@
 //require('../models/Projects');
 //require('../models/Tasks');
 
-//uncomment to modify tables
-//require('../models/X');
-//---------------------------------
-
 let express = require('express');
 let router = express.Router();
 

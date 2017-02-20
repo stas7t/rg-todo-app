@@ -1,10 +1,10 @@
 {
-  "name": "rg-todolist",
+  "name": "rg-todo-app",
   "version": "1.0.0",
   "description": "A test project for Ruby Garage",
   "main": "server.js",
   "author": "stas7t",
-  "repository": "https://github.com/stas7t/rg-todolist_2.git",
+  "repository": "https://github.com/stas7t/rg-todo-app.git",
   "license": "MIT",
   "scripts": {
     "start": "node server.js",

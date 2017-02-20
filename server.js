@@ -19,13 +19,8 @@ require('./models/Users');
 require('./config/passport');
 
 let routes = require('./routes/index');
-let users = require('./routes/users');
 
 let app = express();
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
 
 if (app.get('env') === 'test') {
     port = 8081;
@@ -44,7 +39,6 @@ app.use(methodOverride());
 app.use(passport.initialize());
 
 app.use('/', routes);
-app.use('/users', users);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
@@ -55,33 +49,29 @@ app.use(function(req, res, next) {
 
 /// error handlers
 
-// development error handler
-// will print stacktrace
 if (app.get('env') === 'development') {
+    // development error handler
+    // will print stacktrace
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
+        console.log(err.message);
+        console.log(err.stack);
+        res.json({message: err.message, error: err});
+    });
+} else {
+    // production error handler
+    // no stacktraces leaked to user
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.json({message: err.message});
     });
 }
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
-});
 
 // run app
 app.set('port', process.env.PORT || port);
 
 let server = app.listen(app.get('port'), function() {
-  console.log('Express server listening on port ' + server.address().port);
+  console.log('Server listening on port ' + server.address().port);
 });
 
 module.exports = app;
