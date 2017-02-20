@@ -16,38 +16,37 @@
             // Deadline: set, del, check
             $scope.checkDeadline = function() {
 
-                if ($scope.tasks) {
-                    // check deadline of each task
-                    for (t in $scope.tasks) {
+                // check deadline of each task
+                for (t in $scope.tasks) {
 
-                        if ($scope.tasks[t].deadline) {
+                    if ($scope.tasks[t].deadline) {
 
-                            var isExpired = Date.parse( Date() ) > Date.parse( $scope.tasks[t].deadline );
+                        var isExpired = Date.parse( Date() ) > Date.parse( $scope.tasks[t].deadline );
 
-                            if ( isExpired && $scope.tasks[t].status == 'uncompleted' ) {
-                                $scope.tasks[t].status = 'uncompleted expired';
+                        if ( isExpired && $scope.tasks[t].status == 'uncompleted' ) {
+                            $scope.tasks[t].status = 'uncompleted expired';
 
-                                Tasks.update($scope.tasks[t])
-                                    .success(function(data) {
-                                        $scope.tasks = data;
-                                    })
-                                    .error(function(error) {
-                                        console.log('Error: ' + error);
-                                    }); 
-                            } else if (!isExpired && $scope.tasks[t].status == 'uncompleted expired') {
-                                $scope.tasks[t].status = 'uncompleted';
+                            Tasks.update($scope.tasks[t])
+                                .success(function(data) {
+                                    $scope.tasks = data;
+                                })
+                                .error(function(error) {
+                                    console.log('Error: ' + error);
+                                }); 
+                        } else if (!isExpired && $scope.tasks[t].status == 'uncompleted expired') {
+                            $scope.tasks[t].status = 'uncompleted';
 
-                                Tasks.update($scope.tasks[t])
-                                    .success(function(data) {
-                                        $scope.tasks = data;
-                                    })
-                                    .error(function(error) {
-                                        console.log('Error: ' + error);
-                                    }); 
-                            }
-                        } 
-                    }
-                } 
+                            Tasks.update($scope.tasks[t])
+                                .success(function(data) {
+                                    $scope.tasks = data;
+                                })
+                                .error(function(error) {
+                                    console.log('Error: ' + error);
+                                }); 
+                        }
+                    } 
+                }
+            
             };
 
             $scope.setDeadline = function(newDL) {
