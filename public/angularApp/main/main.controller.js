@@ -1,5 +1,5 @@
 (function(){
-    'use strict';
+
 
     angular
         .module('todolistApp')
@@ -46,7 +46,6 @@
                         }
                     } 
                 }
-            
             };
 
             $scope.setDeadline = function(newDL) {
@@ -60,10 +59,18 @@
                 $scope.edited_task.deadlineDateTime = null;
             }; 
 
-            // check deadline 
-            $scope.checkDeadline();
-            // check deadline every 1 minute
-            $interval($scope.checkDeadline, 1000*60*1);
+            if (auth.isLoggedIn) {
+                // check deadline 
+                $scope.checkDeadline();
+
+                // check deadline every 1 minute 
+                var intervalPromise = $interval($scope.checkDeadline, 1000*60*1);
+
+                $scope.$on('$destroy',function(){
+                    if(intervalPromise)
+                        $interval.cancel(intervalPromise);   
+                });
+            }
 
             // open/close modal windows 
             $scope.addProject = function() {
