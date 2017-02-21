@@ -1,6 +1,5 @@
 (function(){
 
-
     angular
         .module('todolistApp')
         .config(function($stateProvider, $urlRouterProvider) {
@@ -8,7 +7,7 @@
             $stateProvider
             .state('todolist', {
                 url: '/todolist',
-                templateUrl: '/partials/todolist.html',
+                templateUrl: '/angularApp/templates/todolist.html',
                 controller: 'MainCtrl',
                 onEnter: ['$state', 'auth', function($state, auth){
                 if(!auth.isLoggedIn()){
@@ -18,7 +17,7 @@
             })
             .state('login', {
                 url: '/login',
-                templateUrl: '/partials/login.html',
+                templateUrl: '/angularApp/templates/login.html',
                 controller: 'AuthCtrl',
                 onEnter: ['$state', 'auth', function($state, auth){
                 if(auth.isLoggedIn()){
@@ -28,7 +27,7 @@
             })
             .state('register', {
                 url: '/register',
-                templateUrl: '/partials/register.html',
+                templateUrl: '/angularApp/templates/register.html',
                 controller: 'AuthCtrl',
                 onEnter: ['$state', 'auth', function($state, auth){
                 if(auth.isLoggedIn()){
