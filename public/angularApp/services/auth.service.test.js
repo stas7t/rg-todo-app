@@ -1,6 +1,6 @@
 describe('Auth factory', function() {
     var auth;
-    var $httpBackend;
+
 
     var user = {  username:'john dou',
                     password:'123qwe' };
@@ -12,13 +12,8 @@ describe('Auth factory', function() {
   beforeEach(angular.mock.module('todolistApp'));
 
   // Before each test set our injected Auth factory (_Auth_) to our local Auth variable
-  beforeEach(inject(function(_auth_, _$httpBackend_) {
+  beforeEach(inject(function(_auth_) {
     auth = _auth_;
-    $httpBackend = _$httpBackend_;
-
-
-
-
 
   }));
 
