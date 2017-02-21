@@ -15,7 +15,23 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      './public/angularApp/services/auth.service.test.js'
+      './node_modules/angular/angular.js',                             
+      './node_modules/angular-ui-router/release/angular-ui-router.js',
+      './node_modules/angular-mocks/angular-mocks.js',
+      './public/libs/angular-semantic-ui.js',
+
+      './public/angularApp/app.module.js',
+      './public/angularApp/app.config.js',
+      './public/angularApp/controllers/main.controller.js',
+      './public/angularApp/controllers/auth.controller.js',
+      './public/angularApp/controllers/nav.controller.js',
+      './public/angularApp/services/auth.service.js',
+      './public/angularApp/services/projects.service.js',
+      './public/angularApp/services/tasks.service.js',
+
+      './public/angularApp/services/auth.service.test.js',
+
+
     ],
 
 
