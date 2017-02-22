@@ -35,13 +35,13 @@
             };
 
             auth.register = function(user){
-                return $http.post('/user/register', user).then(function(data){
+                return $http.post('/user/register', user).success(function(data){
                     auth.saveToken(data.token); 
                 });
             };
 
             auth.logIn = function(user){
-                return $http.post('/user/login', user).then(function(data){
+                return $http.post('/user/login', user).success(function(data){
                     auth.saveToken(data.token);
                 });
             };
