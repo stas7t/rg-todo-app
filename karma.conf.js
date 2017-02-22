@@ -30,8 +30,12 @@ module.exports = function(config) {
       './public/angularApp/services/tasks.service.js',
 
       './public/angularApp/services/auth.service.test.js',
-      './public/angularApp/controllers/auth.controller.test.js'
-
+      './public/angularApp/controllers/auth.controller.test.js',
+  
+      './public/angularApp/services/projects.service.test.js',
+      './public/angularApp/services/tasks.service.test.js',
+      
+      './public/angularApp/controllers/nav.controller.test.js'
 
     ],
 

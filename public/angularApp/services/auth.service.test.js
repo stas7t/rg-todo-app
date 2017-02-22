@@ -1,4 +1,4 @@
-describe('auth service', function() {
+describe('Auth service', function() {
     var $httpBackend;
     var $window;
     var auth;
@@ -14,11 +14,12 @@ describe('auth service', function() {
     // Instantiate the service and "train" `$httpBackend` before each test
     beforeEach(inject(function(_$httpBackend_, _$window_, _auth_) {
         $window = _$window_;
+
         $httpBackend = _$httpBackend_;
         $httpBackend.whenPOST('/user/register').respond(authToken);
         $httpBackend.whenPOST('/user/login').respond(authToken);
-        // Looks like $httpBackend don't support http respond promise (https://github.com/angular/angular.js/issues/11245)
-        // Proper user register/login functionality will be tested in auth.controller.test.js
+        $httpBackend.whenGET('/angularApp/templates/todolist.html').respond({});
+        $httpBackend.whenGET('/angularApp/templates/login.html').respond({});
 
         auth = _auth_;
     }));
@@ -33,18 +34,28 @@ describe('auth service', function() {
         var Promise = auth.register(user);
 
         $httpBackend.flush();
+
         expect(Promise).toBeDefined();
+        expect(Promise.$$state.value.status).toEqual(200);
+        expect(Promise.$$state.value.config.url).toEqual('/user/register');
+        expect(Promise.$$state.value.config.data.username).toEqual('john dou');
     });
 
     it('should log in user (POST: `/user/login`)', function() {
         var Promise = auth.logIn(user);
 
         $httpBackend.flush();
+
         expect(Promise).toBeDefined();
+        expect(Promise.$$state.value.status).toEqual(200);
+        expect(Promise.$$state.value.config.url).toEqual('/user/login');
+        expect(Promise.$$state.value.config.data.username).toEqual('john dou');
     });
 
     it('should save token to localStorage', function() {
         auth.saveToken(authToken.token);
+
+        $httpBackend.flush();
 
         expect($window.localStorage['auth-token']).toEqual(authToken.token);
     });
@@ -52,11 +63,15 @@ describe('auth service', function() {
     it('should get token from localStorage', function() {
         var token = auth.getToken();
 
+        $httpBackend.flush();
+
         expect(token).toEqual(authToken.token);
     });
 
     it('should return true if user logged in', function() {
         var isLoggedIn = auth.isLoggedIn();
+
+        $httpBackend.flush();
 
         expect(isLoggedIn).toBe(true);
         /*  auth-token is hardcoded fot these tests
@@ -69,15 +84,19 @@ describe('auth service', function() {
     it('should return current user', function() {
         var currentUser = auth.currentUser();
 
+        $httpBackend.flush();
+
         expect(currentUser).toEqual(jasmine.any(Object));
+        expect(currentUser._id).toEqual('58acac9054c6c20004592ae7');
         expect(currentUser.username).toEqual('john dou');
     });  
 
     it('should log out', function() {
         auth.logOut();
 
-        expect($window.localStorage['auth-token']).toBe(undefined);
+        $httpBackend.flush();
 
+        expect($window.localStorage['auth-token']).toBe(undefined);
     });     
 
 });

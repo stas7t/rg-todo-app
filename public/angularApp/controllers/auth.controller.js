@@ -8,13 +8,13 @@
 
             $scope.register = function(){
                 auth.register($scope.user)
-                    .then(function(){
+                    .success(function(){
                         $state.go('todolist');
                     })
-                    /*.error(function(error){
+                    .error(function(error){
                         $scope.error = error;
                         console.log(error);
-                    });*/
+                    });
             };
 
             $scope.logIn = function(){
@@ -23,7 +23,7 @@
                         $scope.error = error;
                         console.log(error);
                     })
-                    .then(function(){
+                    .success(function(){
                         $state.go('todolist');
                     });
             };
