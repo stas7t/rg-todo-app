@@ -15,6 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      './node_modules/jquery/dist/jquery.js',  
       './node_modules/angular/angular.js',                             
       './node_modules/angular-ui-router/release/angular-ui-router.js',
       './node_modules/angular-mocks/angular-mocks.js',
@@ -34,6 +35,7 @@ module.exports = function(config) {
   
       './public/angularApp/services/projects.service.test.js',
       './public/angularApp/services/tasks.service.test.js',
+      './public/angularApp/controllers/main.controller.test.js',
       
       './public/angularApp/controllers/nav.controller.test.js'
 
