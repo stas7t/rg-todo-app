@@ -50,7 +50,7 @@
 
             $scope.setDeadline = function(newDL) {
                 if (angular.isDate(newDL)) {
-                    $scope.editedTask.deadline = $scope.editedTask.deadlineDateTime;
+                    $scope.editedTask.deadline = newDL;
                 }
             }; 
 
