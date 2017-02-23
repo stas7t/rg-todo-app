@@ -1,143 +1,741 @@
 /*
-describe('MainCtrl', function() {
-  beforeEach(module('todolistApp'));
+    describe('MainCtrl', function() {
+    beforeEach(module('todolistApp'));
 
-  var $controller;
+    var $controller;
 
-  beforeEach(inject(function(_$controller_){
-    // The injector unwraps the underscores (_) from around the parameter names when matching
-    $controller = _$controller_;
-  }));
+    beforeEach(inject(function(_$controller_){
+        // The injector unwraps the underscores (_) from around the parameter names when matching
+        $controller = _$controller_;
+    }));
 
-  describe('$scope.grade', function() {
+    describe('$scope.grade', function() {
 
-    var $scope, controller;
+        var $scope, controller;
 
-    beforeEach(function() {
-        $scope = {};
+        beforeEach(function() {
+            $scope = {};
 
 
 
-        $scope.projects = [
-            {
-                "id": 44,
-                "name": "Test project 1",
-                "user_id": "5897ac559d925b00047096b4"
-            },
-            {
-                "id": 45,
-                "name": "Test project 2",
-                "user_id": "5897ac559d925b00047096b4"
-            }
+            $scope.projects = [
+                {
+                    "id": 44,
+                    "name": "Test project 1",
+                    "user_id": "5897ac559d925b00047096b4"
+                },
+                {
+                    "id": 45,
+                    "name": "Test project 2",
+                    "user_id": "5897ac559d925b00047096b4"
+                }
+                ];
+
+            $scope.tasks = [
+                {
+                    "id": 198,
+                    "name": "Task 2-1",
+                    "status": "uncompleted",
+                    "project_id": 45,
+                    "priority": 2,
+                    "deadline": null,
+                    "user_id": "5897ac559d925b00047096b4"
+                },
+                {
+                    "id": 224,
+                    "name": "Task 1-4",
+                    "status": "uncompleted",
+                    "project_id": 44,
+                    "priority": 0,
+                    "deadline": null,
+                    "user_id": "5897ac559d925b00047096b4"
+                },
+                {
+                    "id": 225,
+                    "name": "Task 1-5",
+                    "status": "completed",
+                    "project_id": 44,
+                    "priority": 0,
+                    "deadline": null,
+                    "user_id": "5897ac559d925b00047096b4"
+                },
+                {
+                    "id": 221,
+                    "name": "Task 1-1",
+                    "status": "uncompleted",
+                    "project_id": 44,
+                    "priority": 7,
+                    "deadline": null,
+                    "user_id": "5897ac559d925b00047096b4"
+                },
+                {
+                    "id": 222,
+                    "name": "Task 1-2",
+                    "status": "uncompleted",
+                    "project_id": 44,
+                    "priority": 5,
+                    "deadline": "2017-02-01T10:00:00.000Z",
+                    "user_id": "5897ac559d925b00047096b4"
+                },
+                {
+                    "id": 223,
+                    "name": "Task 1-3",
+                    "status": "uncompleted",
+                    "project_id": 44,
+                    "priority": 0,
+                    "deadline": "2025-10-20T17:20:00.000Z",
+                    "user_id": "5897ac559d925b00047096b4"
+                },
+                {
+                    "id": 217,
+                    "name": "Task 2-2",
+                    "status": "completed",
+                    "project_id": 45,
+                    "priority": 0,
+                    "deadline": "2018-02-18T12:20:00.000Z",
+                    "user_id": "5897ac559d925b00047096b4"
+                },
+                {
+                    "id": 219,
+                    "name": "Task 2-4",
+                    "status": "completed",
+                    "project_id": 45,
+                    "priority": 0,
+                    "deadline": null,
+                    "user_id": "5897ac559d925b00047096b4"
+                },
+                {
+                    "id": 218,
+                    "name": "Task 2-3",
+                    "status": "uncompleted",
+                    "project_id": 45,
+                    "priority": 0,
+                    "deadline": "2018-02-17T12:30:00.000Z",
+                    "user_id": "5897ac559d925b00047096b4"
+                }
             ];
 
-        $scope.tasks = [
-            {
-                "id": 198,
-                "name": "Task 2-1",
-                "status": "uncompleted",
-                "project_id": 45,
-                "priority": 2,
-                "deadline": null,
-                "user_id": "5897ac559d925b00047096b4"
-            },
-            {
-                "id": 224,
-                "name": "Task 1-4",
-                "status": "uncompleted",
-                "project_id": 44,
-                "priority": 0,
-                "deadline": null,
-                "user_id": "5897ac559d925b00047096b4"
-            },
-            {
-                "id": 225,
-                "name": "Task 1-5",
-                "status": "completed",
-                "project_id": 44,
-                "priority": 0,
-                "deadline": null,
-                "user_id": "5897ac559d925b00047096b4"
-            },
-            {
-                "id": 221,
-                "name": "Task 1-1",
-                "status": "uncompleted",
-                "project_id": 44,
-                "priority": 7,
-                "deadline": null,
-                "user_id": "5897ac559d925b00047096b4"
-            },
-            {
-                "id": 222,
-                "name": "Task 1-2",
-                "status": "uncompleted",
-                "project_id": 44,
-                "priority": 5,
-                "deadline": "2017-02-01T10:00:00.000Z",
-                "user_id": "5897ac559d925b00047096b4"
-            },
-            {
-                "id": 223,
-                "name": "Task 1-3",
-                "status": "uncompleted",
-                "project_id": 44,
-                "priority": 0,
-                "deadline": "2025-10-20T17:20:00.000Z",
-                "user_id": "5897ac559d925b00047096b4"
-            },
-            {
-                "id": 217,
-                "name": "Task 2-2",
-                "status": "completed",
-                "project_id": 45,
-                "priority": 0,
-                "deadline": "2018-02-18T12:20:00.000Z",
-                "user_id": "5897ac559d925b00047096b4"
-            },
-            {
-                "id": 219,
-                "name": "Task 2-4",
-                "status": "completed",
-                "project_id": 45,
-                "priority": 0,
-                "deadline": null,
-                "user_id": "5897ac559d925b00047096b4"
-            },
-            {
-                "id": 218,
-                "name": "Task 2-3",
-                "status": "uncompleted",
-                "project_id": 45,
-                "priority": 0,
-                "deadline": "2018-02-17T12:30:00.000Z",
-                "user_id": "5897ac559d925b00047096b4"
-            }
-        ];
+            
+            $scope.formDataProject = {name: "New test project"};
+            $scope.formDataTask = [{name: "New test project"}, {name: "New test project"}];
 
-        
-        $scope.formDataProject = {name: "New test project"};
-        $scope.formDataTask = [{name: "New test project"}, {name: "New test project"}];
+            $scope.isLoggedIn = auth.isLoggedIn;
 
-        $scope.isLoggedIn = auth.isLoggedIn;
+            $scope.isPriorityChanged = false;
+
+            controller = $controller('MainCtrl', { $scope: $scope });
+        });
+
+        it('sets the strength to "strong" if the password length is >8 chars', function() {
+        $scope.password = 'longerthaneightchars';
+        $scope.grade();
+        expect($scope.strength).toEqual('strong');
+        });
+
+        it('sets the strength to "weak" if the password length <3 chars', function() {
+        $scope.password = 'a';
+        $scope.grade();
+        expect($scope.strength).toEqual('weak');
+        });
+
+    });
+    });
+*/
+
+
+
+
+
+
+describe('Main controller', function() {
+    var $httpBackend;
+    var $window;
+    var $rootScope;
+    var $interval;
+    var auth;
+    var Projects;
+    var Tasks;
+    var $controller;
+
+    // Hardcoded data for testing
+    var authToken = {token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OGFjYWM5MDU0YzZjMjAwMDQ1OTJhZTciLCJ1c2VybmFtZSI6ImpvaG4gZG91IiwiZXhwIjoxNDkwMzAzMzc2LCJpYXQiOjE0ODc3MTEzNzZ9.g5iX088-aXMIE1-BhppaLOcCI19PJY6lybkE0QhzkOE'};
+    var user = { username:'john dou',
+                 password:'123qwe' };
+
+    var projects = [
+        {id: 1, name: 'Test project 001', user_id: '58acac9054c6c20004592ae7'},
+        {id: 2, name: 'Test project 002', user_id: '58acac9054c6c20004592ae7'}
+    ];
+
+    var projectsAfterAddNewOne = [
+        {id: 1, name: 'Test project 001', user_id: '58acac9054c6c20004592ae7'},
+        {id: 2, name: 'Test project 002', user_id: '58acac9054c6c20004592ae7'},
+        {id: 3, name: 'New project 001', user_id: '58acac9054c6c20004592ae7'}
+    ];
+
+    var updatedProjects = [
+        {id: 1, name: 'Renamed project 001', user_id: '58acac9054c6c20004592ae7'},
+        {id: 2, name: 'Test project 002', user_id: '58acac9054c6c20004592ae7'},
+        {id: 3, name: 'New project 001', user_id: '58acac9054c6c20004592ae7'},
+    ];
+
+    var projectsAfterDel = [
+        {id: 1, name: 'Renamed project 001', user_id: '58acac9054c6c20004592ae7'},
+        {id: 3, name: 'New project 001', user_id: '58acac9054c6c20004592ae7'},
+    ];
+
+    var tasks = [
+            {   id: 1,
+                name: "Test task 001",
+                status: "uncompleted",
+                priority: 0,
+                deadline: null,
+                project_id: 1,
+                user_id: '58acac9054c6c20004592ae7'},
+            {   id: 2,
+                name: "Test task 002",
+                status: "uncompleted",
+                priority: 0,
+                deadline: null,
+                project_id: 1,
+                user_id: '58acac9054c6c20004592ae7'}
+    ];
+
+    var tasksAfterAddNewOne = [
+            {   id: 1,
+                name: "Test task 001",
+                status: "uncompleted",
+                priority: 0,
+                deadline: null,
+                project_id: 1,
+                user_id: '58acac9054c6c20004592ae7'},
+            {   id: 2,
+                name: "Test task 002",
+                status: "uncompleted",
+                priority: 0,
+                deadline: null,
+                project_id: 1,
+                user_id: '58acac9054c6c20004592ae7'},
+            {   id: 3,
+                name: "New task 001",
+                status: "uncompleted",
+                priority: 0,
+                deadline: null,
+                project_id: 1,
+                user_id: '58acac9054c6c20004592ae7'}
+    ];
+
+    var tasksAfterRename = [
+            {   id: 1,
+                name: "Renamed task 001",
+                status: "uncompleted",
+                priority: 0,
+                deadline: null,
+                project_id: 1,
+                user_id: '58acac9054c6c20004592ae7'},
+            {   id: 2,
+                name: "Test task 002",
+                status: "uncompleted",
+                priority: 0,
+                deadline: null,
+                project_id: 1,
+                user_id: '58acac9054c6c20004592ae7'}
+    ];
+
+    var tasksAfterComplete = [
+            {   id: 1,
+                name: "Renamed task 001",
+                status: "uncompleted",
+                priority: 0,
+                deadline: null,
+                project_id: 1,
+                user_id: '58acac9054c6c20004592ae7'},
+            {   id: 2,
+                name: "Test task 002",
+                status: "completed",
+                priority: 0,
+                deadline: null,
+                project_id: 1,
+                user_id: '58acac9054c6c20004592ae7'}
+    ];
+
+    var tasksAfterSetPriority = [
+            {   id: 1,
+                name: "Renamed task 001",
+                status: "uncompleted",
+                priority: 0,
+                deadline: null,
+                project_id: 1,
+                user_id: '58acac9054c6c20004592ae7'},
+            {   id: 2,
+                name: "Test task 002",
+                status: "completed",
+                priority: 0,
+                deadline: null,
+                project_id: 1,
+                user_id: '58acac9054c6c20004592ae7'},
+            {   id: 3,
+                name: "New task 001",
+                status: "uncompleted",
+                priority: 7,
+                deadline: null,
+                project_id: 1,
+                user_id: '58acac9054c6c20004592ae7'}
+    ];
+
+    var tasksAfterSetDeadline = [
+            {   id: 1,
+                name: "Renamed task 001",
+                status: "uncompleted",
+                priority: 0,
+                deadline: null,
+                project_id: 1,
+                user_id: '58acac9054c6c20004592ae7'},
+            {   id: 2,
+                name: "Test task 002",
+                status: "completed",
+                priority: 0,
+                deadline: null,
+                project_id: 1,
+                user_id: '58acac9054c6c20004592ae7'},
+            {   id: 3,
+                name: "New task 001",
+                status: "uncompleted",
+                priority: 7,
+                deadline: null,
+                project_id: 1,
+                user_id: '58acac9054c6c20004592ae7'},
+            {   id: 4,
+                name: "New task 002",
+                status: "uncompleted",
+                priority: 0,
+                deadline: "2017-03-01T10:00:00.000Z",
+                project_id: 1,
+                user_id: '58acac9054c6c20004592ae7'}
+    ];
+
+    var tasksAfterDel = [
+            {   id: 1,
+                name: "Renamed task 001",
+                status: "completed",
+                priority: 5,
+                deadline: "2017-03-01T10:00:00.000Z",
+                project_id: 1,
+                user_id: '58acac9054c6c20004592ae7'},
+            {   id: 3,
+                name: "New task 001",
+                status: "uncompleted",
+                priority: 0,
+                deadline: null,
+                project_id: 1,
+                user_id: '58acac9054c6c20004592ae7'}
+    ];
+
+
+    // Load the module that contains the `auth` service before each test
+    beforeEach(module('todolistApp'));
+
+    // Instantiate the service and "train" `$httpBackend` before each test
+    beforeEach(inject(function(_$httpBackend_, _$window_, _$rootScope_, _$interval_, _auth_, _Projects_, _Tasks_, _$controller_) {
+        $window = _$window_;
+        $rootScope = _$rootScope_;
+        $interval = _$interval_;
+        auth = _auth_;
+        Projects = _Projects_;
+        Tasks = _Tasks_;
+        $controller = _$controller_;
+
+        $httpBackend = _$httpBackend_;
+        $httpBackend.whenPOST('/user/register').respond(authToken);
+        $httpBackend.whenPOST('/user/login').respond(authToken);
+        $httpBackend.whenGET('/angularApp/templates/todolist.html').respond({});
+
+        $httpBackend.whenGET('/api/' + auth.currentUser()._id + '/projects').respond(projects);
+        $httpBackend.whenPOST('/api/' + auth.currentUser()._id + '/projects').respond(projectsAfterAddNewOne);
+        $httpBackend.whenPUT('/api/' + auth.currentUser()._id + '/projects/' +  1).respond(updatedProjects);
+        $httpBackend.whenDELETE('/api/' + auth.currentUser()._id + '/projects/' + 2).respond(projectsAfterDel);
+
+        $httpBackend.whenGET('/api/' + auth.currentUser()._id + '/tasks').respond(tasks);
+        $httpBackend.whenPOST('/api/' + auth.currentUser()._id + '/tasks').respond(tasksAfterAddNewOne);        //create new task
+        $httpBackend.whenPUT('/api/' + auth.currentUser()._id + '/tasks/' +  1).respond(tasksAfterRename);      //rename task #1
+        $httpBackend.whenPUT('/api/' + auth.currentUser()._id + '/tasks/' +  2).respond(tasksAfterComplete);    //complete task #2
+        $httpBackend.whenPUT('/api/' + auth.currentUser()._id + '/tasks/' +  3).respond(tasksAfterSetPriority); //set priority to task #3
+        $httpBackend.whenPUT('/api/' + auth.currentUser()._id + '/tasks/' +  4).respond(tasksAfterSetDeadline); //set deadline to task #4
+        $httpBackend.whenDELETE('/api/' + auth.currentUser()._id + '/tasks/' + 2).respond(tasksAfterDel);       // delete task #2
+
+    }));
+
+    // Verify that there are no outstanding expectations or requests after each test
+    afterEach(function () {
+        $httpBackend.verifyNoOutstandingExpectation();
+        $httpBackend.verifyNoOutstandingRequest();
+    });
+
+    it('should get projects from server', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $httpBackend.flush();
+
+        expect($scope.projects).toEqual(projects);
+    });
+
+    it('should get tasks from server', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $httpBackend.flush();
+
+        expect($scope.tasks).toEqual(tasks);
+    });
+
+    it('should create new project', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $scope.formDataProject = {id: 3, name: 'New project 001', user_id: '58acac9054c6c20004592ae7'};
+        $scope.createProject();
+
+        $httpBackend.flush();
+
+        expect($scope.projects).toEqual(projectsAfterAddNewOne);
+    });
+
+    it('should NOT create new project if form is empty', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $scope.formDataProject = {};
+        $scope.createProject();
+
+        $httpBackend.flush();
+
+        expect($scope.projects).toEqual(projects);
+    });
+
+    it('should update (rename) project #1', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $scope.editedProject = {id: 1, name: 'Renamed project 001', user_id: '58acac9054c6c20004592ae7'};
+        $scope.updateProject($scope.editedProject);
+
+        $httpBackend.flush();
+
+        expect($scope.projects).toEqual(updatedProjects);
+    });
+
+    it('should NOT update (rename) project #1 if name not specified', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $scope.editedProject = {id: 1, name: '', user_id: '58acac9054c6c20004592ae7'};
+        $scope.updateProject($scope.editedProject);
+
+        $httpBackend.flush();
+
+        expect($scope.projects).toEqual(projects);
+    });
+
+    it('should delete project #2', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $scope.deleteProject(2);
+
+        $httpBackend.flush();
+
+        expect($scope.projects).toEqual(projectsAfterDel);
+    });
+
+    it('should create new task in project #1', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $scope.formDataTask = [ {},
+                                {id: 3,
+                                name: "New task 001",
+                                status: "uncompleted",
+                                priority: 0,
+                                deadline: null,
+                                project_id: 1,
+                                user_id: '58acac9054c6c20004592ae7'}];
+        $scope.createTask(1);
+
+        $httpBackend.flush();
+
+        expect($scope.tasks).toEqual(tasksAfterAddNewOne);
+    });
+
+    it('should NOT create new task in project #1 if form is empty', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $scope.formDataTask = [];
+        $scope.createTask(1);
+
+        $httpBackend.flush();
+
+        expect($scope.tasks).toEqual(tasks);
+    });
+
+    it('should update (rename) task #1 in project #1', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $scope.editedTask = {id: 1,
+                             name: "Renamed task 001",
+                             status: "uncompleted",
+                             priority: 0,
+                             deadline: null,
+                             project_id: 1,
+                             user_id: '58acac9054c6c20004592ae7'};
+
+        $scope.updateTask($scope.editedTask);
+
+        $httpBackend.flush();
+
+        expect($scope.tasks).toEqual(tasksAfterRename);
+    });
+
+    it('should NOT update (rename) task #1 in project #1 if name not specified', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $scope.editedTask = {id: 1,
+                             name: "",
+                             status: "uncompleted",
+                             priority: 0,
+                             deadline: null,
+                             project_id: 1,
+                             user_id: '58acac9054c6c20004592ae7'};
+
+        $scope.updateTask($scope.editedTask);
+
+        $httpBackend.flush();
+
+        expect($scope.tasks).toEqual(tasks);
+    });
+
+    it('should update (complete) task #2 in project #1', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $scope.editedTask = {id: 2,
+                             name: "Test task 002",
+                             status: "completed",
+                             priority: 0,
+                             deadline: null,
+                             project_id: 1,
+                             user_id: '58acac9054c6c20004592ae7'};
+
+        $scope.updateTask($scope.editedTask);
+
+        $httpBackend.flush();
+
+        expect($scope.tasks).toEqual(tasksAfterComplete);
+    });
+
+    it('should update (set priority) task #3 in project #1', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $scope.editedTask = {id: 3,
+                             name: "New task 001",
+                             status: "completed",
+                             priority: 7,
+                             deadline: null,
+                             project_id: 1,
+                             user_id: '58acac9054c6c20004592ae7'};
+
+        $scope.updateTask($scope.editedTask);
+
+        $httpBackend.flush();
+
+        expect($scope.tasks).toEqual(tasksAfterSetPriority);
+    });
+
+    it('should update (set deadline) task #4 in project #1', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $scope.editedTask = {id: 4,
+                             name: "New task 002",
+                             status: "uncompleted",
+                             priority: 0,
+                             deadline: "2017-03-01T10:00:00.000Z",
+                             project_id: 1,
+                             user_id: '58acac9054c6c20004592ae7'};
+
+        $scope.updateTask($scope.editedTask);
+
+        $httpBackend.flush();
+
+        expect($scope.tasks).toEqual(tasksAfterSetDeadline);
+    });
+
+    it('should delete task #2 in project #1', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $scope.deleteTask(2);
+
+        $httpBackend.flush();
+
+        expect($scope.tasks).toEqual(tasksAfterDel);
+    });
+
+    it('should update priority of task #3 in project #1 if priority changed', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $scope.isPriorityChanged = true;
+
+        $scope.editedTask = {id: 3,
+                             name: "New task 001",
+                             status: "completed",
+                             priority: 7,
+                             deadline: null,
+                             project_id: 1,
+                             user_id: '58acac9054c6c20004592ae7'};
+
+        $scope.updatePriority($scope.editedTask);
+
+        $httpBackend.flush();
+
+        expect($scope.tasks).toEqual(tasksAfterSetPriority);
+    });
+
+    it('should NOT update priority of task #3 in project #1 if priority NOT changed', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
 
         $scope.isPriorityChanged = false;
 
-        controller = $controller('MainCtrl', { $scope: $scope });
+        $scope.editedTask = {id: 3,
+                             name: "New task 001",
+                             status: "completed",
+                             priority: 7,
+                             deadline: null,
+                             project_id: 1,
+                             user_id: '58acac9054c6c20004592ae7'};
+
+        $scope.updatePriority($scope.editedTask);
+
+        $httpBackend.flush();
+
+        expect($scope.tasks).toEqual(tasks);
     });
 
-    it('sets the strength to "strong" if the password length is >8 chars', function() {
-      $scope.password = 'longerthaneightchars';
-      $scope.grade();
-      expect($scope.strength).toEqual('strong');
+    it('should rise priority from 7 to 8', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $scope.isPriorityChanged = true;
+
+        $scope.editedTask = {id: 3,
+                             name: "New task 001",
+                             status: "completed",
+                             priority: 7,
+                             deadline: null,
+                             project_id: 1,
+                             user_id: '58acac9054c6c20004592ae7'};
+
+        $scope.up($scope.editedTask);
+
+        $httpBackend.flush();
+
+        expect($scope.editedTask.priority).toEqual(8);
     });
 
-    it('sets the strength to "weak" if the password length <3 chars', function() {
-      $scope.password = 'a';
-      $scope.grade();
-      expect($scope.strength).toEqual('weak');
+    it('should not rise priority to higher then 10 (max Priority)', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $scope.isPriorityChanged = true;
+
+        $scope.editedTask = {id: 3,
+                             name: "New task 001",
+                             status: "completed",
+                             priority: 7,
+                             deadline: null,
+                             project_id: 1,
+                             user_id: '58acac9054c6c20004592ae7'};
+
+        $scope.up($scope.editedTask); //7+1=8
+        $scope.up($scope.editedTask); //8+1=9
+        $scope.up($scope.editedTask); //9+1=10
+        $scope.up($scope.editedTask); //10+1=11, but maxPriority = 10
+
+        $httpBackend.flush();
+
+        expect($scope.editedTask.priority).toEqual(10);
     });
 
-  });
+    it('should down priority from 3 to 2', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $scope.isPriorityChanged = true;
+
+        $scope.editedTask = {id: 3,
+                             name: "New task 001",
+                             status: "completed",
+                             priority: 3,
+                             deadline: null,
+                             project_id: 1,
+                             user_id: '58acac9054c6c20004592ae7'};
+
+        $scope.down($scope.editedTask); //3-1=2
+
+        $httpBackend.flush();
+
+        expect($scope.editedTask.priority).toEqual(2);
+    });
+
+    it('should not down priority to lower then 0 (min Priority)', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $scope.isPriorityChanged = true;
+
+        $scope.editedTask = {id: 3,
+                             name: "New task 001",
+                             status: "completed",
+                             priority: 3,
+                             deadline: null,
+                             project_id: 1,
+                             user_id: '58acac9054c6c20004592ae7'};
+
+        $scope.down($scope.editedTask); //3-1=2
+        $scope.down($scope.editedTask); //2-1=1
+        $scope.down($scope.editedTask); //1-1=0
+        $scope.down($scope.editedTask); //0-1=-1, but min Priority = 0
+
+        $httpBackend.flush();
+
+        expect($scope.editedTask.priority).toEqual(0);
+    });
+
 });
-*/
