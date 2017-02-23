@@ -738,4 +738,128 @@ describe('Main controller', function() {
         expect($scope.editedTask.priority).toEqual(0);
     });
 
+    it('should show modal window `Add Project`', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $scope.addProject();
+
+        $httpBackend.flush();
+
+        expect($scope.addProjectModal).toEqual(true);
+    });
+
+    it('should show modal window `Edit Project`', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $scope.editProject(projects[0]);
+
+        $httpBackend.flush();
+
+        expect($scope.editProjectModal).toEqual(true);
+        expect($scope.editedProject).toEqual(projects[0]);
+    });
+
+    it('should show modal window `Edit Task`', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $scope.editTask(tasks[0]);
+
+        $httpBackend.flush();
+
+        expect($scope.editTaskModal).toEqual(true);
+        expect($scope.editedTask).toEqual(tasks[0]);
+    });
+
+    it('should close any modal window'/*, function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $scope.editTaskModal = true;
+        $scope.tasks = tasks;
+
+        $scope.close_modal($scope.editTaskModal);
+
+        $httpBackend.flush();
+
+        expect($scope.editTaskModal).toEqual(false);
+    }*/);
+
+    it('should set deadline for task #1', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $scope.tasks = tasks;
+
+        $scope.editedTask = {id: 1,
+                             name: "Task 001",
+                             status: "uncompleted",
+                             priority: 7,
+                             deadline: null,
+                             project_id: 1,
+                             user_id: '58acac9054c6c20004592ae7'};
+
+        $scope.editedTask.deadlineDateTime = new Date(1488362400000);
+
+        $scope.setDeadline($scope.editedTask.deadlineDateTime);
+
+        $httpBackend.flush();
+
+        expect($scope.editedTask.deadline.toISOString()).toEqual('2017-03-01T10:00:00.000Z');
+    });
+
+    it('should delete deadline for task #1', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $scope.tasks = tasks;
+
+        $scope.editedTask = {id: 1,
+                             name: "Task 001",
+                             status: "uncompleted",
+                             priority: 7,
+                             deadline: '2017-03-01T10:00:00.000Z',
+                             project_id: 1,
+                             user_id: '58acac9054c6c20004592ae7'};
+
+        //$scope.editedTask.deadlineDateTime = new Date(1488362400000);
+
+        $scope.deleteDeadline();
+
+        $httpBackend.flush();
+
+        expect($scope.editedTask.deadline).toEqual(null);
+        expect($scope.editedTask.deadlineDateTime).toEqual(null);
+    });
+
+    it('should check deadline for all tasks', function() {
+        var $scope = $rootScope.$new();
+
+        var controller = $controller('MainCtrl', { $scope: $scope });
+
+        $scope.tasks = tasks;
+
+        $scope.tasks[0].status = 'uncompleted';
+        $scope.tasks[1].status = 'uncompleted';
+
+        $scope.tasks[1].deadline = '2019-03-01T10:00:00.000Z'; // future
+        $scope.tasks[0].deadline = '2015-03-01T10:00:00.000Z'; // expired
+
+        $scope.checkDeadline();
+
+        $httpBackend.flush();
+
+
+        expect($scope.tasks[0].status).toEqual('uncompleted expired');
+        expect($scope.tasks[1].status).toEqual('completed');
+    });    
+
 });
