@@ -50,13 +50,13 @@
 
             $scope.setDeadline = function(newDL) {
                 if (angular.isDate(newDL)) {
-                    $scope.edited_task.deadline = $scope.edited_task.deadlineDateTime;
+                    $scope.editedTask.deadline = $scope.editedTask.deadlineDateTime;
                 }
             }; 
 
             $scope.deleteDeadline = function() {
-                $scope.edited_task.deadline = null;
-                $scope.edited_task.deadlineDateTime = null;
+                $scope.editedTask.deadline = null;
+                $scope.editedTask.deadlineDateTime = null;
             }; 
 
             if (auth.isLoggedIn) {
@@ -78,21 +78,21 @@
             };
 
             $scope.editProject = function(project) {
-                $scope.edited_project = project;
+                $scope.editedProject = project;
                 $scope.editProjectModal = true;
             };
 
             $scope.editTask = function(task) {
-                $scope.edited_task = task;
+                $scope.editedTask = task;
 
                 if (task.deadline) {
                     var date =  new Date( Date.parse(task.deadline) );
-                    $scope.edited_task.deadlineDateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes());
-                    $scope.edited_task.enableDeadlineInput = true;
+                    $scope.editedTask.deadlineDateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes());
+                    $scope.editedTask.enableDeadlineInput = true;
                 } else {
                     var date =  new Date();
-                    $scope.edited_task.deadlineDateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes());
-                    $scope.edited_task.enableDeadlineInput = false;
+                    $scope.editedTask.deadlineDateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes());
+                    $scope.editedTask.enableDeadlineInput = false;
                 }
                 
                 $scope.editTaskModal = true;

@@ -154,10 +154,10 @@
     Edit TODO list
     </div>
     <div class="content">
-        <form class="ui form" name="EditProject" ng-submit="updateProject($parent.edited_project)">
+        <form class="ui form" name="EditProject" ng-submit="updateProject($parent.editedProject)">
             <div class="field">
                 <label>Name</label>
-                <input type="text" name="projectName" ng-model="$parent.edited_project.name" required maxlength="512">
+                <input type="text" name="projectName" ng-model="$parent.editedProject.name" required maxlength="512">
             </div>
            
             <button class="ui right floated blue button" type="submit" style="margin-bottom: 10px;">Ok</button>                     
@@ -172,35 +172,35 @@
         Edit task
     </div>
     <div class="content">
-        <form class="ui form" name="EditTask" ng-submit="updateTask($parent.edited_task)">
+        <form class="ui form" name="EditTask" ng-submit="updateTask($parent.editedTask)">
             <div class="field">
                 <label>Name</label>
-                <input type="text" name="taskName" ng-model="$parent.edited_task.name" required maxlength="2048">
+                <input type="text" name="taskName" ng-model="$parent.editedTask.name" required maxlength="2048">
             </div>
             
 
             <div class="three wide field">
                 <label>Priority</label>
-                <input type="number" name="taskPriority" ng-model="$parent.edited_task.priority" min="0" max="10">
+                <input type="number" name="taskPriority" ng-model="$parent.editedTask.priority" min="0" max="10">
             </div>
 
             <div class="fields">
 
-                <div class="seven wide field" ng-class="{'disabled ': !$parent.edited_task.enableDeadlineInput}">
+                <div class="seven wide field" ng-class="{'disabled ': !$parent.editedTask.enableDeadlineInput}">
                     <label><i class="calendar icon"></i>Date</label>
                     <div class="ui input">
-                        <input type="date" name="taskDeadlineDate" min="2017-01-01" ng-model="$parent.edited_task.deadlineDateTime" ng-change="setDeadline($parent.edited_task.deadlineDateTime)">
+                        <input type="date" name="taskDeadlineDate" min="2017-01-01" ng-model="$parent.editedTask.deadlineDateTime" ng-change="setDeadline($parent.editedTask.deadlineDateTime)">
                     </div>      
                 </div>
 
-                <div class="six wide field" ng-class="{'disabled ': !$parent.edited_task.enableDeadlineInput}">
+                <div class="six wide field" ng-class="{'disabled ': !$parent.editedTask.enableDeadlineInput}">
                     <label><i class="wait icon"></i>Time</label>
                     <div class="ui input">
-                        <input type="time" placeholder="HH:mm" name="taskDeadlineTime" ng-model="$parent.edited_task.deadlineDateTime" ng-change="setDeadline($parent.edited_task.deadlineDateTime)">
+                        <input type="time" placeholder="HH:mm" name="taskDeadlineTime" ng-model="$parent.editedTask.deadlineDateTime" ng-change="setDeadline($parent.editedTask.deadlineDateTime)">
                     </div>      
                 </div>
 
-                <div class="three wide field" ng-class="{'disabled ': !$parent.edited_task.enableDeadlineInput}">
+                <div class="three wide field" ng-class="{'disabled ': !$parent.editedTask.enableDeadlineInput}">
                     <label>&ensp;</label>
                     <div class="ui orange fluid button" ng-click="deleteDeadline()">
                     Remove
@@ -209,12 +209,12 @@
 
             </div>
 
-            <div class="ui checkbox" ng-class="{'disabled ': $parent.edited_task.deadline}">
-                <input type="checkbox" tabindex="0" class="ui checkbox" ng-class="{'hidden ': $parent.edited_task.deadline}" ng-model="$parent.edited_task.enableDeadlineInput">
+            <div class="ui checkbox" ng-class="{'disabled ': $parent.editedTask.deadline}">
+                <input type="checkbox" tabindex="0" class="ui checkbox" ng-class="{'hidden ': $parent.editedTask.deadline}" ng-model="$parent.editedTask.enableDeadlineInput">
                 <label>Set a deadline date</label>
             </div> 
-            <div class="ui tertiary inverted orange segment" ng-show="$parent.edited_task.deadline">
-            Current deadline is: {{$parent.edited_task.deadline | date: 'y MMM d, H:mm'}}
+            <div class="ui tertiary inverted orange segment" ng-show="$parent.editedTask.deadline">
+            Current deadline is: {{$parent.editedTask.deadline | date: 'y MMM d, H:mm'}}
             </div>                    
             <button class="ui right floated blue button" type="submit" style="margin-top: 10px; margin-bottom: 10px;">Ok</button>                 
         </form>
