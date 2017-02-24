@@ -1,19 +1,29 @@
-// spec.js
-describe('Protractor Demo App', function() {
-  it('should have a title', function() {
-    browser.get('http://juliemr.github.io/protractor-demo/');
+describe('RG TODO App', function() {
+    var registerMenuLink = element(by.id('registerMenuLink'));
+    var logInMenuLink = element(by.id('logInMenuLink'));
+    var logOutMenuLink = element(by.id('logOutMenuLink'));
+    var secondNumber = element(by.model('second'));
+    var goButton = element(by.id('gobutton'));
+    var latestResult = element(by.binding('latest'));
 
-    expect(browser.getTitle()).toEqual('Super Calculator');
-  });
+    beforeEach(function() {
+        browser.get('https://rg-todo-app1.herokuapp.com/');
+    });
 
-  it('should add one and two', function() {
-    browser.get('http://juliemr.github.io/protractor-demo/');
-    element(by.model('first')).sendKeys(1);
-    element(by.model('second')).sendKeys(2);
+    it('should have a title', function() {
+        expect(browser.getTitle()).toEqual('TODO');
+    });
 
-    element(by.id('gobutton')).click();
+    it('should have a url .../login', function() {
+        expect(browser.getCurrentUrl())
+            .toBe('https://rg-todo-app1.herokuapp.com/#/login');
+    });
 
-    expect(element(by.binding('latest')).getText()).
-        toEqual('3'); 
-  });
+    it('should go to `register` view', function() {
+
+        registerMenuLink.click();
+        expect(browser.getCurrentUrl())
+            .toBe('https://rg-todo-app1.herokuapp.com/#/register');
+    });
+
 });
