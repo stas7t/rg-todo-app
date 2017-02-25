@@ -40,11 +40,11 @@
 
                 <div class="ui middle aligned center aligned grid">
                     <div class="sixteen wide center aligned column" style="padding: 12px 16px 12px 12px;">
-                        <form name="AddTask">
+                        <form name="AddTask" ng-submit="createTask(project.id)">
                             <div class="ui fluid action input" >
                                 <i class="large teal plus icon" style="padding-top: 10px;"></i>
                                 <input type="text" placeholder="Start typing here to create a task..." required ng-maxlength="2048" ng-model="formDataTask[project.id].name">
-                                <button class="ui teal button" ng-click="createTask(project.id)"> &ensp; Add Task &ensp;</button>                         
+                                <button class="ui teal button" type="submit"> &ensp; Add Task &ensp;</button>                         
                             </div>
                         </form>       
                     </div>
@@ -118,7 +118,7 @@
 <div class="ui hidden divider"></div>
 
 <div class="container">
-    <button class="ui large blue labeled icon button" ng-click="addProject()">
+    <button id="btnAddTODO" class="ui large blue labeled icon button" ng-click="addProject()">
         <i class="plus icon"></i>
         Add TODO List
     </button>
