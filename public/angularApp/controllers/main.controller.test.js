@@ -513,7 +513,7 @@ describe('Main controller', function() {
         expect($scope.tasks).toEqual(tasks);
     });
 
-    it('should rise priority from 7 to 8', function() {
+    it('should increase priority from 7 to 8', function() {
         var $scope = $rootScope.$new();
 
         var controller = $controller('MainCtrl', { $scope: $scope });
@@ -535,7 +535,7 @@ describe('Main controller', function() {
         expect($scope.editedTask.priority).toEqual(8);
     });
 
-    it('should not rise priority to higher then 10 (max Priority)', function() {
+    it('should not increase priority to higher then 10 (max Priority)', function() {
         var $scope = $rootScope.$new();
 
         var controller = $controller('MainCtrl', { $scope: $scope });
