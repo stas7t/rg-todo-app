@@ -21,11 +21,11 @@
 
                         <div class="ui mini horizontal list">
                                 <div class="item">
-                                    <i class="large write link icon" style='color: lightgrey;' ng-show="showbuttonsP" ng-click="editProject(project)"></i>
+                                    <i id="editProject" class="large write link icon" style='color: lightgrey;' ng-show="showbuttonsP" ng-click="editProject(project)"></i>
                                 </div>
                                 
                                 <div class="item">
-                                    <i class="large trash outline link icon" style='color: lightgrey;' ng-show="showbuttonsP" ng-click="deleteProject(project.id)"></i>
+                                    <i id="delProject" class="large trash outline link icon" style='color: lightgrey;' ng-show="showbuttonsP" ng-click="deleteProject(project.id)"></i>
                                 </div>
                         </div>
 
@@ -65,11 +65,11 @@
 
             <td id="Task-name" class="" style="width: 522px; padding: 5px 0px 5px 5px;">
                 <div ng-class="{'completed' : task.status == 'completed'}" >
-                    <div ><span> {{task.name}} </span></div>
+                    <div id="TaskName" ><span> {{task.name}} </span></div>
                     <div class="ui middle aligned two column grid" ng-show="task.deadline || task.priority !== 0 && task.status !== 'completed'">
                         <div class="eleven wide left aligned column" style="font-size: 12px;" ng-show="task.deadline" ng-class="{'expired' : task.status == 'uncompleted expired'}">
                             <i class="calendar icon"></i>
-                            <span data-tooltip="Deadline"> {{task.deadline | date: 'y MMM d, H:mm'}}</span>
+                            <span id="Deadline" data-tooltip="Deadline"> {{task.deadline | date: 'y MMM d, H:mm'}}</span>
                         </div>   
                         <div class="four wide right aligned right floated column" style="font-size: 12px;" ng-show="task.priority !== 0 && task.status !== 'completed'">
                             <span class="ui mini horizontal orange label" data-tooltip="Priority"> {{task.priority}}</span>
@@ -93,13 +93,13 @@
 
                     <div class="five wide center aligned column" style="padding: 0px 0px 0px 0px;">
                         <div>
-                        <i class="write link icon" style='color: grey; margin-left: 0px; vertical-align: middle' ng-click="editTask(task)"></i>
+                        <i id="editTask" class="write link icon" style='color: grey; margin-left: 0px; vertical-align: middle' ng-click="editTask(task)"></i>
                         </div>                        
                     </div>
 
                     <div class="five wide left aligned column" style="padding: 0px 0px 0px 0px;">
                         <div>
-                        <i class="trash outline link icon" style='color: grey; margin-left: 0px; vertical-align: middle' ng-click="deleteTask(task.id)"></i>
+                        <i id="delTask" class="trash outline link icon" style='color: grey; margin-left: 0px; vertical-align: middle' ng-click="deleteTask(task.id)"></i>
                         </div>                        
                     </div>
 
@@ -138,7 +138,7 @@
 
             <div class="field">
                 <label>Name</label>
-                <input type="text" name="projectName" placeholder="TODO List name" ng-model="$parent.formDataProject.name" required maxlength="512">
+                <input type="text" name="newProjectName" placeholder="TODO List name" ng-model="$parent.formDataProject.name" required maxlength="512">
             </div>
            
             <button class="ui right floated blue button" type="submit" style="margin-bottom: 10px;">Add</button>             
