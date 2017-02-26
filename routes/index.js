@@ -7,7 +7,7 @@ let express = require('express');
 let router = express.Router();
 
 let pg = require('pg');
-let connectionString = process.env.DATABASE_URL || 'postgres://localhost';
+let connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/todo_db';
 
 let mongoose = require('mongoose');
 let passport = require('passport');

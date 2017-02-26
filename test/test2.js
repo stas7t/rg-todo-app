@@ -7,7 +7,7 @@ mongoose.Promise = global.Promise;
 let User = require('../models/Users');
 // pg
 let pg = require('pg');
-let connectionString = 'postgres://localhost';
+let connectionString = 'postgres://localhost:5432/todo_db';
 
 //test
 let chai = require('chai');
@@ -129,7 +129,7 @@ describe('TODO list', function() {
         
         // pg
         let pg = require('pg');
-        let connectionString = 'postgres://localhost';
+        let connectionString = 'postgres://localhost:5432/todo_db';
 
         pg.connect(connectionString, function(err, client, done) {
             if(err) { done(); }
