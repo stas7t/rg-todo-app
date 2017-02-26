@@ -1,7 +1,7 @@
 //------------Postgress db---------
 //uncomment to create tables in db
-//require('../models/Projects');
-//require('../models/Tasks');
+require('../models/Projects');
+require('../models/Tasks');
 
 let express = require('express');
 let router = express.Router();
